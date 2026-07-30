@@ -1,0 +1,6 @@
+interface:
+  display_name: "Grill Loop"
+  short_description: "Adaptively chain grilling and specialist skills"
+  default_prompt: "Use $grill-loop to adaptively chain the right skills around this task."
+policy:
+  allow_implicit_invocation: false

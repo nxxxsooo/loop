@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">grill-loop logo</title>
+  <desc id="desc">Four capability nodes connected by an adaptive loop</desc>
+  <rect width="512" height="512" rx="104" fill="#111820"/>
+  <path d="M154 150h168c54 0 88 32 88 82s-34 80-88 80H190c-54 0-88 30-88 76" fill="none" stroke="#5eead4" stroke-width="24" stroke-linecap="round"/>
+  <path d="m85 361 17 38 33-25" fill="none" stroke="#5eead4" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="154" cy="150" r="31" fill="#f3f7fa"/>
+  <circle cx="322" cy="150" r="31" fill="#5eead4"/>
+  <circle cx="322" cy="312" r="31" fill="#f3f7fa"/>
+  <circle cx="190" cy="312" r="31" fill="#5eead4"/>
+</svg>

@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1200" viewBox="0 0 1200 1200" role="img" aria-labelledby="title desc">
+  <title id="title">Options, not stages</title>
+  <desc id="desc">grill-loop reassesses the current work and chooses the next useful capability</desc>
+  <rect width="1200" height="1200" fill="#111820"/>
+  <g font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif">
+    <text x="88" y="126" fill="#f3f7fa" font-size="60" font-weight="760">Options, not stages.</text>
+    <text x="90" y="178" fill="#9ba8b4" font-size="24">The latest result decides the next useful capability.</text>
+  </g>
+  <g fill="none" stroke="#5eead4" stroke-width="7" stroke-linecap="round">
+    <path d="M600 550C600 370 430 304 286 360"/>
+    <path d="M600 550C600 370 770 304 914 360"/>
+    <path d="M600 650C600 830 430 896 286 840"/>
+    <path d="M600 650C600 830 770 896 914 840"/>
+  </g>
+  <g fill="#111820" stroke="#5eead4" stroke-width="5">
+    <rect x="424" y="514" width="352" height="172" rx="24"/>
+    <rect x="122" y="300" width="292" height="124" rx="18"/>
+    <rect x="786" y="300" width="292" height="124" rx="18"/>
+    <rect x="122" y="776" width="292" height="124" rx="18"/>
+    <rect x="786" y="776" width="292" height="124" rx="18"/>
+  </g>
+  <g font-family="SFMono-Regular,Menlo,monospace" text-anchor="middle">
+    <text x="600" y="582" fill="#5eead4" font-size="22">CURRENT WORK</text>
+    <text x="600" y="636" fill="#f3f7fa" font-size="31">goal + artifacts</text>
+    <text x="268" y="374" fill="#f3f7fa" font-size="28">grilling</text>
+    <text x="932" y="374" fill="#f3f7fa" font-size="28">deep-grill</text>
+    <text x="268" y="850" fill="#f3f7fa" font-size="28">OpenSpec</text>
+    <text x="932" y="850" fill="#f3f7fa" font-size="28">taste + more</text>
+  </g>
+  <text x="600" y="1062" fill="#9ba8b4" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="25" text-anchor="middle">Choose one. Follow its contract. Reassess.</text>
+</svg>
