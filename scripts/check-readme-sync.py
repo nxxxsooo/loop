@@ -45,7 +45,7 @@ def readme_excerpt(path: Path) -> str:
 def main() -> int:
     expected = skill_body(ROOT / "SKILL.md")
     failures = []
-    for name in ("README.md", "README.zh-CN.md"):
+    for name in ("README.md", "README.en.md"):
         path = ROOT / name
         try:
             actual = readme_excerpt(path)
