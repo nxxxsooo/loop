@@ -52,6 +52,18 @@ grill-loop 只拥有路由决定。它选择当前最小且有价值的能力，
 
 OpenSpec 输出「ready for `/opsx-apply`」只是新的证据，不是 Loop 的终点。若实现仍依赖未解决的用户界面设计，先把规格交给 Open Design 形成可评审原型，再按适用范围交给 taste 或其他设计专家复核；将确认后的结构、状态与视觉决策回写 OpenSpec 的 design 和 tasks，重新确认 apply-ready 后再实施。纯后端、设计已明确或没有重要设计面的变更直接跳过这条支路。
 
+当后续工作适合用持久 goal 推进时，grill-loop 会在当前交接中自然提出一张简洁、可裁剪的 goal card：
+
+```text
+Goal:
+Project / sources of truth:
+Boundaries (may change / must preserve):
+Done when:
+Must-pass real scenarios:
+```
+
+确实不适用的字段可以省略。用户同意整张 card 后，它调用当前客户端已有的原生 goal 机制，并持续选择下一项有价值的能力，直到目标达成；只有继续推进需要新的用户输入或授权时才暂停。它不维护自己的 goal 状态。否则，请求完成或继续循环的收益已经很低即可停止。
+
 <p align="center">
   <img src="./assets/grill-loop-detail.webp" alt="一根青绿色编织绳穿过精密加工的石墨门件" width="440">
 </p>
@@ -69,7 +81,7 @@ OpenSpec 输出「ready for `/opsx-apply`」只是新的证据，不是 Loop 的
 >
 > Treat these as options, not stages. Skip, repeat, reorder, or return to them freely. Load only what the current move needs. Carry forward the goal, confirmed decisions, constraints, and artifact references, but impose no shared output format and maintain no duplicate workflow state.
 >
-> Preserve every capability's own scope, authority, and safety boundaries. Add no custom gates, hooks, background processes, or state files. Stop when the user's goal is met, a meaningful next move requires their input or authority, or further looping has diminishing returns.
+> Preserve every capability's scope, authority, and safety boundaries. Add no custom gates, hooks, background processes, or state files. When sustained work needs a goal, propose this adaptable card in the current transition: `Goal`, `Project / sources of truth`, `Boundaries (may change / must preserve)`, `Done when`, and `Must-pass real scenarios`; omit irrelevant fields. After user approval, register it with the active client's native goal mechanism when available and keep routing until it is met; pause only for new user input or authority. Keep no goal state of your own. Otherwise, stop when the request is fulfilled or returns diminish.
 <!-- grill-loop-skill-body:end -->
 
 ## 边界
@@ -77,6 +89,7 @@ OpenSpec 输出「ready for `/opsx-apply`」只是新的证据，不是 Loop 的
 - 不增加强制顺序或生命周期。
 - 不增加统一输出格式或重复任务状态。
 - 不增加自定义门禁、hook、后台进程或状态文件。
+- 用户同意提议后，原生客户端可以持久推进 goal；grill-loop 不复制 goal 状态。
 - 不扩大用户授权，也不绕过被选能力的契约。
 - 不自动触发。
 
