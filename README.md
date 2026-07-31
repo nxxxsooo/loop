@@ -1,61 +1,61 @@
-<p align="right"><a href="./README.zh-CN.md">中文说明</a></p>
+<p align="right"><a href="./README.en.md">English</a></p>
 
 <p align="center">
-  <img src="./assets/grill-loop-hero.webp" alt="A seafoam cord finds its route through four independent graphite gates" width="100%">
+  <img src="./assets/grill-loop-hero.webp" alt="一根青绿色绳索在四个独立的石墨门件之间寻找路径" width="100%">
 </p>
 
 <h1 align="center">grill-loop</h1>
 
-<p align="center"><strong>The loop follows the work.</strong></p>
+<p align="center"><strong>让循环跟着工作走。</strong></p>
 
 <p align="center">
-  One explicit router. One useful capability at a time.<br>
-  Follow its contract, then choose again from what changed.
+  一个显式路由器，每次只选一个有价值的能力。<br>
+  遵循它自己的契约，再根据变化重新选择。
 </p>
 
 <p align="center">
-  <a href="#install"><img src="https://img.shields.io/badge/install-skills.sh-111820?style=flat-square" alt="Install with skills.sh"></a>
-  <a href="https://github.com/nxxxsooo/grill-loop/releases"><img src="https://img.shields.io/github/v/release/nxxxsooo/grill-loop?style=flat-square&color=5eead4" alt="Latest release"></a>
-  <a href="./LICENSE"><img src="https://img.shields.io/badge/license-MIT-5eead4?style=flat-square" alt="MIT License"></a>
+  <a href="#安装"><img src="https://img.shields.io/badge/安装-skills.sh-111820?style=flat-square" alt="通过 skills.sh 安装"></a>
+  <a href="https://github.com/nxxxsooo/grill-loop/releases"><img src="https://img.shields.io/github/v/release/nxxxsooo/grill-loop?style=flat-square&color=5eead4" alt="最新版本"></a>
+  <a href="./LICENSE"><img src="https://img.shields.io/badge/许可证-MIT-5eead4?style=flat-square" alt="MIT 许可证"></a>
 </p>
 
-## Install
+## 安装
 
 ```bash
 npx skills@latest add nxxxsooo/grill-loop
 ```
 
-Then continue any task with:
+然后在任意任务中明确说：
 
-> Use $grill-loop to continue this task.
+> 使用 $grill-loop 继续这个任务。
 
-grill-loop runs only when you name it. It does not auto-invoke or force every connected capability to run.
+grill-loop 只在被点名时运行。它不会自动触发，也不会强迫所有关联能力都执行。
 
-## Why it exists
+## 为什么需要它
 
-Real work does not follow one fixed methodology. A missing product choice may need `grilling`; a formed plan may need `deep-grill`; a durable change may belong in OpenSpec; a frontend may need a taste pass.
+真实工作不会沿着一套固定方法前进。缺失的产品选择可能需要 `grilling`；成形方案可能需要 `deep-grill`；长期变更适合进入 OpenSpec；前端表面则可能需要 taste 复核。
 
-grill-loop owns only the routing decision. It selects the smallest useful next capability, follows that capability's own contract, carries forward the relevant context, then reassesses.
+grill-loop 只拥有路由决定。它选择当前最小且有价值的能力，遵循该能力自己的契约，传递必要上下文，再重新判断下一步。
 
-## Route by where the answer lives
+## 按答案所在位置路由
 
-| The current gap | Useful next move |
+| 当前缺口 | 适合的下一步 |
 |---|---|
-| Intent, priorities, risk tolerance, or taste exist only with the user | `grilling` |
-| A plan or decision needs autonomous investigation and adversarial review | `deep-grill` |
-| Work should enter durable exploration, specification, implementation, or archival | OpenSpec |
-| A frontend or brand surface needs visual direction or critique | `design-taste-frontend` |
-| Another specialist better fits the current move | That Skill or tool |
+| 意图、优先级、风险容忍或 taste 只存在于用户这里 | `grilling` |
+| 方案或决策需要自主调查和对抗审查 | `deep-grill` |
+| 工作应该进入长期探索、规格、实施或归档 | OpenSpec |
+| 前端或品牌表面需要视觉方向或批评 | `design-taste-frontend` |
+| 其他专家更适合当前动作 | 对应 Skill 或工具 |
 
-These are options, not stages. Skip, repeat, reorder, return, or stop as the work changes.
+这些是选项，不是阶段。工作变化时，可以跳过、重复、重排、返回或停止。
 
 <p align="center">
-  <img src="./assets/grill-loop-detail.webp" alt="A seafoam braided cord passing through a precision-machined graphite gate" width="440">
+  <img src="./assets/grill-loop-detail.webp" alt="一根青绿色编织绳穿过精密加工的石墨门件" width="440">
 </p>
 
-## The complete contract
+## 完整契约
 
-The installed Skill is only four paragraphs. This excerpt is kept in exact sync with [`SKILL.md`](./SKILL.md):
+安装后的 Skill 只有四段话。以下内容与 [`SKILL.md`](./SKILL.md) 保持逐字同步：
 
 <!-- grill-loop-skill-body:start -->
 > # Grill Loop
@@ -69,30 +69,30 @@ The installed Skill is only four paragraphs. This excerpt is kept in exact sync 
 > Preserve every capability's own scope, authority, and safety boundaries. Add no custom gates, hooks, background processes, or state files. Stop when the user's goal is met, a meaningful next move requires their input or authority, or further looping has diminishing returns.
 <!-- grill-loop-skill-body:end -->
 
-## Boundaries
+## 边界
 
-- No mandatory order or lifecycle.
-- No shared output schema or duplicate task state.
-- No custom gates, hooks, background processes, or state files.
-- No authority beyond the user's request and the selected capability's contract.
-- No automatic invocation.
+- 不增加强制顺序或生命周期。
+- 不增加统一输出格式或重复任务状态。
+- 不增加自定义门禁、hook、后台进程或状态文件。
+- 不扩大用户授权，也不绕过被选能力的契约。
+- 不自动触发。
 
-## Update
+## 更新
 
-Installed copies do not follow repository changes automatically:
+已安装副本不会自动跟随仓库变化：
 
 ```bash
 npx skills@latest update grill-loop -g -y
 ```
 
-Use `-p` instead of `-g` for a project-scoped installation.
+项目级安装把 `-g` 换成 `-p`。
 
-## Manual installation
+## 手动安装
 
 ```bash
 git clone https://github.com/nxxxsooo/grill-loop ~/.claude/skills/grill-loop
 ```
 
-## License
+## 许可证
 
 [MIT](./LICENSE)
