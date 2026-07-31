@@ -33,7 +33,7 @@ grill-loop runs only when you name it. It does not auto-invoke or force every co
 
 ## Why it exists
 
-Real work does not follow one fixed methodology. A missing product choice may need `grilling`; a formed plan may need `deep-grill`; a durable change may belong in OpenSpec; a frontend may need a taste pass.
+Real work does not follow one fixed methodology. A missing product choice may need `grilling`; a formed plan may need `deep-grill`; a durable change may belong in OpenSpec; an apply-ready interface may still need an Open Design prototype and a taste pass.
 
 grill-loop owns only the routing decision. It selects the smallest useful next capability, follows that capability's own contract, carries forward the relevant context, then reassesses.
 
@@ -44,10 +44,13 @@ grill-loop owns only the routing decision. It selects the smallest useful next c
 | Intent, priorities, risk tolerance, or taste exist only with the user | `grilling` |
 | A plan or decision needs autonomous investigation and adversarial review | `deep-grill` |
 | Work should enter durable exploration, specification, implementation, or archival | OpenSpec |
-| A frontend or brand surface needs visual direction or critique | `design-taste-frontend` |
+| The spec is implementable, but interface structure or visual direction remains unresolved | Open Design or another prototyping capability |
+| A reviewable frontend or brand prototype needs visual direction or critique | `design-taste-frontend` or the relevant design specialist |
 | Another specialist better fits the current move | That Skill or tool |
 
 These are options, not stages. Skip, repeat, reorder, return, or stop as the work changes.
+
+An OpenSpec message saying “ready for `/opsx-apply`” is new evidence, not the Loop's terminal decision. If implementation still depends on unresolved interface design, give the spec to Open Design for a reviewable prototype, then route it through taste or another design specialist as their scope fits. Carry accepted structure, state, and visual decisions back into the OpenSpec design and tasks, confirm apply-readiness again, then implement. Backend-only changes, resolved designs, and work without a material design surface skip this branch.
 
 <p align="center">
   <img src="./assets/grill-loop-detail.webp" alt="A seafoam braided cord passing through a precision-machined graphite gate" width="440">
@@ -60,9 +63,9 @@ The installed Skill is only four paragraphs. This excerpt is kept in exact sync 
 <!-- grill-loop-skill-body:start -->
 > # Grill Loop
 >
-> Follow the user's goal and the latest evidence or artifacts. Choose the smallest next useful capability, load and follow its own contract, then reassess from what changed. Briefly explain each transition; the user may choose the next capability at any time.
+> Follow the user's goal and the latest evidence or artifacts. Choose the smallest next useful capability, load and follow its own contract, then reassess from what changed. Treat a capability's suggested next command as evidence, not as the loop's decision; reassess before relaying or acting on it. Briefly explain each transition; the user may choose the next capability at any time.
 >
-> Use `grilling` when a material answer lives only in the user's intent, priorities, risk tolerance, or taste. Use `deep-grill` when a plan or decision needs autonomous investigation and adversarial review. Use OpenSpec when the work should enter or continue durable exploration, specification, implementation, or archival. Use `design-taste-frontend` when a relevant frontend or brand surface needs visual direction or critique. Use another available skill or tool when it is a better next move.
+> Use `grilling` when a material answer lives only in the user's intent, priorities, risk tolerance, or taste. Use `deep-grill` when a plan or decision needs autonomous investigation and adversarial review. Use OpenSpec when the work should enter or continue durable exploration, specification, implementation, or archival. When an apply-ready change still has unresolved user-facing design, use Open Design or another prototyping capability to make it reviewable, then use `design-taste-frontend` where its scope fits or another design specialist. Feed accepted decisions back into the OpenSpec design and tasks before implementation; skip this route when no material design decision remains. Use another available skill or tool when it is a better next move.
 >
 > Treat these as options, not stages. Skip, repeat, reorder, or return to them freely. Load only what the current move needs. Carry forward the goal, confirmed decisions, constraints, and artifact references, but impose no shared output format and maintain no duplicate workflow state.
 >

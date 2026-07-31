@@ -33,7 +33,7 @@ grill-loop 只在被点名时运行。它不会自动触发，也不会强迫所
 
 ## 为什么需要它
 
-真实工作不会沿着一套固定方法前进。缺失的产品选择可能需要 `grilling`；成形方案可能需要 `deep-grill`；长期变更适合进入 OpenSpec；前端表面则可能需要 taste 复核。
+真实工作不会沿着一套固定方法前进。缺失的产品选择可能需要 `grilling`；成形方案可能需要 `deep-grill`；长期变更适合进入 OpenSpec；apply-ready 的用户界面可能仍需要 Open Design 原型和 taste 复核。
 
 grill-loop 只拥有路由决定。它选择当前最小且有价值的能力，遵循该能力自己的契约，传递必要上下文，再重新判断下一步。
 
@@ -44,10 +44,13 @@ grill-loop 只拥有路由决定。它选择当前最小且有价值的能力，
 | 意图、优先级、风险容忍或 taste 只存在于用户这里 | `grilling` |
 | 方案或决策需要自主调查和对抗审查 | `deep-grill` |
 | 工作应该进入长期探索、规格、实施或归档 | OpenSpec |
-| 前端或品牌表面需要视觉方向或批评 | `design-taste-frontend` |
+| 规格已可实施，但用户界面结构或视觉方向仍未解决 | Open Design 或其他原型能力 |
+| 可评审的前端或品牌原型需要视觉方向或批评 | `design-taste-frontend` 或对应设计专家 |
 | 其他专家更适合当前动作 | 对应 Skill 或工具 |
 
 这些是选项，不是阶段。工作变化时，可以跳过、重复、重排、返回或停止。
+
+OpenSpec 输出「ready for `/opsx-apply`」只是新的证据，不是 Loop 的终点。若实现仍依赖未解决的用户界面设计，先把规格交给 Open Design 形成可评审原型，再按适用范围交给 taste 或其他设计专家复核；将确认后的结构、状态与视觉决策回写 OpenSpec 的 design 和 tasks，重新确认 apply-ready 后再实施。纯后端、设计已明确或没有重要设计面的变更直接跳过这条支路。
 
 <p align="center">
   <img src="./assets/grill-loop-detail.webp" alt="一根青绿色编织绳穿过精密加工的石墨门件" width="440">
@@ -60,9 +63,9 @@ grill-loop 只拥有路由决定。它选择当前最小且有价值的能力，
 <!-- grill-loop-skill-body:start -->
 > # Grill Loop
 >
-> Follow the user's goal and the latest evidence or artifacts. Choose the smallest next useful capability, load and follow its own contract, then reassess from what changed. Briefly explain each transition; the user may choose the next capability at any time.
+> Follow the user's goal and the latest evidence or artifacts. Choose the smallest next useful capability, load and follow its own contract, then reassess from what changed. Treat a capability's suggested next command as evidence, not as the loop's decision; reassess before relaying or acting on it. Briefly explain each transition; the user may choose the next capability at any time.
 >
-> Use `grilling` when a material answer lives only in the user's intent, priorities, risk tolerance, or taste. Use `deep-grill` when a plan or decision needs autonomous investigation and adversarial review. Use OpenSpec when the work should enter or continue durable exploration, specification, implementation, or archival. Use `design-taste-frontend` when a relevant frontend or brand surface needs visual direction or critique. Use another available skill or tool when it is a better next move.
+> Use `grilling` when a material answer lives only in the user's intent, priorities, risk tolerance, or taste. Use `deep-grill` when a plan or decision needs autonomous investigation and adversarial review. Use OpenSpec when the work should enter or continue durable exploration, specification, implementation, or archival. When an apply-ready change still has unresolved user-facing design, use Open Design or another prototyping capability to make it reviewable, then use `design-taste-frontend` where its scope fits or another design specialist. Feed accepted decisions back into the OpenSpec design and tasks before implementation; skip this route when no material design decision remains. Use another available skill or tool when it is a better next move.
 >
 > Treat these as options, not stages. Skip, repeat, reorder, or return to them freely. Load only what the current move needs. Carry forward the goal, confirmed decisions, constraints, and artifact references, but impose no shared output format and maintain no duplicate workflow state.
 >
