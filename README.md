@@ -1,7 +1,7 @@
 <p align="right"><a href="./README.en.md">English</a></p>
 
 <p align="center">
-  <img src="./assets/grill-loop-hero.webp" alt="一根青绿色绳索在四个独立的石墨门件之间寻找路径" width="100%">
+  <img src="./assets/grill-loop-launch-cn-poster.png" alt="grill-loop——让循环跟着工作走" width="560">
 </p>
 
 <h1 align="center">grill-loop</h1>
