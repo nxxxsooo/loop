@@ -1,7 +1,7 @@
 <p align="right"><a href="./README.md">中文说明</a></p>
 
 <p align="center">
-  <img src="./assets/grill-loop-hero.webp" alt="A seafoam cord finds its route through four independent graphite gates" width="100%">
+  <img src="./assets/grill-loop-social-poster.png" alt="grill-loop — the loop follows the work" width="100%">
 </p>
 
 <h1 align="center">grill-loop</h1>
