@@ -21,9 +21,21 @@
 
 ## Install
 
+One install includes `grill-loop`, `grilling`, and `deep-grill`:
+
 ```bash
-npx skills@latest add nxxxsooo/grill-loop
+npx skills@latest add nxxxsooo/grill-loop --skill '*' -g -y
 ```
+
+| Skill | Purpose | Source |
+|---|---|---|
+| `grill-loop` | Choose the next capability from the current goal and artifacts | This repository |
+| `grilling` | Interview user-owned decisions one question at a time | [mattpocock/skills](https://github.com/mattpocock/skills/tree/main/skills/productivity/grilling) |
+| `deep-grill` | Investigate, challenge, and revise plans autonomously | [nxxxsooo/deep-grill](https://github.com/nxxxsooo/deep-grill) |
+
+OpenSpec, Open Design, taste, and other specialists remain optional integrations supplied by the current environment.
+
+Here `--skill '*'` installs all three skills in this repository. `--all` would also target every supported agent, which is a different operation.
 
 Then continue any task with:
 
@@ -70,7 +82,7 @@ Fields that do not materially apply may be omitted. After the user agrees to the
 
 ## The complete contract
 
-The installed Skill is only four paragraphs. This excerpt is kept in exact sync with [`SKILL.md`](./SKILL.md):
+The router itself is only four paragraphs. This excerpt is kept in exact sync with [`skills/grill-loop/SKILL.md`](./skills/grill-loop/SKILL.md):
 
 <!-- grill-loop-skill-body:start -->
 > # Grill Loop
@@ -98,17 +110,11 @@ The installed Skill is only four paragraphs. This excerpt is kept in exact sync 
 Installed copies do not follow repository changes automatically:
 
 ```bash
-npx skills@latest update grill-loop -g -y
+npx skills@latest update grill-loop grilling deep-grill -g -y
 ```
 
 Use `-p` instead of `-g` for a project-scoped installation.
 
-## Manual installation
-
-```bash
-git clone https://github.com/nxxxsooo/grill-loop ~/.claude/skills/grill-loop
-```
-
 ## License
 
-[MIT](./LICENSE)
+This repository and `deep-grill` use the [MIT License](./LICENSE). The bundled `grilling` skill retains Matt Pocock's MIT license and source attribution; see [`THIRD_PARTY_NOTICES.md`](./THIRD_PARTY_NOTICES.md).

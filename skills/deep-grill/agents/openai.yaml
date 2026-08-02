@@ -1,0 +1,4 @@
+interface:
+  display_name: "Deep Grill"
+  short_description: "Stress-test plans before implementation"
+  default_prompt: "Use $deep-grill to stress-test the plan or design I provide before implementation."

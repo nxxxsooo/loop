@@ -43,7 +43,7 @@ def readme_excerpt(path: Path) -> str:
 
 
 def main() -> int:
-    expected = skill_body(ROOT / "SKILL.md")
+    expected = skill_body(ROOT / "skills" / "grill-loop" / "SKILL.md")
     failures = []
     for name in ("README.md", "README.en.md"):
         path = ROOT / name

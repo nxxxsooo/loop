@@ -1,0 +1,22 @@
+{
+  "grilling": {
+    "source": "https://github.com/mattpocock/skills",
+    "commit": "2ab958093e83e0ec752e6c1c5932da465bf23e0c",
+    "path": "skills/productivity/grilling",
+    "files": {
+      "SKILL.md": "44331dda57f461db4fec3f2efb6ddabe7aaaa0a57ae0f88a883bc61aed8a0587",
+      "agents/openai.yaml": "cf29b9a8dbf35a58a908a6ca4f64dcd86c2b2130291eee0a78b9f706b138825b",
+      "LICENSE": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
+    }
+  },
+  "deep-grill": {
+    "source": "https://github.com/nxxxsooo/deep-grill",
+    "commit": "6a02d40d9c084744860c5aac77015520d30f7beb",
+    "path": ".",
+    "files": {
+      "SKILL.md": "c8d90f13790146478285f263f0f270dbf396e043bc2527a09dfcc2066f87ed3c",
+      "agents/openai.yaml": "b822451924c3c5ac56d481cd6c40f4de7e37adf3f975a2e9dee0936642892bdf",
+      "LICENSE": "c3f1ee6aa30e2c4fece9f5e13cf9e1d00d0a6f060567c66603376ddb05d648c7"
+    }
+  }
+}

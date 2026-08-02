@@ -21,9 +21,21 @@
 
 ## 安装
 
+一次安装包含 `grill-loop`、`grilling` 和 `deep-grill`：
+
 ```bash
-npx skills@latest add nxxxsooo/grill-loop
+npx skills@latest add nxxxsooo/grill-loop --skill '*' -g -y
 ```
+
+| Skill | 作用 | 来源 |
+|---|---|---|
+| `grill-loop` | 根据当前目标和产物选择下一项能力 | 本仓库 |
+| `grilling` | 一次一个问题，访谈用户脑中的关键选择 | [mattpocock/skills](https://github.com/mattpocock/skills/tree/main/skills/productivity/grilling) |
+| `deep-grill` | 自主调查、反驳和修正方案 | [nxxxsooo/deep-grill](https://github.com/nxxxsooo/deep-grill) |
+
+OpenSpec、Open Design、taste 和其他专家能力按当前环境选用，不强制打包。
+
+这里的 `--skill '*'` 表示安装仓库中的三个 skill；`--all` 还会安装到所有受支持的 agent，不是同一个意思。
 
 然后在任意任务中明确说：
 
@@ -70,7 +82,7 @@ Must-pass real scenarios:
 
 ## 完整契约
 
-安装后的 Skill 只有四段话。以下内容与 [`SKILL.md`](./SKILL.md) 保持逐字同步：
+路由器本身只有四段话。以下内容与 [`skills/grill-loop/SKILL.md`](./skills/grill-loop/SKILL.md) 保持逐字同步：
 
 <!-- grill-loop-skill-body:start -->
 > # Grill Loop
@@ -98,17 +110,11 @@ Must-pass real scenarios:
 已安装副本不会自动跟随仓库变化：
 
 ```bash
-npx skills@latest update grill-loop -g -y
+npx skills@latest update grill-loop grilling deep-grill -g -y
 ```
 
 项目级安装把 `-g` 换成 `-p`。
 
-## 手动安装
-
-```bash
-git clone https://github.com/nxxxsooo/grill-loop ~/.claude/skills/grill-loop
-```
-
 ## 许可证
 
-[MIT](./LICENSE)
+本仓库与 `deep-grill` 使用 [MIT](./LICENSE)。打包的 `grilling` 保留 Matt Pocock 的 MIT 许可与来源，见 [`THIRD_PARTY_NOTICES.md`](./THIRD_PARTY_NOTICES.md)。
