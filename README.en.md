@@ -35,6 +35,8 @@ npx skills@latest add nxxxsooo/grill-loop --skill '*' -g -y
 
 OpenSpec, Open Design, taste, and other specialists remain optional integrations supplied by the current environment.
 
+When grill-loop selects OpenSpec, it checks whether the target project is initialized for the active client. Missing setup is generated only through `openspec init <project-root> --tools <active-client>`; the router does not fabricate OpenSpec files. The CLI remains an environmental prerequisite, and its reload or restart instruction applies before the generated entry point is used.
+
 Here `--skill '*'` installs all three skills in this repository. `--all` would also target every supported agent, which is a different operation.
 
 Then continue any task with:
@@ -42,6 +44,18 @@ Then continue any task with:
 > Use $grill-loop to continue this task.
 
 grill-loop runs only when you name it. It does not auto-invoke or force every connected capability to run.
+
+### Optional: Raycast snippets
+
+Raycast users can import [the bundled snippets](./skills/grill-loop/assets/raycast-snippets.json) with Raycast's **Import Snippets** command:
+
+| Skill | Keyword |
+|---|---|
+| `grilling` | `;gr` |
+| `deep-grill` | `;dg` |
+| `grill-loop` | `;lp` |
+
+The snippets paste the full prompts into any text field. Importing is opt-in; installing the skills never modifies a user's Raycast data. Raycast skips duplicates during import as described in its [official import documentation](https://manual.raycast.com/import-export).
 
 ## Why it exists
 
@@ -89,7 +103,7 @@ The router itself is only four paragraphs. This excerpt is kept in exact sync wi
 >
 > Follow the user's goal and the latest evidence or artifacts. Choose the smallest next useful capability, load and follow its own contract, then reassess from what changed. Treat a capability's suggested next command as evidence, not as the loop's decision; reassess before relaying or acting on it. Briefly explain each transition; the user may choose the next capability at any time.
 >
-> Use `grilling` when a material answer lives only in the user's intent, priorities, risk tolerance, or taste. Use `deep-grill` when a plan or decision needs autonomous investigation and adversarial review. Use OpenSpec when the work should enter or continue durable exploration, specification, implementation, or archival. When an apply-ready change still has unresolved user-facing design, use Open Design or another prototyping capability to make it reviewable, then use `design-taste-frontend` where its scope fits or another design specialist. Feed accepted decisions back into the OpenSpec design and tasks before implementation; skip this route when no material design decision remains. Use another available skill or tool when it is a better next move.
+> Use `grilling` when a material answer lives only in the user's intent, priorities, risk tolerance, or taste. Use `deep-grill` when a plan or decision needs autonomous investigation and adversarial review. Use OpenSpec when the work should enter or continue durable exploration, specification, implementation, or archival. Before the first OpenSpec move, resolve the intended project root and verify both its OpenSpec project state and active-client integration. If either is missing, initialize or add the client only through `openspec init <project-root> --tools <active-client>`; name all intended clients in the comma-separated `--tools` value when appropriate. Never hand-create or copy generated OpenSpec commands, skills, or bootstrap state. Follow the CLI's reload or restart instruction before invoking the generated entry point. If the CLI is unavailable, explain the prerequisite and request installation authority instead of simulating OpenSpec. When an apply-ready change still has unresolved user-facing design, use Open Design or another prototyping capability to make it reviewable, then use `design-taste-frontend` where its scope fits or another design specialist. Feed accepted decisions back into the OpenSpec design and tasks before implementation; skip this route when no material design decision remains. Use another available skill or tool when it is a better next move.
 >
 > Treat these as options, not stages. Skip, repeat, reorder, or return to them freely. Load only what the current move needs. Carry forward the goal, confirmed decisions, constraints, and artifact references, but impose no shared output format and maintain no duplicate workflow state.
 >

@@ -35,6 +35,8 @@ npx skills@latest add nxxxsooo/grill-loop --skill '*' -g -y
 
 OpenSpec、Open Design、taste 和其他专家能力按当前环境选用，不强制打包。
 
+当 grill-loop 选择 OpenSpec 时，会先检查目标项目是否已为当前客户端初始化。缺失配置只通过 `openspec init <project-root> --tools <active-client>` 生成，路由器不会手工拼装 OpenSpec 文件。OpenSpec CLI 仍需由当前环境提供；使用生成的入口前，应按 CLI 提示重新加载或重启客户端。
+
 这里的 `--skill '*'` 表示安装仓库中的三个 skill；`--all` 还会安装到所有受支持的 agent，不是同一个意思。
 
 然后在任意任务中明确说：
@@ -42,6 +44,18 @@ OpenSpec、Open Design、taste 和其他专家能力按当前环境选用，不�
 > 使用 $grill-loop 继续这个任务。
 
 grill-loop 只在被点名时运行。它不会自动触发，也不会强迫所有关联能力都执行。
+
+### 可选：Raycast snippets
+
+如果使用 Raycast，可通过 Raycast 的「Import Snippets」命令导入[随包提供的 snippets](./skills/grill-loop/assets/raycast-snippets.json)：
+
+| Skill | 关键词 |
+|---|---|
+| `grilling` | `;gr` |
+| `deep-grill` | `;dg` |
+| `grill-loop` | `;lp` |
+
+这些 snippets 会粘贴完整提示词，适用于任何文本输入框。导入是可选操作；安装 skill 不会修改用户的 Raycast 数据。重复项由 Raycast 在导入时跳过，具体行为参见 [Raycast 官方导入说明](https://manual.raycast.com/import-export)。
 
 ## 为什么需要它
 
@@ -89,7 +103,7 @@ Must-pass real scenarios:
 >
 > Follow the user's goal and the latest evidence or artifacts. Choose the smallest next useful capability, load and follow its own contract, then reassess from what changed. Treat a capability's suggested next command as evidence, not as the loop's decision; reassess before relaying or acting on it. Briefly explain each transition; the user may choose the next capability at any time.
 >
-> Use `grilling` when a material answer lives only in the user's intent, priorities, risk tolerance, or taste. Use `deep-grill` when a plan or decision needs autonomous investigation and adversarial review. Use OpenSpec when the work should enter or continue durable exploration, specification, implementation, or archival. When an apply-ready change still has unresolved user-facing design, use Open Design or another prototyping capability to make it reviewable, then use `design-taste-frontend` where its scope fits or another design specialist. Feed accepted decisions back into the OpenSpec design and tasks before implementation; skip this route when no material design decision remains. Use another available skill or tool when it is a better next move.
+> Use `grilling` when a material answer lives only in the user's intent, priorities, risk tolerance, or taste. Use `deep-grill` when a plan or decision needs autonomous investigation and adversarial review. Use OpenSpec when the work should enter or continue durable exploration, specification, implementation, or archival. Before the first OpenSpec move, resolve the intended project root and verify both its OpenSpec project state and active-client integration. If either is missing, initialize or add the client only through `openspec init <project-root> --tools <active-client>`; name all intended clients in the comma-separated `--tools` value when appropriate. Never hand-create or copy generated OpenSpec commands, skills, or bootstrap state. Follow the CLI's reload or restart instruction before invoking the generated entry point. If the CLI is unavailable, explain the prerequisite and request installation authority instead of simulating OpenSpec. When an apply-ready change still has unresolved user-facing design, use Open Design or another prototyping capability to make it reviewable, then use `design-taste-frontend` where its scope fits or another design specialist. Feed accepted decisions back into the OpenSpec design and tasks before implementation; skip this route when no material design decision remains. Use another available skill or tool when it is a better next move.
 >
 > Treat these as options, not stages. Skip, repeat, reorder, or return to them freely. Load only what the current move needs. Carry forward the goal, confirmed decisions, constraints, and artifact references, but impose no shared output format and maintain no duplicate workflow state.
 >

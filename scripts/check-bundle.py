@@ -12,6 +12,11 @@ import sys
 ROOT = Path(__file__).resolve().parents[1]
 SKILLS = ROOT / "skills"
 EXPECTED = {"grill-loop", "grilling", "deep-grill"}
+EXPECTED_RAYCAST_SNIPPETS = {
+    "grilling": {"keyword": ";gr", "skill": "grilling"},
+    "deep grill": {"keyword": ";dg", "skill": "deep-grill"},
+    "grill-loop": {"keyword": ";lp", "skill": "grill-loop"},
+}
 
 
 def digest(path: Path) -> str:
@@ -30,6 +35,17 @@ def frontmatter_name(path: Path) -> str:
         if line.startswith("name:"):
             return line.split(":", 1)[1].strip()
     raise ValueError(f"{path}: missing name")
+
+
+def skill_body(path: Path) -> str:
+    lines = path.read_text(encoding="utf-8").splitlines()
+    if not lines or lines[0] != "---":
+        raise ValueError(f"{path}: missing opening frontmatter delimiter")
+    try:
+        closing = lines.index("---", 1)
+    except ValueError as error:
+        raise ValueError(f"{path}: missing closing frontmatter delimiter") from error
+    return "\n".join(lines[closing + 1 :]).strip()
 
 
 def main() -> int:
@@ -73,6 +89,52 @@ def main() -> int:
     grill_loop_license = SKILLS / "grill-loop" / "LICENSE"
     if grill_loop_license.is_file() and digest(grill_loop_license) != digest(ROOT / "LICENSE"):
         failures.append(f"{grill_loop_license}: differs from repository LICENSE")
+
+    raycast_path = SKILLS / "grill-loop" / "assets" / "raycast-snippets.json"
+    if not raycast_path.is_file():
+        failures.append(f"{raycast_path}: missing")
+    else:
+        try:
+            snippets = json.loads(raycast_path.read_text(encoding="utf-8"))
+        except (json.JSONDecodeError, OSError) as error:
+            failures.append(f"{raycast_path}: invalid JSON: {error}")
+        else:
+            if not isinstance(snippets, list):
+                failures.append(f"{raycast_path}: expected a JSON array")
+            else:
+                names = [item.get("name") for item in snippets if isinstance(item, dict)]
+                if len(snippets) != len(EXPECTED_RAYCAST_SNIPPETS) or set(names) != set(
+                    EXPECTED_RAYCAST_SNIPPETS
+                ):
+                    failures.append(
+                        f"{raycast_path}: expected exactly {sorted(EXPECTED_RAYCAST_SNIPPETS)}, "
+                        f"got {names}"
+                    )
+
+                for item in snippets:
+                    if not isinstance(item, dict):
+                        failures.append(f"{raycast_path}: every snippet must be an object")
+                        continue
+                    name = item.get("name")
+                    expected = EXPECTED_RAYCAST_SNIPPETS.get(name)
+                    if expected is None:
+                        continue
+                    if item.get("keyword") != expected["keyword"]:
+                        failures.append(
+                            f"{raycast_path}: {name!r} keyword must be {expected['keyword']!r}"
+                        )
+                    try:
+                        expected_text = skill_body(SKILLS / expected["skill"] / "SKILL.md")
+                    except (OSError, ValueError) as error:
+                        failures.append(str(error))
+                    else:
+                        if not item.get("text"):
+                            failures.append(f"{raycast_path}: {name!r} text is empty")
+                        elif item["text"] != expected_text:
+                            failures.append(
+                                f"{raycast_path}: {name!r} text differs from "
+                                f"skills/{expected['skill']}/SKILL.md body"
+                            )
 
     if failures:
         print("\n".join(failures), file=sys.stderr)
