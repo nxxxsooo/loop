@@ -123,6 +123,14 @@ The router itself is only four paragraphs. This excerpt is kept in exact sync wi
 
 Installed copies do not follow repository changes automatically:
 
+If the existing copy came from `v1.2.0` or an earlier single-skill layout, its lock still points to the repository-root `SKILL.md`. Rebind the source once when migrating to the three-skill bundle:
+
+```bash
+npx skills@latest add nxxxsooo/grill-loop --skill '*' -g -y
+```
+
+After migration, use the normal update command:
+
 ```bash
 npx skills@latest update grill-loop grilling deep-grill -g -y
 ```

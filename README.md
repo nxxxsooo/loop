@@ -123,6 +123,14 @@ Must-pass real scenarios:
 
 已安装副本不会自动跟随仓库变化：
 
+若现有副本来自 `v1.2.0` 或更早的单 skill 布局，旧 lock 仍指向仓库根目录的 `SKILL.md`。首次迁移到三 skill bundle 时，请重新绑定一次来源：
+
+```bash
+npx skills@latest add nxxxsooo/grill-loop --skill '*' -g -y
+```
+
+迁移后，日常更新使用：
+
 ```bash
 npx skills@latest update grill-loop grilling deep-grill -g -y
 ```
