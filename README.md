@@ -33,7 +33,9 @@ npx skills@latest add nxxxsooo/grill-loop --skill '*' -g -y
 | `grilling` | 一次一个问题，访谈用户脑中的关键选择 | [mattpocock/skills](https://github.com/mattpocock/skills/tree/main/skills/productivity/grilling) |
 | `deep-grill` | 自主调查、反驳和修正方案 | [nxxxsooo/deep-grill](https://github.com/nxxxsooo/deep-grill) |
 
-OpenSpec、Open Design、taste 和其他专家能力按当前环境选用，不强制打包。
+Wayfinder、OpenSpec、Open Design、taste 和其他专家能力按当前环境选用，不强制打包。
+
+当 grill-loop 选择 `wayfinder` 时，它遵循该能力的共享 Issue 决策地图契约。若路线已经明确、工作可在单个 agent 会话内完成，则不创建 Wayfinder 地图；需要持久化变更记录时，仍可直接进入 OpenSpec。
 
 当 grill-loop 选择 OpenSpec 时，会先检查目标项目是否已为当前客户端初始化。缺失配置只通过 `openspec init <project-root> --tools <active-client>` 生成，路由器不会手工拼装 OpenSpec 文件。OpenSpec CLI 仍需由当前环境提供；使用生成的入口前，应按 CLI 提示重新加载或重启客户端。
 
@@ -59,7 +61,7 @@ grill-loop 只在被点名时运行。它不会自动触发，也不会强迫所
 
 ## 为什么需要它
 
-真实工作不会沿着一套固定方法前进。缺失的产品选择可能需要 `grilling`；成形方案可能需要 `deep-grill`；长期变更适合进入 OpenSpec；apply-ready 的用户界面可能仍需要 Open Design 原型和 taste 复核。
+真实工作不会沿着一套固定方法前进。缺失的产品选择可能需要 `grilling`；成形方案可能需要 `deep-grill`；跨越多个会话的路线迷雾可能需要 `wayfinder`；已成形的持久变更适合进入 OpenSpec；apply-ready 的用户界面可能仍需要 Open Design 原型和 taste 复核。
 
 grill-loop 只拥有路由决定。它选择当前最小且有价值的能力，遵循该能力自己的契约，传递必要上下文，再重新判断下一步。
 
@@ -69,7 +71,9 @@ grill-loop 只拥有路由决定。它选择当前最小且有价值的能力，
 |---|---|
 | 意图、优先级、风险容忍或 taste 只存在于用户这里 | `grilling` |
 | 方案或决策需要自主调查和对抗审查 | `deep-grill` |
-| 工作应该进入长期探索、规格、实施或归档 | OpenSpec |
+| 目标或路线仍有大量决策迷雾，工作超过一个 agent 会话，且需要共享 Issue 决策地图 | `wayfinder` |
+| 改动已足够成形，应该进入持久探索、规格、实施或归档 | OpenSpec |
+| 工作已经明确、单个 agent 会话可完成，且不需要持久变更记录 | 直接执行或使用当前客户端的轻量计划 |
 | 规格已可实施，但用户界面结构或视觉方向仍未解决 | Open Design 或其他原型能力 |
 | 可评审的前端或品牌原型需要视觉方向或批评 | `design-taste-frontend` 或对应设计专家 |
 | 其他专家更适合当前动作 | 对应 Skill 或工具 |
@@ -103,7 +107,7 @@ Must-pass real scenarios:
 >
 > Follow the user's goal and the latest evidence or artifacts. Choose the smallest next useful capability, load and follow its own contract, then reassess from what changed. Treat a capability's suggested next command as evidence, not as the loop's decision; reassess before relaying or acting on it. Briefly explain each transition; the user may choose the next capability at any time.
 >
-> Use `grilling` when a material answer lives only in the user's intent, priorities, risk tolerance, or taste. Use `deep-grill` when a plan or decision needs autonomous investigation and adversarial review. Use OpenSpec when the work should enter or continue durable exploration, specification, implementation, or archival. Before the first OpenSpec move, resolve the intended project root and verify both its OpenSpec project state and active-client integration. If either is missing, initialize or add the client only through `openspec init <project-root> --tools <active-client>`; name all intended clients in the comma-separated `--tools` value when appropriate. Never hand-create or copy generated OpenSpec commands, skills, or bootstrap state. Follow the CLI's reload or restart instruction before invoking the generated entry point. If the CLI is unavailable, explain the prerequisite and request installation authority instead of simulating OpenSpec. When an apply-ready change still has unresolved user-facing design, use Open Design or another prototyping capability to make it reviewable, then use `design-taste-frontend` where its scope fits or another design specialist. Feed accepted decisions back into the OpenSpec design and tasks before implementation; skip this route when no material design decision remains. Use another available skill or tool when it is a better next move.
+> Use `grilling` when a material answer lives only in the user's intent, priorities, risk tolerance, or taste. Use `deep-grill` when a plan or decision needs autonomous investigation and adversarial review. Use `wayfinder` when the destination or route remains too uncertain and expansive for one agent session and needs a shared issue-tracker map of decision tickets. When its decisions make the way coherent enough for a durable change, reassess whether OpenSpec is the next move. Use OpenSpec when the work should enter or continue durable exploration, specification, implementation, or archival. Before the first OpenSpec move, resolve the intended project root and verify both its OpenSpec project state and active-client integration. If either is missing, initialize or add the client only through `openspec init <project-root> --tools <active-client>`; name all intended clients in the comma-separated `--tools` value when appropriate. Never hand-create or copy generated OpenSpec commands, skills, or bootstrap state. Follow the CLI's reload or restart instruction before invoking the generated entry point. If the CLI is unavailable, explain the prerequisite and request installation authority instead of simulating OpenSpec. When an apply-ready change still has unresolved user-facing design, use Open Design or another prototyping capability to make it reviewable, then use `design-taste-frontend` where its scope fits or another design specialist. Feed accepted decisions back into the OpenSpec design and tasks before implementation; skip this route when no material design decision remains. If the work is already clear, small enough for one agent session, and needs no durable change record, execute directly or use the active client's lightweight planning rather than forcing either Wayfinder or OpenSpec. Use another available skill or tool when it is a better next move.
 >
 > Treat these as options, not stages. Skip, repeat, reorder, or return to them freely. Load only what the current move needs. Carry forward the goal, confirmed decisions, constraints, and artifact references, but impose no shared output format and maintain no duplicate workflow state.
 >
