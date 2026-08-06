@@ -11,11 +11,12 @@ import sys
 
 ROOT = Path(__file__).resolve().parents[1]
 SKILLS = ROOT / "skills"
-EXPECTED = {"grill-loop", "grilling", "deep-grill"}
+EXPECTED = {"grill-loop", "grilling", "deep-grill", "what"}
 EXPECTED_RAYCAST_SNIPPETS = {
     "grilling": {"keyword": ";gr", "skill": "grilling"},
     "deep grill": {"keyword": ";dg", "skill": "deep-grill"},
     "grill-loop": {"keyword": ";lp", "skill": "grill-loop"},
+    "what": {"keyword": ";wt", "skill": "what"},
 }
 
 

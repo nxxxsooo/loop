@@ -21,25 +21,26 @@
 
 ## Install
 
-One install includes `grill-loop`, `grilling`, and `deep-grill`:
+One install includes `grill-loop`, `grilling`, `deep-grill`, and `what`:
 
 ```bash
-npx skills@latest add nxxxsooo/grill-loop --skill '*' -g -y
+npx skills@latest add nxxxsooo/grill-loop --skill grill-loop grilling deep-grill what -g -y
 ```
 
 | Skill | Purpose | Source |
 |---|---|---|
 | `grill-loop` | Choose the next capability from the current goal and artifacts | This repository |
-| `grilling` | Interview user-owned decisions one question at a time | [mattpocock/skills](https://github.com/mattpocock/skills/tree/main/skills/productivity/grilling) |
-| `deep-grill` | Investigate, challenge, and revise plans autonomously | [nxxxsooo/deep-grill](https://github.com/nxxxsooo/deep-grill) |
+| `grilling` | Work a user-owned decision tree in dependency-aware question rounds | [mattpocock/skills](https://github.com/mattpocock/skills/tree/v1.2.2/skills/productivity/grilling) |
+| `deep-grill` | Audit a plan, idea, or implied approach autonomously and return a verdict | [nxxxsooo/deep-grill](https://github.com/nxxxsooo/deep-grill) |
+| `what` | Pause and re-explain the latest update in the user's language | This repository |
 
-Wayfinder, OpenSpec, Open Design, taste, and other specialists remain optional integrations supplied by the current environment.
+Domain modeling, codebase design, TDD, Wayfinder, OpenSpec, Open Design, taste, and other specialists remain optional integrations supplied by the current environment. `CONTEXT.md` is also optional: `what` uses the nearest one when present and otherwise preserves the established project terms.
 
-When grill-loop selects `wayfinder`, it follows that capability's shared issue-map contract. If the route is already clear and the work fits in one agent session, it does not create a Wayfinder map; work that needs a durable change record may still enter OpenSpec directly.
+Wayfinder is an explicit, user-confirmed route for work that needs an issue-tracker decision map across sessions. The loop never invokes it silently. Specification and design are also choices, not mandatory follow-on stages after grilling or deep-grill.
 
-When grill-loop selects OpenSpec, it checks whether the target project is initialized for the active client. Missing setup is generated only through `openspec init <project-root> --tools <active-client>`; the router does not fabricate OpenSpec files. The CLI remains an environmental prerequisite, and its reload or restart instruction applies before the generated entry point is used.
+When the user chooses OpenSpec, grill-loop checks whether the target project is initialized for the active client. Missing setup is generated only through `openspec init <project-root> --tools <active-client>`; the router does not fabricate OpenSpec files. The CLI remains an environmental prerequisite, and its reload or restart instruction applies before the generated entry point is used.
 
-Here `--skill '*'` installs all three skills in this repository. `--all` would also target every supported agent, which is a different operation.
+The explicit skill list installs only the four public bundle skills. The repository also carries project-local OpenSpec helpers for maintainers, so `--skill '*'` is intentionally not used. `--all` would also target every supported agent, which is a different operation.
 
 Then continue any task with:
 
@@ -56,29 +57,48 @@ Raycast users can import [the bundled snippets](./skills/grill-loop/assets/rayca
 | `grilling` | `;gr` |
 | `deep-grill` | `;dg` |
 | `grill-loop` | `;lp` |
+| `what` | `;wt` |
 
 The snippets paste the full prompts into any text field. Importing is opt-in; installing the skills never modifies a user's Raycast data. Raycast skips duplicates during import as described in its [official import documentation](https://manual.raycast.com/import-export).
 
 ## Why it exists
 
-Real work does not follow one fixed methodology. A missing product choice may need `grilling`; a formed plan may need `deep-grill`; route uncertainty spanning multiple sessions may need `wayfinder`; a coherent durable change may belong in OpenSpec; an apply-ready interface may still need an Open Design prototype and a taste pass.
+Real work does not follow one fixed methodology. A user-owned decision tree may need `grilling`; a plan, idea, or implied approach may need an autonomous `deep-grill`; a material transition may need a concise choice between stopping, specification, design, Wayfinder, direct implementation, or a specialist.
 
-grill-loop owns only the routing decision. It selects the smallest useful next capability, follows that capability's own contract, carries forward the relevant context, then reassesses.
+grill-loop owns only the routing decision. It selects the smallest useful next capability, follows that capability's own contract, carries forward the relevant context, then reassesses. Once implementation starts, vocabulary drift, an unclear module interface, slowing feedback, or proliferating shallow modules all become evidence to reroute.
 
 ## Route by where the answer lives
 
 | The current gap | Useful next move |
 |---|---|
-| Intent, priorities, risk tolerance, or taste exist only with the user | `grilling` |
-| A plan or decision needs autonomous investigation and adversarial review | `deep-grill` |
-| The destination or route remains decision-fogged, exceeds one agent session, and needs a shared issue map | `wayfinder` |
-| The change is coherent enough for durable exploration, specification, implementation, or archival | OpenSpec |
+| Materially different paths form a user-owned decision tree | `grilling`, working the current frontier in rounds |
+| A plan, design, decision, idea, or implied approach needs autonomous investigation and adversarial review | `deep-grill` |
+| Material terms are missing, overloaded, or contradicted by the code | `domain-modeling` or the relevant domain-modeling capability |
+| The module interface, seam, or depth is unresolved and blocks delegation or testing | `codebase-design` or the relevant architecture capability |
+| Behavior can be verified through an agreed public seam and needs a shorter feedback loop | `tdd` or the relevant short-feedback capability, one vertical slice at a time |
+| The work needs a shared issue-tracker decision map across sessions, and the user confirms that route | `wayfinder` |
+| The change needs a durable exploration, specification, implementation, or archival record | OpenSpec or another specification capability |
 | The work is clear, fits one agent session, and needs no durable change record | Execute directly or use the active client's lightweight planning |
 | The spec is implementable, but interface structure or visual direction remains unresolved | Open Design or another prototyping capability |
 | A reviewable frontend or brand prototype needs visual direction or critique | `design-taste-frontend` or the relevant design specialist |
 | Another specialist better fits the current move | That Skill or tool |
 
-These are options, not stages. Skip, repeat, reorder, return, or stop as the work changes.
+These are options, not stages. At a material transition, the native question interface presents the recommended route first, preserves a free-form clarification path, and lets the user stop. It asks nothing when the next move is already authorized, reversible, or the only viable route.
+
+## Treat software fundamentals as rerouting evidence
+
+[This article](https://mp.weixin.qq.com/s/QRA_MwrI4Loau8ZdsNF2Og) maps AI coding decay to lost shared design concepts, ubiquitous language, short feedback loops, and deep modules. That matches grill-loop's “one capability at a time, then reassess from changed artifacts” direction, while exposing a gap in the old contract: after implementation started, the Loop did not say clearly when to stop following the existing plan.
+
+| Signal during implementation | Loop response |
+|---|---|
+| The human and agent mean different things by the same term | Read the existing glossary; enter domain modeling only when the model truly conflicts |
+| The module's public promise and test seam cannot be stated first | Design the interface, depth, and seam before delegating the implementation |
+| A change is too large to verify quickly | Shrink it to a verifiable vertical slice and choose TDD or the shortest available feedback loop |
+| Shallow modules proliferate, knowledge scatters, or change slows down | Pause expansion, choose code review or an architecture-deepening capability, then reassess |
+
+These signals are not new mandatory stages and do not require one fixed set of installed skills. They only mean that “keep executing as before” is no longer the smallest useful move; the selected capability still owns the concrete method through its own contract. See [Matt Pocock's Skills for Real Engineers](https://github.com/mattpocock/skills) for primary implementations of these ideas.
+
+OpenSpec here is also not the Spec-to-Code regeneration loop criticized by the article: it preserves durable change intent and decisions, while apply still remains subordinate to real feedback and the Loop's reassessment.
 
 An OpenSpec message saying “ready for `/opsx-apply`” is new evidence, not the Loop's terminal decision. If implementation still depends on unresolved interface design, give the spec to Open Design for a reviewable prototype, then route it through taste or another design specialist as their scope fits. Carry accepted structure, state, and visual decisions back into the OpenSpec design and tasks, confirm apply-readiness again, then implement. Backend-only changes, resolved designs, and work without a material design surface skip this branch.
 
@@ -100,18 +120,20 @@ Fields that do not materially apply may be omitted. After the user agrees to the
 
 ## The complete contract
 
-The router itself is only four paragraphs. This excerpt is kept in exact sync with [`skills/grill-loop/SKILL.md`](./skills/grill-loop/SKILL.md):
+The router itself is only five paragraphs. This excerpt is kept in exact sync with [`skills/grill-loop/SKILL.md`](./skills/grill-loop/SKILL.md):
 
 <!-- grill-loop-skill-body:start -->
 > # Grill Loop
 >
-> Follow the user's goal and the latest evidence or artifacts. Choose the smallest next useful capability, load and follow its own contract, then reassess from what changed. Treat a capability's suggested next command as evidence, not as the loop's decision; reassess before relaying or acting on it. Briefly explain each transition; the user may choose the next capability at any time.
+> Follow the user's goal and the latest evidence or artifacts. Choose the smallest useful capability, follow its contract, then reassess from what changed. Treat a capability's suggested next command as evidence, not as the loop's decision. During implementation, vocabulary drift, an unclear module interface, slowing feedback, or accumulating shallow modules are evidence to reroute. Briefly explain each transition; the user may choose another route or stop at any time.
 >
-> Use `grilling` when a material answer lives only in the user's intent, priorities, risk tolerance, or taste. Use `deep-grill` when a plan or decision needs autonomous investigation and adversarial review. Use `wayfinder` when the destination or route remains too uncertain and expansive for one agent session and needs a shared issue-tracker map of decision tickets. When its decisions make the way coherent enough for a durable change, reassess whether OpenSpec is the next move. Use OpenSpec when the work should enter or continue durable exploration, specification, implementation, or archival. Before the first OpenSpec move, resolve the intended project root and verify both its OpenSpec project state and active-client integration. If either is missing, initialize or add the client only through `openspec init <project-root> --tools <active-client>`; name all intended clients in the comma-separated `--tools` value when appropriate. Never hand-create or copy generated OpenSpec commands, skills, or bootstrap state. Follow the CLI's reload or restart instruction before invoking the generated entry point. If the CLI is unavailable, explain the prerequisite and request installation authority instead of simulating OpenSpec. When an apply-ready change still has unresolved user-facing design, use Open Design or another prototyping capability to make it reviewable, then use `design-taste-frontend` where its scope fits or another design specialist. Feed accepted decisions back into the OpenSpec design and tasks before implementation; skip this route when no material design decision remains. If the work is already clear, small enough for one agent session, and needs no durable change record, execute directly or use the active client's lightweight planning rather than forcing either Wayfinder or OpenSpec. Use another available skill or tool when it is a better next move.
+> Use `grilling` when materially different paths form a user-owned decision tree: work every currently unblocked frontier question in rounds and wait for the user's decisions. Use `deep-grill` when the agent can audit a plan, design, decision, idea, or implied approach autonomously and return a verdict and revisions. Keep one or two bounded user choices inside the current capability. Use a domain-modeling capability only when material terms are missing, overloaded, or contradicted by the work; an existing coherent glossary or `CONTEXT.md` is context, not a mandatory stage. Use architecture, codebase-design, TDD, prototyping, taste, or another specialist when its specific unresolved problem is now the smallest useful move.
 >
-> Treat these as options, not stages. Skip, repeat, reorder, or return to them freely. Load only what the current move needs. Carry forward the goal, confirmed decisions, constraints, and artifact references, but impose no shared output format and maintain no duplicate workflow state.
+> Treat Wayfinder, specification, design, and implementation as optional routes, not fixed stages. Offer `wayfinder` only when it is available, the work needs an issue-tracker decision map across sessions, and the user confirms that route; never invoke it implicitly. Offer OpenSpec or another specification capability when a durable change record is useful. If OpenSpec is selected, follow its contract and official CLI; never fabricate its setup. Offer design or prototyping when a material interface or visual decision needs review. Execute directly when the work is clear, authorized, and needs neither a durable map nor a specification artifact.
 >
-> Preserve every capability's scope, authority, and safety boundaries. Add no custom gates, hooks, background processes, or state files. When sustained work needs a goal, propose this adaptable card in the current transition: `Goal`, `Project / sources of truth`, `Boundaries (may change / must preserve)`, `Done when`, and `Must-pass real scenarios`; omit irrelevant fields. After user approval, register it with the active client's native goal mechanism when available and keep routing until it is met; pause only for new user input or authority. Keep no goal state of your own. Otherwise, stop when the request is fulfilled or returns diminish.
+> After a capability or phase produces a usable result, ask about the next route only when the choice materially depends on user intent. Use the active client's native question tool when available. Show two or three context-specific options: put the recommended route first, include the strongest viable alternative when useful, and allow `Stop here`. Treat the native free-form answer as `Help me clarify`; if no free-form answer exists, replace the weakest option with `Help me clarify`. Show only available, relevant routes, such as specification, design or prototype, Wayfinder, direct implementation, or a specialist. If no native question tool exists, ask the same concise question in prose. Continue without asking when the next move is factual, reversible, already authorized, or the only viable route.
+>
+> Load only what the current move needs. Carry forward the goal, confirmed decisions, constraints, and artifact references, but impose no shared output format and maintain no duplicate workflow state. Preserve every capability's scope, authority, and safety boundaries. Add no custom gates, hooks, background processes, or state files. When sustained work needs a goal, propose this adaptable card in the current transition: `Goal`, `Project / sources of truth`, `Boundaries (may change / must preserve)`, `Done when`, and `Must-pass real scenarios`; omit irrelevant fields. After user approval, register it with the active client's native goal mechanism when available and keep routing until it is met. Otherwise, stop when the request is fulfilled or returns diminish.
 <!-- grill-loop-skill-body:end -->
 
 ## Boundaries
@@ -127,20 +149,20 @@ The router itself is only four paragraphs. This excerpt is kept in exact sync wi
 
 Installed copies do not follow repository changes automatically:
 
-If the existing copy came from `v1.2.0` or an earlier single-skill layout, its lock still points to the repository-root `SKILL.md`. Rebind the source once when migrating to the three-skill bundle:
+If the existing copy came from `v1.2.0` or an earlier single-skill layout, its lock still points to the repository-root `SKILL.md`. Rebind the source once when migrating to the four-skill bundle:
 
 ```bash
-npx skills@latest add nxxxsooo/grill-loop --skill '*' -g -y
+npx skills@latest add nxxxsooo/grill-loop --skill grill-loop grilling deep-grill what -g -y
 ```
 
 After migration, use the normal update command:
 
 ```bash
-npx skills@latest update grill-loop grilling deep-grill -g -y
+npx skills@latest update grill-loop grilling deep-grill what -g -y
 ```
 
 Use `-p` instead of `-g` for a project-scoped installation.
 
 ## License
 
-This repository and `deep-grill` use the [MIT License](./LICENSE). The bundled `grilling` skill retains Matt Pocock's MIT license and source attribution; see [`THIRD_PARTY_NOTICES.md`](./THIRD_PARTY_NOTICES.md).
+This repository, `deep-grill`, and `what` use the [MIT License](./LICENSE). The bundled `grilling` skill retains Matt Pocock's MIT license and source attribution; see [`THIRD_PARTY_NOTICES.md`](./THIRD_PARTY_NOTICES.md).

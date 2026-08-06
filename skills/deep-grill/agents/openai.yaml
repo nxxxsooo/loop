@@ -1,4 +1,4 @@
 interface:
   display_name: "Deep Grill"
-  short_description: "Stress-test plans before implementation"
-  default_prompt: "Use $deep-grill to stress-test the plan or design I provide before implementation."
+  short_description: "Audit plans and implied approaches autonomously"
+  default_prompt: "Use $deep-grill to audit my plan, idea, or implied approach against evidence and failure modes, then return a verdict and revisions."
