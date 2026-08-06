@@ -40,7 +40,7 @@ Wayfinder is an explicit, user-confirmed route for work that needs an issue-trac
 
 When the user chooses OpenSpec, grill-loop checks whether the target project is initialized for the active client. Missing setup is generated only through `openspec init <project-root> --tools <active-client>`; the router does not fabricate OpenSpec files. The CLI remains an environmental prerequisite, and its reload or restart instruction applies before the generated entry point is used.
 
-The explicit skill list installs only the four public bundle skills. The repository also carries project-local OpenSpec helpers for maintainers, so `--skill '*'` is intentionally not used. `--all` would also target every supported agent, which is a different operation.
+The explicit skill list is safe from a local maintainer checkout, where ignored project-local OpenSpec helpers may also be discoverable. The released GitHub source exposes exactly these four public skills. `--all` would also target every supported agent, which is a different operation.
 
 Then continue any task with:
 

@@ -40,7 +40,7 @@ Wayfinder 是需要用户明确确认的可选路线，适合跨会话、需要 
 
 用户选择 OpenSpec 后，grill-loop 才检查目标项目是否已为当前客户端初始化。缺失配置只通过 `openspec init <project-root> --tools <active-client>` 生成，路由器不会手工拼装 OpenSpec 文件。OpenSpec CLI 仍需由当前环境提供；使用生成的入口前，应按 CLI 提示重新加载或重启客户端。
 
-显式列出 skill 可以只安装四个公开 bundle skill。本仓库还包含供维护者使用的项目级 OpenSpec helper，因此这里有意不使用 `--skill '*'`。`--all` 还会安装到所有受支持的 agent，不是同一个意思。
+显式列出 skill 可以避开维护者本地 checkout 中可能被发现、但已被 Git 忽略的项目级 OpenSpec helper。GitHub 发布源只暴露这四个公开 skill。`--all` 还会安装到所有受支持的 agent，不是同一个意思。
 
 然后在任意任务中明确说：
 
