@@ -20,9 +20,19 @@
 
 ## 安装
 
+推荐使用引导安装。它会安装完整 bundle，并让你选择 Agent、Project／Global 和 Symlink／Copy：
+
 ```bash
-npx skills@latest add nxxxsooo/loop --skill loop deep-grill deep-design deep-build -g -y
+npx skills@latest add nxxxsooo/loop --skill '*'
 ```
+
+需要直接完成全局安装时：
+
+```bash
+npx skills@latest add nxxxsooo/loop -g -y
+```
+
+快速安装会跳过提示，并按 `skills` CLI 的 Agent 检测结果全局安装完整 bundle。
 
 开始任务时说：
 
@@ -36,8 +46,9 @@ npx skills@latest add nxxxsooo/loop --skill loop deep-grill deep-design deep-bui
 
 ```bash
 npx skills@latest remove grill-loop grilling -g -y
-npx skills@latest add nxxxsooo/loop --skill loop deep-grill deep-design deep-build -g -y
 ```
+
+然后使用上面任一安装方式。
 
 | Skill | 负责内容 | 就绪条件 |
 |---|---|---|

@@ -20,9 +20,19 @@ idea -> deep-grill -> Product Brief
 
 ## Install
 
+Guided install is recommended. It installs the complete bundle while letting you choose agents, Project or Global scope, and Symlink or Copy:
+
 ```bash
-npx skills@latest add nxxxsooo/loop --skill loop deep-grill deep-design deep-build -g -y
+npx skills@latest add nxxxsooo/loop --skill '*'
 ```
+
+For a fast global install:
+
+```bash
+npx skills@latest add nxxxsooo/loop -g -y
+```
+
+The fast command skips prompts and installs the complete bundle globally according to the `skills` CLI agent detection.
 
 Start a task with:
 
@@ -36,8 +46,9 @@ The repository moved from `nxxxsooo/grill-loop` to `nxxxsooo/loop`. GitHub redir
 
 ```bash
 npx skills@latest remove grill-loop grilling -g -y
-npx skills@latest add nxxxsooo/loop --skill loop deep-grill deep-design deep-build -g -y
 ```
+
+Then use either installation path above.
 
 | Skill | Owns | Ready when |
 |---|---|---|
