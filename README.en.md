@@ -46,7 +46,7 @@ Start the loop on any task with:
 
 > Use $grill-loop to continue this task.
 
-Name grill-loop once for a task. It then stays active across your answers until you stop it, change tasks, or finish the request. It does not auto-start on unrelated work or force every connected capability to run. During `grilling`, it uses the client's native question interface when the current mode provides one; otherwise it falls back to concise numbered questions.
+Name grill-loop once for a task. It then stays active across your answers until you stop it, change tasks, or finish the request. It does not auto-start on unrelated work or force every connected capability to run. During `grilling`, it uses the client's native question interface. If another mode is required, the loop pauses before the decision and asks you to switch; prose is reserved for clients without native questions or an explicit user choice.
 
 ### Optional: Raycast snippets
 
@@ -84,6 +84,8 @@ grill-loop owns only the routing decision. It selects the smallest useful next c
 | Another specialist better fits the current move | That Skill or tool |
 
 These are options, not stages. At a material transition, the native question interface presents the recommended route first, preserves a free-form clarification path, and lets the user stop. It asks nothing when the next move is already authorized, reversible, or the only viable route.
+
+When a client exposes native questions only in a dedicated mode, use that mode for grilling. For example, when Codex identifies Plan mode as the question-capable mode, a loop started in Default mode pauses before the first decision, asks for the mode switch, and resumes the pending round afterward.
 
 ## Treat software fundamentals as rerouting evidence
 
@@ -133,7 +135,7 @@ The router itself is only six paragraphs. This excerpt is kept in exact sync wit
 >
 > Treat Wayfinder, specification, design, and implementation as optional routes, not fixed stages. Offer `wayfinder` only when it is available, the work needs an issue-tracker decision map across sessions, and the user confirms that route; never invoke it implicitly. Offer OpenSpec or another specification capability when a durable change record is useful. If OpenSpec is selected, follow its contract and official CLI; never fabricate its setup. Offer design or prototyping when a material interface or visual decision needs review. Execute directly when the work is clear, authorized, and needs neither a durable map nor a specification artifact.
 >
-> After a capability or phase produces a usable result, ask about the next route only when the choice materially depends on user intent. Use the active client's native question tool when available. Show two or three context-specific options: put the recommended route first, include the strongest viable alternative when useful, and allow `Stop here`. Treat the native free-form answer as `Help me clarify`; if no free-form answer exists, replace the weakest option with `Help me clarify`. Show only available, relevant routes, such as specification, design or prototype, Wayfinder, direct implementation, or a specialist. If no native question tool exists, ask the same concise question in prose. Continue without asking when the next move is factual, reversible, already authorized, or the only viable route.
+> After a capability or phase produces a usable result, ask about the next route only when the choice materially depends on user intent. Use the active client's native question tool when it is callable. If the client supports native questions but gates them behind another mode, pause before presenting the decision, ask the user to switch to the question-capable mode identified by the client, and keep the pending route choice active for the next reply. Do not turn a mode gate into a prose fallback. Show two or three context-specific options: put the recommended route first, include the strongest viable alternative when useful, and allow `Stop here`. Treat the native free-form answer as `Help me clarify`; if no free-form answer exists, replace the weakest option with `Help me clarify`. Show only available, relevant routes, such as specification, design or prototype, Wayfinder, direct implementation, or a specialist. Ask the same concise question in prose only when the client has no native question interface or the user explicitly chooses prose. Continue without asking when the next move is factual, reversible, already authorized, or the only viable route.
 >
 > Load only what the current move needs. Carry forward the goal, confirmed decisions, constraints, and artifact references, but impose no shared output format and maintain no duplicate workflow state. Preserve every capability's scope, authority, and safety boundaries. Add no custom gates, hooks, background processes, or state files. When sustained work needs a goal, propose this adaptable card in the current transition: `Goal`, `Project / sources of truth`, `Boundaries (may change / must preserve)`, `Done when`, and `Must-pass real scenarios`; omit irrelevant fields. After user approval, register it with the active client's native goal mechanism when available and keep routing until it is met. Otherwise, stop when the request is fulfilled or returns diminish.
 <!-- grill-loop-skill-body:end -->

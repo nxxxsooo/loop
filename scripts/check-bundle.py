@@ -59,6 +59,16 @@ def require_fragments(path: Path, fragments: tuple[str, ...], failures: list[str
             failures.append(f"{path}: missing contract fragment {fragment!r}")
 
 
+def reject_fragments(path: Path, fragments: tuple[str, ...], failures: list[str]) -> None:
+    if not path.is_file():
+        failures.append(f"{path}: missing contract file")
+        return
+    text = path.read_text(encoding="utf-8")
+    for fragment in fragments:
+        if fragment in text:
+            failures.append(f"{path}: contains obsolete contract fragment {fragment!r}")
+
+
 def main() -> int:
     failures: list[str] = []
     actual = {path.name for path in SKILLS.iterdir() if path.is_dir()}
@@ -102,6 +112,8 @@ def main() -> int:
         (
             "every reply in an active grilling session",
             "native question tool",
+            "supported but gated behind another mode",
+            "do not fall back to prose",
             "Do not repeat the same question in Markdown",
         ),
         failures,
@@ -111,9 +123,17 @@ def main() -> int:
         ("allow_implicit_invocation: true",),
         failures,
     )
+    reject_fragments(
+        SKILLS / "grilling" / "SKILL.md",
+        ("If no native question tool is available in the current mode",),
+        failures,
+    )
     require_fragments(
         SKILLS / "grill-loop" / "SKILL.md",
-        ("Keep the loop active across later user replies",),
+        (
+            "Keep the loop active across later user replies",
+            "Do not turn a mode gate into a prose fallback",
+        ),
         failures,
     )
     require_fragments(

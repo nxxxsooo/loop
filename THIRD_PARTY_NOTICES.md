@@ -11,4 +11,4 @@ The bundled `skills/grilling/references/upstream.md` and license are vendored wi
 - License: MIT
 - Copyright: 2026 Matt Pocock
 
-The installed `grilling` entry point is a local overlay. It adds native question-tool presentation, bounded frontier batches, and continuation across user replies. The skill directory carries the upstream license and source notice.
+The installed `grilling` entry point is a local overlay. It adds native question-tool presentation, question-capable mode negotiation, bounded frontier batches, and continuation across user replies. The skill directory carries the upstream license and source notice.

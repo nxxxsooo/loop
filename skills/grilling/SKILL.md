@@ -26,7 +26,13 @@ Recompute the frontier after each answer. A question that depends on another ope
 
 ## Use The Native Question Interface
 
-For every round, call the active client's native question tool when it is available in the current mode. Do not merely describe the questions in prose when the tool can present them. Use one tool call for the round and include as many frontier questions as the tool supports.
+Before presenting the first decision round, determine whether the active client's native question tool is callable now, supported but gated behind another mode, or not supported. Use the client's tool metadata and instructions; do not guess.
+
+- If the tool is callable now, use it for every round. Do not merely describe the questions in prose when the tool can present them.
+- If the client supports the tool but the current mode gates it, do not fall back to prose. Pause before presenting the decision, name the question-capable mode when the client identifies it, ask the user to switch modes and continue, then wait. Keep the grilling session and pending frontier active so the next reply presents that round through the tool without another skill invocation.
+- Use concise prose questions only when the client has no native question interface, or when the user explicitly chooses the prose fallback.
+
+Use one tool call for each round and include as many frontier questions as the tool supports.
 
 For each question:
 
@@ -36,7 +42,7 @@ For each question:
 - Preserve the tool's free-form answer path so the user can reject the offered choices.
 - Do not repeat the same question in Markdown after a successful tool call.
 
-If no native question tool is available in the current mode, ask the same round in concise numbered prose. Use this fallback format for each question:
+When the prose fallback is allowed, use this format for each question:
 
 ```text
 Q1 - <question title>: <question body and choices>
