@@ -35,7 +35,7 @@ npx skills@latest add nxxxsooo/loop --skill loop deep-grill deep-design deep-bui
 仓库已从 `nxxxsooo/grill-loop` 更名为 `nxxxsooo/loop`。GitHub 会重定向旧仓库 URL，但已安装快照仍保留旧 Skill 名。先删除一次，再安装 v3：
 
 ```bash
-npx skills@latest remove grill-loop grilling what -g -y
+npx skills@latest remove grill-loop grilling -g -y
 npx skills@latest add nxxxsooo/loop --skill loop deep-grill deep-design deep-build -g -y
 ```
 
@@ -46,7 +46,7 @@ npx skills@latest add nxxxsooo/loop --skill loop deep-grill deep-design deep-bui
 | `deep-design` | 产品规格与实现设计 | Build Contract 确认 |
 | `deep-build` | 实现、验证和授权范围内的交付 | 必过场景成功 |
 
-## `?` 表示暂停并解释
+## `?` 表示解释并续接
 
 在活跃 loop 中，只发送：
 
@@ -54,7 +54,9 @@ npx skills@latest add nxxxsooo/loop --skill loop deep-grill deep-design deep-bui
 ?
 ```
 
-`loop` 会暂停，重新说明最后确认点、当前子循环和产物、发生的变化、重要性，以及原本准备执行的下一步。该回复不会继续推进。`?` 是 `loop` 自己的协议，不存在 `what` Skill。
+`loop` 会冻结当前动作，重新说明最后确认点、当前子循环和产物、发生的变化、重要性，以及原本准备执行的下一步，但不会结束当前 loop。
+
+解释后，OMO 在可用时使用原生倒计时或自动续接；其他客户端优先显示本地化的原生问题界面，让你继续、调整下一步或停止。没有可调用的原生界面时，使用同语言的一句续接提示。选择继续会立即恢复原本下一步，不必重新点名任何 Skill。
 
 ## 原生问题工具
 
@@ -64,7 +66,7 @@ npx skills@latest add nxxxsooo/loop --skill loop deep-grill deep-design deep-bui
 
 `deep-design` 负责完整的规格和设计过程。小型工作可以把 Build Contract 放在当前任务或原生计划中。耐久、多会话、跨组件或高后果变更，会使用项目的官方 OpenSpec 工作流作为实体 Build Contract。若存在该契约，`deep-build` 使用官方流程实施。
 
-Wayfinder 不再属于默认工作流。领域、架构、前端、测试和交付等专家能力由当前子循环在内部选用，不再变成需要用户管理的路由。
+领域、架构、前端、测试和交付等专家能力由当前子循环按需调用，用户无需管理内部路由。
 
 ## 完整 loop 契约
 
@@ -87,9 +89,9 @@ Wayfinder 不再属于默认工作流。领域、架构、前端、测试和交�
 >
 > Resume the current child while its output contract is incomplete. When its artifact is confirmed, select the next child from artifact readiness without asking the user to nominate a skill or choose a route. State the transition briefly and continue in the same response when the next action is already authorized. Artifact readiness chooses the child; it does not expand the user's authority or the requested endpoint.
 >
-> ## Handle `?`
+> ## Handle `?` Without Breaking Flow
 >
-> When the user's entire trimmed message is exactly `?` during an active loop, pause the current child. Re-explain:
+> When the user's entire trimmed message is exactly `?` during an active loop, freeze the current action at its exact frontier while keeping the loop active. Re-explain:
 >
 > - the last confirmed point;
 > - the current child and artifact state;
@@ -97,7 +99,15 @@ Wayfinder 不再属于默认工作流。领域、架构、前端、测试和交�
 > - why it matters; and
 > - the next action that was about to occur.
 >
-> Use the language of the user's latest substantive message and preserve established project terms. Do not delegate, advance an artifact, ask the pending decision, or continue the task in the same response. Wait for the next user reply. `?` is a loop protocol, not a skill and not a request to explain an arbitrary topic.
+> Use the language of the user's latest substantive message and preserve established project terms. Do not delegate, advance an artifact, or present the child's pending domain decision while explaining.
+>
+> Immediately after the explanation, present the best continuation control the active host actually supports:
+>
+> - In OMO, use its native countdown or autoresume surface when available so the pending next action resumes automatically unless the user intervenes.
+> - Otherwise, when a native question interface is callable, ask whether to `Continue` (recommended), `Adjust next action`, or `Stop`; localize every label and explanation.
+> - When no native continuation interface is callable, ask one concise localized continuation question in prose. Recommend resuming the pending next action while accepting an adjustment or stop in free form.
+>
+> Keep the current child, artifact, frontier, and authority active while the continuation control is open. `Continue` resumes the pending next action immediately. `Adjust next action` changes only that action unless the user's instruction invalidates an artifact. `Stop` ends the loop. Never require another skill invocation to resume.
 >
 > ## Route By Artifact Readiness
 >
@@ -108,7 +118,7 @@ Wayfinder 不再属于默认工作流。领域、架构、前端、测试和交�
 > - Return an invalidated artifact to the child that produces it. A root product contradiction returns to `deep-grill`; a material behavior, interface, task, or verification gap returns to `deep-design`.
 > - Honor a direct invocation of a child skill. Direct use does not require `loop`, but it also does not activate the persistent loop unless the user explicitly starts one.
 >
-> Domain, architecture, research, interface, visual-design, testing, deployment, and other specialists are internal resources selected by the active child. They are not sibling routes that the user must manage. OpenSpec is an internal adapter owned by `deep-design` and `deep-build`; Wayfinder is not part of this workflow.
+> The active child selects any domain, architecture, research, interface, visual-design, testing, deployment, or other specialist it needs. The user does not manage internal routing.
 >
 > ## Preserve One Source Of State
 >

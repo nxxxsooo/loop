@@ -35,7 +35,7 @@ Ordinary replies continue the active child. You may also invoke any `deep-*` ski
 The repository moved from `nxxxsooo/grill-loop` to `nxxxsooo/loop`. GitHub redirects the old repository URL, but installed snapshots keep their old skill names. Remove them once, then install v3:
 
 ```bash
-npx skills@latest remove grill-loop grilling what -g -y
+npx skills@latest remove grill-loop grilling -g -y
 npx skills@latest add nxxxsooo/loop --skill loop deep-grill deep-design deep-build -g -y
 ```
 
@@ -46,7 +46,7 @@ npx skills@latest add nxxxsooo/loop --skill loop deep-grill deep-design deep-bui
 | `deep-design` | Product specification and implementation design | Build Contract is confirmed |
 | `deep-build` | Implementation, verification, and authorized delivery | Must-pass scenarios succeed |
 
-## `?` means pause and explain
+## `?` explains and reconnects
 
 During an active loop, send exactly:
 
@@ -54,7 +54,9 @@ During an active loop, send exactly:
 ?
 ```
 
-`loop` pauses and re-explains the last confirmed point, current child and artifact, what changed, why it matters, and the pending next action. It does not advance in that response. `?` is a protocol owned by `loop`; there is no `what` skill.
+`loop` freezes the current action and re-explains the last confirmed point, current child and artifact, what changed, why it matters, and the pending next action without ending the active loop.
+
+After the explanation, OMO uses its native countdown or autoresume when available. Other clients prefer a localized native question that lets you continue, adjust the next action, or stop. When no native interface is callable, one concise prompt in your language provides the continuation. Continuing immediately resumes the pending next action without another skill invocation.
 
 ## Native questions
 
@@ -64,7 +66,7 @@ During an active loop, send exactly:
 
 `deep-design` owns the complete specification and design process. For small work, its Build Contract may live in the current task or native plan. For durable, multi-session, cross-component, or high-consequence changes, it uses the project's official OpenSpec workflow as the physical Build Contract. `deep-build` then applies that contract through the official workflow when present.
 
-Wayfinder is not part of the default workflow. Domain, architecture, frontend, testing, and delivery specialists remain internal resources chosen by the active child rather than routes you have to manage.
+The active child calls domain, architecture, frontend, testing, and delivery specialists as needed; the user does not manage internal routing.
 
 ## The complete loop contract
 
@@ -87,9 +89,9 @@ This excerpt stays in exact sync with [`skills/loop/SKILL.md`](./skills/loop/SKI
 >
 > Resume the current child while its output contract is incomplete. When its artifact is confirmed, select the next child from artifact readiness without asking the user to nominate a skill or choose a route. State the transition briefly and continue in the same response when the next action is already authorized. Artifact readiness chooses the child; it does not expand the user's authority or the requested endpoint.
 >
-> ## Handle `?`
+> ## Handle `?` Without Breaking Flow
 >
-> When the user's entire trimmed message is exactly `?` during an active loop, pause the current child. Re-explain:
+> When the user's entire trimmed message is exactly `?` during an active loop, freeze the current action at its exact frontier while keeping the loop active. Re-explain:
 >
 > - the last confirmed point;
 > - the current child and artifact state;
@@ -97,7 +99,15 @@ This excerpt stays in exact sync with [`skills/loop/SKILL.md`](./skills/loop/SKI
 > - why it matters; and
 > - the next action that was about to occur.
 >
-> Use the language of the user's latest substantive message and preserve established project terms. Do not delegate, advance an artifact, ask the pending decision, or continue the task in the same response. Wait for the next user reply. `?` is a loop protocol, not a skill and not a request to explain an arbitrary topic.
+> Use the language of the user's latest substantive message and preserve established project terms. Do not delegate, advance an artifact, or present the child's pending domain decision while explaining.
+>
+> Immediately after the explanation, present the best continuation control the active host actually supports:
+>
+> - In OMO, use its native countdown or autoresume surface when available so the pending next action resumes automatically unless the user intervenes.
+> - Otherwise, when a native question interface is callable, ask whether to `Continue` (recommended), `Adjust next action`, or `Stop`; localize every label and explanation.
+> - When no native continuation interface is callable, ask one concise localized continuation question in prose. Recommend resuming the pending next action while accepting an adjustment or stop in free form.
+>
+> Keep the current child, artifact, frontier, and authority active while the continuation control is open. `Continue` resumes the pending next action immediately. `Adjust next action` changes only that action unless the user's instruction invalidates an artifact. `Stop` ends the loop. Never require another skill invocation to resume.
 >
 > ## Route By Artifact Readiness
 >
@@ -108,7 +118,7 @@ This excerpt stays in exact sync with [`skills/loop/SKILL.md`](./skills/loop/SKI
 > - Return an invalidated artifact to the child that produces it. A root product contradiction returns to `deep-grill`; a material behavior, interface, task, or verification gap returns to `deep-design`.
 > - Honor a direct invocation of a child skill. Direct use does not require `loop`, but it also does not activate the persistent loop unless the user explicitly starts one.
 >
-> Domain, architecture, research, interface, visual-design, testing, deployment, and other specialists are internal resources selected by the active child. They are not sibling routes that the user must manage. OpenSpec is an internal adapter owned by `deep-design` and `deep-build`; Wayfinder is not part of this workflow.
+> The active child selects any domain, architecture, research, interface, visual-design, testing, deployment, or other specialist it needs. The user does not manage internal routing.
 >
 > ## Preserve One Source Of State
 >

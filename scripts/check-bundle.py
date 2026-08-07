@@ -111,9 +111,12 @@ def main() -> int:
         "loop": (
             "When the user's entire trimmed message is exactly `?`",
             "without asking the user to nominate a skill or choose a route",
+            "Handle `?` Without Breaking Flow",
+            "native countdown or autoresume surface",
+            "`Continue` (recommended), `Adjust next action`, or `Stop`",
+            "Never require another skill invocation to resume",
             "Route By Artifact Readiness",
-            "OpenSpec is an internal adapter owned by `deep-design` and `deep-build`",
-            "Wayfinder is not part of this workflow",
+            "The user does not manage internal routing",
         ),
         "deep-grill": (
             "discovery mode",
@@ -144,7 +147,15 @@ def main() -> int:
 
     reject_fragments(
         SKILLS / "loop" / "SKILL.md",
-        ("`grill-loop`", "Use `grilling`", "`what`", "Offer `wayfinder`"),
+        (
+            "`grill-loop`",
+            "Use `grilling`",
+            "`what`",
+            "Offer `wayfinder`",
+            "Wayfinder",
+            "Wait for the next user reply",
+            "not a skill",
+        ),
         failures,
     )
     reject_fragments(
