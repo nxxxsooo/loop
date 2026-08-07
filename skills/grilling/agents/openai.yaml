@@ -1,6 +1,0 @@
-interface:
-  display_name: "Grilling"
-  short_description: "Continue an interview in a question-capable mode"
-  default_prompt: "Use $grilling to interview me in dependency-aware native question rounds. If this mode gates the question tool, pause before the first decision and tell me which mode to select."
-policy:
-  allow_implicit_invocation: true

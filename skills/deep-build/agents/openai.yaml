@@ -1,0 +1,6 @@
+interface:
+  display_name: "Deep Build"
+  short_description: "Implement and verify a confirmed Build Contract"
+  default_prompt: "Use $deep-build to implement the confirmed Build Contract in verified vertical slices, deliver only within my authority, and report changes, verification, gaps, and risks."
+policy:
+  allow_implicit_invocation: true

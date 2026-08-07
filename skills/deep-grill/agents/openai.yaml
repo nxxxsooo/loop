@@ -1,4 +1,6 @@
 interface:
   display_name: "Deep Grill"
-  short_description: "Audit plans and implied approaches autonomously"
-  default_prompt: "Use $deep-grill to audit my plan, idea, or implied approach against evidence and failure modes, then return a verdict and revisions."
+  short_description: "Clarify raw ideas or audit formed approaches deeply"
+  default_prompt: "Use $deep-grill in discovery mode for a raw idea or audit mode for a formed approach. Investigate facts, use native questions for my decisions, and continue until I confirm the Product Brief or verdict."
+policy:
+  allow_implicit_invocation: true

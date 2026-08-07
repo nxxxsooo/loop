@@ -1,6 +1,0 @@
-interface:
-  display_name: "Grill Loop"
-  short_description: "Route work continuously after one explicit start"
-  default_prompt: "Use $grill-loop to route this task until I stop or the work is done. Use native question rounds; if this mode gates them, pause before the decision and tell me which mode to select."
-policy:
-  allow_implicit_invocation: true
