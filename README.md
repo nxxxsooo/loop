@@ -30,7 +30,7 @@ npx skills@latest add nxxxsooo/grill-loop --skill grill-loop grilling deep-grill
 | Skill | 作用 | 来源 |
 |---|---|---|
 | `grill-loop` | 根据当前目标和产物选择下一项能力 | 本仓库 |
-| `grilling` | 按依赖关系分轮处理属于用户的决策树 | [mattpocock/skills](https://github.com/mattpocock/skills/tree/v1.2.2/skills/productivity/grilling) |
+| `grilling` | 通过原生问题界面，按依赖关系分轮处理属于用户的决策树 | 基于 [mattpocock/skills](https://github.com/mattpocock/skills/tree/v1.2.2/skills/productivity/grilling) 的本地交互 overlay |
 | `deep-grill` | 自主审查方案、想法或隐含路线，并给出结论 | [nxxxsooo/deep-grill](https://github.com/nxxxsooo/deep-grill) |
 | `what` | 暂停推进，用用户的语言重新解释最新进展 | 本仓库 |
 
@@ -42,11 +42,11 @@ Wayfinder 是需要用户明确确认的可选路线，适合跨会话、需要 
 
 显式列出 skill 可以避开维护者本地 checkout 中可能被发现、但已被 Git 忽略的项目级 OpenSpec helper。GitHub 发布源只暴露这四个公开 skill。`--all` 还会安装到所有受支持的 agent，不是同一个意思。
 
-然后在任意任务中明确说：
+在任意任务中，用下面这句话启动 Loop：
 
 > 使用 $grill-loop 继续这个任务。
 
-grill-loop 只在被点名时运行。它不会自动触发，也不会强迫所有关联能力都执行。
+每个任务只需点名 grill-loop 一次。此后，它会在每次回答后自动续接，直到你停止、切换任务或完成请求。它不会在无关工作中自动启动，也不会强迫所有关联能力都执行。进入 `grilling` 后，若当前客户端模式提供原生问题界面，就直接调用；否则才回退到简洁的编号问题。
 
 ### 可选：Raycast snippets
 
@@ -120,10 +120,12 @@ Must-pass real scenarios:
 
 ## 完整契约
 
-路由器本身只有五段话。以下内容与 [`skills/grill-loop/SKILL.md`](./skills/grill-loop/SKILL.md) 保持逐字同步：
+路由器本身只有六段话。以下内容与 [`skills/grill-loop/SKILL.md`](./skills/grill-loop/SKILL.md) 保持逐字同步：
 
 <!-- grill-loop-skill-body:start -->
 > # Grill Loop
+>
+> An explicit invocation opens grill-loop for the current task. Keep the loop active across later user replies; the user does not need to name `grill-loop` or the selected capability again. A short answer to a loop or grilling question is a continuation, not a new task. On each reply, resume the selected capability while its contract is incomplete, then reassess from what changed. End the loop when the user stops, clearly changes tasks, or the request is fulfilled.
 >
 > Follow the user's goal and the latest evidence or artifacts. Choose the smallest useful capability, follow its contract, then reassess from what changed. Treat a capability's suggested next command as evidence, not as the loop's decision. During implementation, vocabulary drift, an unclear module interface, slowing feedback, or accumulating shallow modules are evidence to reroute. Briefly explain each transition; the user may choose another route or stop at any time.
 >
@@ -143,7 +145,7 @@ Must-pass real scenarios:
 - 不增加自定义门禁、hook、后台进程或状态文件。
 - 用户同意提议后，原生客户端可以持久推进 goal；grill-loop 不复制 goal 状态。
 - 不扩大用户授权，也不绕过被选能力的契约。
-- 不自动触发。
+- 不自动首次触发；显式启动后，会在当前任务内持续运行，直到满足停止条件。
 
 ## 更新
 
@@ -162,7 +164,8 @@ npx skills@latest update grill-loop grilling deep-grill what -g -y
 ```
 
 项目级安装把 `-g` 换成 `-p`。
+若当前任务已经缓存 skill 元数据，安装后请新建任务或重新加载客户端。
 
 ## 许可证
 
-本仓库、`deep-grill` 与 `what` 使用 [MIT](./LICENSE)。打包的 `grilling` 保留 Matt Pocock 的 MIT 许可与来源，见 [`THIRD_PARTY_NOTICES.md`](./THIRD_PARTY_NOTICES.md)。
+本仓库、`deep-grill` 与 `what` 使用 [MIT](./LICENSE)。本地 `grilling` overlay 保留 Matt Pocock 的上游契约、MIT 许可与来源，见 [`THIRD_PARTY_NOTICES.md`](./THIRD_PARTY_NOTICES.md)。

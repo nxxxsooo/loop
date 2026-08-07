@@ -1,9 +1,15 @@
 ---
 name: grill-loop
-description: Adaptively route among decision, design, engineering, and delivery skills. Use only when explicitly invoked.
+description: >-
+  Adaptively route among decision, design, engineering, and delivery skills.
+  Start only when explicitly invoked. Once started for a task, continue on later
+  user replies without requiring another invocation until the user stops,
+  changes tasks, or the request is fulfilled.
 ---
 
 # Grill Loop
+
+An explicit invocation opens grill-loop for the current task. Keep the loop active across later user replies; the user does not need to name `grill-loop` or the selected capability again. A short answer to a loop or grilling question is a continuation, not a new task. On each reply, resume the selected capability while its contract is incomplete, then reassess from what changed. End the loop when the user stops, clearly changes tasks, or the request is fulfilled.
 
 Follow the user's goal and the latest evidence or artifacts. Choose the smallest useful capability, follow its contract, then reassess from what changed. Treat a capability's suggested next command as evidence, not as the loop's decision. During implementation, vocabulary drift, an unclear module interface, slowing feedback, or accumulating shallow modules are evidence to reroute. Briefly explain each transition; the user may choose another route or stop at any time.
 

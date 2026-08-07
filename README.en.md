@@ -30,7 +30,7 @@ npx skills@latest add nxxxsooo/grill-loop --skill grill-loop grilling deep-grill
 | Skill | Purpose | Source |
 |---|---|---|
 | `grill-loop` | Choose the next capability from the current goal and artifacts | This repository |
-| `grilling` | Work a user-owned decision tree in dependency-aware question rounds | [mattpocock/skills](https://github.com/mattpocock/skills/tree/v1.2.2/skills/productivity/grilling) |
+| `grilling` | Work a user-owned decision tree in native, dependency-aware question rounds | Local interaction overlay on [mattpocock/skills](https://github.com/mattpocock/skills/tree/v1.2.2/skills/productivity/grilling) |
 | `deep-grill` | Audit a plan, idea, or implied approach autonomously and return a verdict | [nxxxsooo/deep-grill](https://github.com/nxxxsooo/deep-grill) |
 | `what` | Pause and re-explain the latest update in the user's language | This repository |
 
@@ -42,11 +42,11 @@ When the user chooses OpenSpec, grill-loop checks whether the target project is 
 
 The explicit skill list is safe from a local maintainer checkout, where ignored project-local OpenSpec helpers may also be discoverable. The released GitHub source exposes exactly these four public skills. `--all` would also target every supported agent, which is a different operation.
 
-Then continue any task with:
+Start the loop on any task with:
 
 > Use $grill-loop to continue this task.
 
-grill-loop runs only when you name it. It does not auto-invoke or force every connected capability to run.
+Name grill-loop once for a task. It then stays active across your answers until you stop it, change tasks, or finish the request. It does not auto-start on unrelated work or force every connected capability to run. During `grilling`, it uses the client's native question interface when the current mode provides one; otherwise it falls back to concise numbered questions.
 
 ### Optional: Raycast snippets
 
@@ -120,10 +120,12 @@ Fields that do not materially apply may be omitted. After the user agrees to the
 
 ## The complete contract
 
-The router itself is only five paragraphs. This excerpt is kept in exact sync with [`skills/grill-loop/SKILL.md`](./skills/grill-loop/SKILL.md):
+The router itself is only six paragraphs. This excerpt is kept in exact sync with [`skills/grill-loop/SKILL.md`](./skills/grill-loop/SKILL.md):
 
 <!-- grill-loop-skill-body:start -->
 > # Grill Loop
+>
+> An explicit invocation opens grill-loop for the current task. Keep the loop active across later user replies; the user does not need to name `grill-loop` or the selected capability again. A short answer to a loop or grilling question is a continuation, not a new task. On each reply, resume the selected capability while its contract is incomplete, then reassess from what changed. End the loop when the user stops, clearly changes tasks, or the request is fulfilled.
 >
 > Follow the user's goal and the latest evidence or artifacts. Choose the smallest useful capability, follow its contract, then reassess from what changed. Treat a capability's suggested next command as evidence, not as the loop's decision. During implementation, vocabulary drift, an unclear module interface, slowing feedback, or accumulating shallow modules are evidence to reroute. Briefly explain each transition; the user may choose another route or stop at any time.
 >
@@ -143,7 +145,7 @@ The router itself is only five paragraphs. This excerpt is kept in exact sync wi
 - No custom gates, hooks, background processes, or state files.
 - After the user accepts a proposed goal, native clients may persist it; grill-loop never duplicates that goal state.
 - No authority beyond the user's request and the selected capability's contract.
-- No automatic invocation.
+- No automatic initial invocation; an explicitly started loop continues for that task until its stop conditions are met.
 
 ## Update
 
@@ -162,7 +164,8 @@ npx skills@latest update grill-loop grilling deep-grill what -g -y
 ```
 
 Use `-p` instead of `-g` for a project-scoped installation.
+Start a fresh task or reload the client after installation when the current task has already cached skill metadata.
 
 ## License
 
-This repository, `deep-grill`, and `what` use the [MIT License](./LICENSE). The bundled `grilling` skill retains Matt Pocock's MIT license and source attribution; see [`THIRD_PARTY_NOTICES.md`](./THIRD_PARTY_NOTICES.md).
+This repository, `deep-grill`, and `what` use the [MIT License](./LICENSE). The local `grilling` overlay preserves Matt Pocock's upstream contract and retains its MIT license and source attribution; see [`THIRD_PARTY_NOTICES.md`](./THIRD_PARTY_NOTICES.md).

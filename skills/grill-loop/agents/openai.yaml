@@ -1,6 +1,6 @@
 interface:
   display_name: "Grill Loop"
-  short_description: "Route work and confirm material transitions"
-  default_prompt: "Use $grill-loop to choose the smallest useful capability, follow it, and confirm material route changes with me."
+  short_description: "Route work continuously after one explicit start"
+  default_prompt: "Use $grill-loop to choose the smallest useful capability, follow it, and keep routing this task after each answer until I stop or the work is done."
 policy:
-  allow_implicit_invocation: false
+  allow_implicit_invocation: true

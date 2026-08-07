@@ -2,7 +2,7 @@
 
 ## grilling
 
-The bundled `skills/grilling` directory is vendored without behavioral changes from:
+The bundled `skills/grilling/references/upstream.md` and license are vendored without behavioral changes from:
 
 - Repository: <https://github.com/mattpocock/skills>
 - Path: `skills/productivity/grilling`
@@ -11,4 +11,4 @@ The bundled `skills/grilling` directory is vendored without behavioral changes f
 - License: MIT
 - Copyright: 2026 Matt Pocock
 
-The installed skill carries the upstream license and source notice in its own directory.
+The installed `grilling` entry point is a local overlay. It adds native question-tool presentation, bounded frontier batches, and continuation across user replies. The skill directory carries the upstream license and source notice.

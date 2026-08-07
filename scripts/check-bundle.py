@@ -49,6 +49,16 @@ def skill_body(path: Path) -> str:
     return "\n".join(lines[closing + 1 :]).strip()
 
 
+def require_fragments(path: Path, fragments: tuple[str, ...], failures: list[str]) -> None:
+    if not path.is_file():
+        failures.append(f"{path}: missing contract file")
+        return
+    text = path.read_text(encoding="utf-8")
+    for fragment in fragments:
+        if fragment not in text:
+            failures.append(f"{path}: missing contract fragment {fragment!r}")
+
+
 def main() -> int:
     failures: list[str] = []
     actual = {path.name for path in SKILLS.iterdir() if path.is_dir()}
@@ -86,6 +96,31 @@ def main() -> int:
     grilling_notice = SKILLS / "grilling" / "NOTICE"
     if not grilling_notice.is_file():
         failures.append(f"{grilling_notice}: missing")
+
+    require_fragments(
+        SKILLS / "grilling" / "SKILL.md",
+        (
+            "every reply in an active grilling session",
+            "native question tool",
+            "Do not repeat the same question in Markdown",
+        ),
+        failures,
+    )
+    require_fragments(
+        SKILLS / "grilling" / "agents" / "openai.yaml",
+        ("allow_implicit_invocation: true",),
+        failures,
+    )
+    require_fragments(
+        SKILLS / "grill-loop" / "SKILL.md",
+        ("Keep the loop active across later user replies",),
+        failures,
+    )
+    require_fragments(
+        SKILLS / "grill-loop" / "agents" / "openai.yaml",
+        ("allow_implicit_invocation: true",),
+        failures,
+    )
 
     grill_loop_license = SKILLS / "grill-loop" / "LICENSE"
     if grill_loop_license.is_file() and digest(grill_loop_license) != digest(ROOT / "LICENSE"):

@@ -4,8 +4,7 @@
     "commit": "8b36d4fb2635b3c21998dcd8144439c9e5ba7302",
     "path": "skills/productivity/grilling",
     "files": {
-      "SKILL.md": "fa5c1e5ee76b1c8f1ae56101f52c9e239de75d5c578adc61227b92d10b7e52ef",
-      "agents/openai.yaml": "1411d7df7d99b7e621a1ff8283c8133cc2464be63d064e52d8ce169c6800ee9b",
+      "references/upstream.md": "fa5c1e5ee76b1c8f1ae56101f52c9e239de75d5c578adc61227b92d10b7e52ef",
       "LICENSE": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
     }
   },

@@ -1,4 +1,8 @@
-grilling is vendored from https://github.com/mattpocock/skills at revision
-8b36d4fb2635b3c21998dcd8144439c9e5ba7302 (release v1.2.2), path
-skills/productivity/grilling. Copyright (c) 2026 Matt Pocock. Licensed under
-the MIT License included in this directory.
+grilling is a local interaction overlay adapted from https://github.com/mattpocock/skills
+at revision 8b36d4fb2635b3c21998dcd8144439c9e5ba7302 (release v1.2.2), path
+skills/productivity/grilling. The unmodified upstream SKILL.md is preserved as
+references/upstream.md. The overlay adds native question-tool presentation,
+bounded frontier batches, and continuation across user replies.
+
+Copyright (c) 2026 Matt Pocock. Licensed under the MIT License included in this
+directory. Local modifications are licensed under the repository MIT License.
