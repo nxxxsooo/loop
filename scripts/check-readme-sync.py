@@ -6,8 +6,8 @@ import sys
 
 
 ROOT = Path(__file__).resolve().parents[1]
-START = "<!-- grill-loop-skill-body:start -->"
-END = "<!-- grill-loop-skill-body:end -->"
+START = "<!-- loop-skill-body:start -->"
+END = "<!-- loop-skill-body:end -->"
 
 
 def skill_body(path: Path) -> str:
@@ -43,7 +43,7 @@ def readme_excerpt(path: Path) -> str:
 
 
 def main() -> int:
-    expected = skill_body(ROOT / "skills" / "grill-loop" / "SKILL.md")
+    expected = skill_body(ROOT / "skills" / "loop" / "SKILL.md")
     failures = []
     for name in ("README.md", "README.en.md"):
         path = ROOT / name

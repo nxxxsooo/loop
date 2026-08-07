@@ -1,22 +1,16 @@
 {
-  "grilling": {
-    "source": "https://github.com/mattpocock/skills",
-    "commit": "8b36d4fb2635b3c21998dcd8144439c9e5ba7302",
-    "path": "skills/productivity/grilling",
-    "files": {
-      "SKILL.md": "fa5c1e5ee76b1c8f1ae56101f52c9e239de75d5c578adc61227b92d10b7e52ef",
-      "agents/openai.yaml": "1411d7df7d99b7e621a1ff8283c8133cc2464be63d064e52d8ce169c6800ee9b",
-      "LICENSE": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
-    }
-  },
   "deep-grill": {
     "source": "https://github.com/nxxxsooo/deep-grill",
-    "commit": "4b4b9a5f6b49212c8b089289e9720321e7dc6fc9",
+    "release": "v3.0.0",
+    "commit": "d9d1fc6634080e6e7333f6e57afb0e75a057822a",
     "path": ".",
     "files": {
-      "SKILL.md": "fece39922bf77e9a972f592f7df37d000b5e2b34ac4cb91e73ca941747bab888",
-      "agents/openai.yaml": "13f79c5b88e577797d572f7e47466000b3b1800eb284c25b477f7d28e6f3a086",
-      "LICENSE": "c3f1ee6aa30e2c4fece9f5e13cf9e1d00d0a6f060567c66603376ddb05d648c7"
+      "SKILL.md": "e0ac564412f2a77681e23da9cfd0835bb25d52f6c07b02ba81101a051699ee5c",
+      "agents/openai.yaml": "37b3321192560f71f7190de35acaa9be89e87620e80d0816142cce4655dc82a2",
+      "LICENSE": "c3f1ee6aa30e2c4fece9f5e13cf9e1d00d0a6f060567c66603376ddb05d648c7",
+      "NOTICE": "2151a3480a71a5c512eb673f7832e8a67c6cb5634c753a5569a060f678d6188c",
+      "THIRD_PARTY_NOTICES.md": "95f18ef89fceb067f1a1399c58ef24c6f28619add7c33840eee250c76474c948",
+      "references/grilling-upstream.md": "fa5c1e5ee76b1c8f1ae56101f52c9e239de75d5c578adc61227b92d10b7e52ef"
     }
   }
 }

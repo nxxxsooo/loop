@@ -1,0 +1,8 @@
+deep-grill discovery mode incorporates an interaction contract from
+https://github.com/mattpocock/skills at revision
+8b36d4fb2635b3c21998dcd8144439c9e5ba7302 (release v1.2.2), path
+skills/productivity/grilling. The unmodified upstream SKILL.md is preserved as
+references/grilling-upstream.md.
+
+Copyright (c) 2026 Matt Pocock. Licensed under the MIT License included in this
+repository. Local modifications are licensed under the same MIT License.

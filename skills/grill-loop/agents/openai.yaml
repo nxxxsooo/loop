@@ -1,6 +1,0 @@
-interface:
-  display_name: "Grill Loop"
-  short_description: "Route work and confirm material transitions"
-  default_prompt: "Use $grill-loop to choose the smallest useful capability, follow it, and confirm material route changes with me."
-policy:
-  allow_implicit_invocation: false
