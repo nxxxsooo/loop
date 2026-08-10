@@ -10,6 +10,7 @@ The approved direction is to restore `what` as an independent skill, keep `loop`
 
 - Make `what` available from any active workflow without taking ownership of that workflow.
 - Preserve the existing explain-and-resume behavior for a bare `?`.
+- Prompt the user to continue the active work immediately after the explanation.
 - Keep `loop` as an explicit entry point for the full Product Brief to Build Contract lifecycle.
 - Document one clear collaboration model for Superpowers, `loop`, and OpenSpec.
 - Avoid duplicate plans, duplicate task state, and manual Plan-mode handoffs.
@@ -18,7 +19,7 @@ The approved direction is to restore `what` as an independent skill, keep `loop`
 
 - Do not make Superpowers a required runtime dependency of this bundle.
 - Do not make `what` answer ordinary content questions that happen to contain a question mark.
-- Do not make `what` advance, restart, or replace the active workflow.
+- Do not let `what` silently execute the pending action while it is explaining the current state.
 - Do not remove OpenSpec support from `deep-design` or `deep-build`.
 - Do not change the internal phase sequence of `loop`.
 
@@ -47,11 +48,11 @@ It must preserve defined project terms. It reads the nearest `CONTEXT.md` when o
 
 After the explanation, `what` offers continuation control:
 
-- `Continue` resumes the previously pending action.
+- `Continue` is the recommended action and resumes the previously pending work.
 - `Adjust next action` changes only the next action unless the adjustment invalidates an already confirmed artifact.
 - `Stop` ends or pauses the active workflow without inventing further work.
 
-Use Codex's native choice UI when `request_user_input` is callable. Otherwise, render the same three choices as concise prose in the current mode. The fallback is automatic: never ask the user to switch to Plan mode and never claim that the native tool was used when it was unavailable. Both paths wait for the user's choice and do not execute the pending action in the explanation response.
+Use Codex's native choice UI when `request_user_input` is callable. Otherwise, render the same three choices as concise prose in the current mode. The fallback is automatic: never ask the user to switch to Plan mode and never claim that the native tool was used when it was unavailable. The explanation must end with an explicit prompt to continue working. Both paths wait for the user's choice before executing the pending action, so explanation and execution do not become an ambiguous single step.
 
 If no active or recoverable workflow exists, `what` states that there is no pending frontier. It must not fabricate state or offer a misleading `Continue`; it asks the user to provide the task they want to orient around.
 
@@ -87,7 +88,7 @@ Small bugs, small features, and single-session changes can use Superpowers direc
 
 ## State and Control Flow
 
-`what` is a control-plane adapter, not a state store. It reads the current conversation, workflow instructions, and durable artifacts to identify the frontier. It does not rewrite Product Briefs, Build Contracts, OpenSpec tasks, or Superpowers plans while explaining them.
+`what` is a control-plane adapter, not a state store. It reads the current conversation, workflow instructions, and durable artifacts to identify the frontier. It temporarily holds the pending action while explaining, then actively prompts the user to resume the work. It does not rewrite Product Briefs, Build Contracts, OpenSpec tasks, or Superpowers plans while explaining them.
 
 On `Continue`, control returns to the workflow and pending step that existed before invocation. On `Adjust next action`, the active workflow evaluates only the requested adjustment and explicitly reports if the change invalidates prior approval. On `Stop`, no downstream phase starts.
 
@@ -130,7 +131,7 @@ Verification must cover structure, documentation, behavior contracts, and instal
 ## Success Criteria
 
 - A bare `?` or explicit `$what` reliably explains and preserves any active workflow frontier.
-- The user can choose `Continue`, `Adjust next action`, or `Stop` without a Plan-mode replay.
+- Every active-workflow explanation ends by prompting the user to continue, adjust the next action, or stop, with `Continue` recommended and no Plan-mode replay.
 - `loop` has one responsibility: the explicit fixed product lifecycle.
 - Superpowers, `loop`, and OpenSpec have complementary roles and do not create duplicate task state.
 - The bundle installs and validates as five skills with no documentation or snippet drift.
