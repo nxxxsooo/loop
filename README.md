@@ -20,19 +20,21 @@
 
 ## 安装
 
-推荐使用引导安装。它会安装完整 bundle，并让你选择 Agent、Project／Global 和 Symlink／Copy：
+推荐使用引导安装。依次安装完整 loop bundle 和 `deep-design` 使用的 `design-taste-frontend`；两次选择相同的 Agent、Project／Global 和 Symlink／Copy：
 
 ```bash
 npx skills@latest add nxxxsooo/loop --skill '*'
+npx skills@latest add Leonxlnx/taste-skill --skill design-taste-frontend
 ```
 
 需要直接完成全局安装时：
 
 ```bash
 npx skills@latest add nxxxsooo/loop -g -y
+npx skills@latest add Leonxlnx/taste-skill --skill design-taste-frontend -g -y
 ```
 
-快速安装会跳过提示，并按 `skills` CLI 的 Agent 检测结果全局安装完整 bundle。
+快速安装会跳过提示，并按 `skills` CLI 的 Agent 检测结果全局安装完整 bundle 与 Taste Skill。
 
 开始任务时说：
 
@@ -67,17 +69,19 @@ npx skills@latest remove grill-loop grilling -g -y
 
 `loop` 会冻结当前动作，重新说明最后确认点、当前子循环和产物、发生的变化、重要性，以及原本准备执行的下一步，但不会结束当前 loop。
 
-解释后，OMO 在可用时使用原生倒计时或自动续接；其他客户端优先显示本地化的原生问题界面，让你继续、调整下一步或停止。没有可调用的原生界面时，使用同语言的一句续接提示。选择继续会立即恢复原本下一步，不必重新点名任何 Skill。
+解释后，Codex 会先检查当前模式的工具元数据。若 `request_user_input` 可调用，会立即显示本地化原生问题界面，让你继续、调整下一步或停止；当前模式不可调用时，会自动改用同语言的一句续接提示，不因模式切换而暂停。选择继续会立即恢复原本下一步，不必重新点名任何 Skill。
 
 ## 原生问题工具
 
-`deep-grill` 和 `deep-design` 会用当前客户端的原生问题界面处理归用户所有的决定。如果工具存在但受模式限制，子循环会保留待决问题，请你切换模式，然后等待。只有客户端没有原生问题界面，或者你明确选择文字方式时，才使用文字问题。
+`deep-grill` 和 `deep-design` 会用当前客户端的原生问题界面处理归用户所有的决定。在 Codex 中，该界面是 `request_user_input`，当前仅在 Plan mode 可调用；其他模式不能靠 Skill 文案强制触发。工具受模式限制时，子循环会保留待决问题，请你切换模式，然后等待。只有客户端没有原生问题界面，或者你明确选择文字方式时，才使用文字问题。
 
 ## 规格与设计
 
 `deep-design` 负责完整的规格和设计过程。小型工作可以把 Build Contract 放在当前任务或原生计划中。耐久、多会话、跨组件或高后果变更，会使用项目的官方 OpenSpec 工作流作为实体 Build Contract。若存在该契约，`deep-build` 使用官方流程实施。
 
 领域、架构、前端、测试和交付等专家能力由当前子循环按需调用，用户无需管理内部路由。
+
+其中，落地页、作品集、编辑型页面或视觉改版出现实质视觉设计问题时，`deep-design` 会在可用时默认加载 `design-taste-frontend`；仪表盘、数据表和多步骤产品界面不走该 Skill。
 
 ## 完整 loop 契约
 
@@ -96,29 +100,9 @@ npx skills@latest remove grill-loop grilling -g -y
 >
 > ## Keep The Loop Active
 >
-> A fresh loop starts only when the user explicitly invokes `loop` or clearly asks to start this workflow. After that, treat every ordinary reply as a continuation of the same loop until the goal is achieved, the user stops, the user clearly changes tasks, or further work requires authority outside the original request. The user does not need to name `loop` or any child again.
+> A fresh loop starts only when the user explicitly invokes `loop`. After that, treat every ordinary reply as a continuation of the same loop until the goal is achieved, the user stops, the user clearly changes tasks, or further work requires authority outside the original request. The user does not need to name `loop` or any child again.
 >
 > Resume the current child while its output contract is incomplete. When its artifact is confirmed, select the next child from artifact readiness without asking the user to nominate a skill or choose a route. State the transition briefly and continue in the same response when the next action is already authorized. Artifact readiness chooses the child; it does not expand the user's authority or the requested endpoint.
->
-> ## Handle `?` Without Breaking Flow
->
-> When the user's entire trimmed message is exactly `?` during an active loop, freeze the current action at its exact frontier while keeping the loop active. Re-explain:
->
-> - the last confirmed point;
-> - the current child and artifact state;
-> - what changed;
-> - why it matters; and
-> - the next action that was about to occur.
->
-> Use the language of the user's latest substantive message and preserve established project terms. Do not delegate, advance an artifact, or present the child's pending domain decision while explaining.
->
-> Immediately after the explanation, present the best continuation control the active host actually supports:
->
-> - In OMO, use its native countdown or autoresume surface when available so the pending next action resumes automatically unless the user intervenes.
-> - Otherwise, when a native question interface is callable, ask whether to `Continue` (recommended), `Adjust next action`, or `Stop`; localize every label and explanation.
-> - When no native continuation interface is callable, ask one concise localized continuation question in prose. Recommend resuming the pending next action while accepting an adjustment or stop in free form.
->
-> Keep the current child, artifact, frontier, and authority active while the continuation control is open. `Continue` resumes the pending next action immediately. `Adjust next action` changes only that action unless the user's instruction invalidates an artifact. `Stop` ends the loop. Never require another skill invocation to resume.
 >
 > ## Route By Artifact Readiness
 >
@@ -147,11 +131,11 @@ npx skills@latest remove grill-loop grilling -g -y
 已安装副本是快照：
 
 ```bash
-npx skills@latest update loop deep-grill deep-design deep-build -g -y
+npx skills@latest update loop deep-grill deep-design deep-build design-taste-frontend -g -y
 ```
 
 如果客户端已经缓存 Skill 元数据，请重新加载或新建任务。
 
 ## 许可证
 
-本 bundle 使用 [MIT License](./LICENSE)。`deep-grill` 保留已整合上游源码的归属信息，见 [`THIRD_PARTY_NOTICES.md`](./THIRD_PARTY_NOTICES.md)。
+本 bundle 使用 [MIT License](./LICENSE)。`deep-grill` 保留已整合上游源码的归属信息，见 [`THIRD_PARTY_NOTICES.md`](./THIRD_PARTY_NOTICES.md)。`design-taste-frontend` 从 [`Leonxlnx/taste-skill`](https://github.com/Leonxlnx/taste-skill) 独立安装，不属于本 bundle，其许可证与更新由上游管理。

@@ -125,12 +125,10 @@ def main() -> int:
 
     contracts = {
         "loop": (
+            "A fresh loop starts only when the user explicitly invokes `loop`.",
             "without asking the user to nominate a skill or choose a route",
-            "`request_user_input` is callable in the active mode",
-            "fall back automatically without pausing for a mode switch",
-            "`Continue` (recommended), `Adjust next action`, or `Stop`",
-            "Never require another skill invocation to resume",
             "Route By Artifact Readiness",
+            "Preserve One Source Of State",
             "The user does not manage internal routing",
         ),
         "deep-grill": (
@@ -186,6 +184,7 @@ def main() -> int:
         (
             "Handle `?` Without Breaking Flow",
             "When the user's entire trimmed message is exactly `?`",
+            "`request_user_input` is callable in the active mode",
             "OMO",
             "countdown or autoresume",
             "`grill-loop`",
@@ -195,6 +194,18 @@ def main() -> int:
             "Wayfinder",
             "Wait for the next user reply",
             "not a skill",
+        ),
+        failures,
+    )
+    reject_fragments(
+        SKILLS / "loop" / "agents" / "openai.yaml",
+        (
+            "message containing only ?",
+            "request_user_input",
+            "Continue",
+            "Adjust next action",
+            "continuation prompt",
+            "checkpoint",
         ),
         failures,
     )
@@ -233,28 +244,29 @@ def main() -> int:
                     f"{raycast_path}: expected exactly {sorted(EXPECTED_RAYCAST_SNIPPETS)}, "
                     f"got {names}"
                 )
-            for item in snippets:
-                if not isinstance(item, dict):
-                    failures.append(f"{raycast_path}: every snippet must be an object")
-                    continue
-                name = item.get("name")
-                expected = EXPECTED_RAYCAST_SNIPPETS.get(name)
-                if expected is None:
-                    continue
-                if item.get("keyword") != expected["keyword"]:
-                    failures.append(
-                        f"{raycast_path}: {name!r} keyword must be {expected['keyword']!r}"
-                    )
-                try:
-                    expected_text = skill_body(SKILLS / expected["skill"] / "SKILL.md")
-                except (OSError, ValueError) as error:
-                    failures.append(str(error))
-                else:
-                    if item.get("text") != expected_text:
+            else:
+                for item in snippets:
+                    if not isinstance(item, dict):
+                        failures.append(f"{raycast_path}: every snippet must be an object")
+                        continue
+                    name = item.get("name")
+                    expected = EXPECTED_RAYCAST_SNIPPETS.get(name)
+                    if expected is None:
+                        continue
+                    if item.get("keyword") != expected["keyword"]:
                         failures.append(
-                            f"{raycast_path}: {name!r} text differs from "
-                            f"skills/{expected['skill']}/SKILL.md body"
+                            f"{raycast_path}: {name!r} keyword must be {expected['keyword']!r}"
                         )
+                    try:
+                        expected_text = skill_body(SKILLS / expected["skill"] / "SKILL.md")
+                    except (OSError, ValueError) as error:
+                        failures.append(str(error))
+                    else:
+                        if item.get("text") != expected_text:
+                            failures.append(
+                                f"{raycast_path}: {name!r} text differs from "
+                                f"skills/{expected['skill']}/SKILL.md body"
+                            )
 
     if failures:
         print("\n".join(failures), file=sys.stderr)
