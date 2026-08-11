@@ -23,13 +23,17 @@ Trace desired behavior through the relevant system boundaries. Resolve only what
 
 Use domain, architecture, research, frontend, prototype, visual-design, or other specialists only for a material unresolved design question. Feed their accepted decisions back into the Build Contract. They do not own progression or create parallel workflow state.
 
-Ask the user only for material decisions involving goals, priorities, risk tolerance, taste, or authority. Use the active client's native question interface when callable. If the interface is supported but gated behind another mode, preserve the pending decision, name the required mode when the client identifies it, ask the user to switch and continue, then wait. Use concise prose only when no native question interface exists or the user explicitly chooses prose.
+When `design-taste-frontend` is available and the material question concerns a landing page, portfolio, editorial page, or visual redesign, load it as the default visual-design specialist. During `deep-design`, use it to resolve and record visual direction, not to implement. It does not apply to dashboards, data tables, or multi-step product UI; choose a specialist suited to those interfaces.
+
+Ask the user only for material decisions involving goals, priorities, risk tolerance, taste, or authority. If `request_user_input` is callable now, use it for the pending material decision. If it is unavailable in the current mode, present the same localized concise prose question now. Preserve the pending branch or design decision, recommend the same option, and continue from the ordinary reply. Use concise prose only when the active client has no native question interface or the user explicitly chooses prose. Do not repeat a successful native question call in Markdown.
 
 ## Use OpenSpec As An Adapter
 
-Inspect the target project for its OpenSpec configuration and instructions. Use the official installed OpenSpec workflow and CLI when the project already uses it, or when the change is durable, multi-session, cross-component, high-consequence, or benefits materially from a maintained change record. Never fabricate OpenSpec setup or schema.
+Inspect the target project for its OpenSpec configuration and instructions. Never fabricate OpenSpec setup or schema.
 
-When OpenSpec is used, its proposal, specs, design, and tasks are the physical Build Contract. Keep them internally consistent and use their official validation flow. For a small, low-risk, single-session change, the Build Contract may instead live in the current task or the client's native plan. OpenSpec and compact contracts have the same semantic readiness requirements.
+If a relevant OpenSpec change is already active, continue its official workflow and treat its artifacts as the sole physical Build Contract. Do not open a second plan.
+
+If no relevant change is active, do not create one merely because OpenSpec is installed or initialized. Create a new change only when the user explicitly requests it or the work is durable, multi-session, cross-component, migratory, security-sensitive, architecturally consequential, or needs a maintained handoff record.
 
 ## Produce The Build Contract
 

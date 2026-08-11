@@ -1,11 +1,11 @@
 {
   "deep-grill": {
     "source": "https://github.com/nxxxsooo/deep-grill",
-    "release": "v3.0.0",
-    "commit": "d9d1fc6634080e6e7333f6e57afb0e75a057822a",
+    "release": "v3.0.1",
+    "commit": "9dc43b44bfe2bf9031a044f38836d6ddb0994dd0",
     "path": ".",
     "files": {
-      "SKILL.md": "e0ac564412f2a77681e23da9cfd0835bb25d52f6c07b02ba81101a051699ee5c",
+      "SKILL.md": "a86acce01568b97c933a9efe0a2a8784fae543ff1e74aa3bbc9fef9c3c562daa",
       "agents/openai.yaml": "37b3321192560f71f7190de35acaa9be89e87620e80d0816142cce4655dc82a2",
       "LICENSE": "c3f1ee6aa30e2c4fece9f5e13cf9e1d00d0a6f060567c66603376ddb05d648c7",
       "NOTICE": "2151a3480a71a5c512eb673f7832e8a67c6cb5634c753a5569a060f678d6188c",

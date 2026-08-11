@@ -37,13 +37,13 @@ Ask the user only about frontier decisions that the agent cannot own. Recompute 
 
 ## Use Native Questions
 
-Before presenting the first user decision, determine from the active client's tool metadata whether its native question interface is callable now, supported but gated behind another mode, or unsupported.
+Before presenting the first user decision, determine from the active client's tool metadata whether its native question interface is callable now, unavailable in the current mode, or unsupported.
 
 - If callable, use one native question call for the round and include as many frontier decisions as the tool supports.
-- If mode-gated, do not present the decision in prose. Name the question-capable mode when the client identifies it, ask the user to switch and continue, then wait with the pending frontier intact.
-- Use concise numbered prose only when the client has no native question interface or the user explicitly chooses prose.
+- If unavailable in the current mode or unsupported, ask the same concise localized prose question immediately. Preserve the pending frontier and the recommended option, then continue from the ordinary reply.
+- If the user explicitly chooses prose, keep the same frontier and recommendation structure in concise numbered prose.
 
-Each native question asks one decision, offers two or three mutually exclusive options, puts and marks the recommended option first, explains its main tradeoff in one sentence, and preserves free-form input. Do not repeat a successful native question call in Markdown.
+Each native question and prose fallback asks one decision, offers two or three mutually exclusive options, puts and marks the recommended option first, explains its main tradeoff in one sentence, and preserves free-form input. Do not repeat a successful native question call in Markdown.
 
 ## Discovery Output
 
@@ -61,11 +61,11 @@ Success scenarios:
 Residual risks:
 ```
 
-Ask the user to confirm the brief through the native question interface under the same mode rules. The brief is ready for `deep-design` only after confirmation and when no root product decision remains open.
+Ask the user to confirm the brief through the native question interface when callable; otherwise use the same concise localized prose fallback under the same mode rules. The brief is ready for `deep-design` only after confirmation and when no root product decision remains open.
 
 ## Audit Output
 
-Report the target, verdict, recommended revisions, supporting evidence, strongest objections, failure scenarios, evidence limits, residual risks, unresolved items, and unexamined scope. Keep one or two bounded user choices inside the audit using the same native question rules. If a decision tree emerges, continue in discovery mode instead of recommending another grilling skill.
+Report the target, verdict, recommended revisions, supporting evidence, strongest objections, failure scenarios, evidence limits, residual risks, unresolved items, and unexamined scope. Keep one or two bounded user choices inside the audit using the same native question and prose fallback rules. If a decision tree emerges, continue in discovery mode instead of recommending another grilling skill.
 
 Do not implement or otherwise act on a Product Brief or verdict until the user confirms it or separately authorizes the next phase.
 

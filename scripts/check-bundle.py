@@ -114,8 +114,10 @@ def main() -> int:
     if set(sources) != {"deep-grill"}:
         failures.append(f"bundle-sources.json: expected only deep-grill, got {sorted(sources)}")
     for name, source in sources.items():
-        if source.get("commit") != "d9d1fc6634080e6e7333f6e57afb0e75a057822a":
-            failures.append(f"bundle-sources.json: {name} is not pinned to released v3 commit")
+        if source.get("release") != "v3.0.1":
+            failures.append(f"bundle-sources.json: {name} is not pinned to release v3.0.1")
+        if source.get("commit") != "9dc43b44bfe2bf9031a044f38836d6ddb0994dd0":
+            failures.append(f"bundle-sources.json: {name} is not pinned to released v3.0.1 commit")
         for relative, expected_hash in source["files"].items():
             path = SKILLS / name / relative
             if not path.is_file():
@@ -134,7 +136,9 @@ def main() -> int:
         "deep-grill": (
             "discovery mode",
             "audit mode",
-            "supported but gated behind another mode",
+            "unavailable in the current mode",
+            "ask the same concise localized prose question immediately",
+            "Preserve the pending frontier and the recommended option",
             "confirmed Product Brief",
         ),
         "deep-design": (
@@ -142,11 +146,18 @@ def main() -> int:
             "confirmed Build Contract",
             "design-taste-frontend",
             "Use OpenSpec As An Adapter",
+            "If `request_user_input` is callable now, use it for the pending material decision.",
+            "If it is unavailable in the current mode, present the same localized concise prose question now.",
+            "Preserve the pending branch or design decision, recommend the same option, and continue from the ordinary reply.",
+            "If a relevant OpenSpec change is already active, continue its official workflow and treat its artifacts as the sole physical Build Contract. Do not open a second plan.",
+            "If no relevant change is active, do not create one merely because OpenSpec is installed or initialized.",
             "Do not implement",
         ),
         "deep-build": (
             "confirmed Build Contract",
             "Build In Verified Slices",
+            "When an active relevant OpenSpec change exists, it remains the sole task state.",
+            "Superpowers TDD, debugging, review, and verification skills may be used as focused implementation methods when available, but they must not create a duplicate plan or replace OpenSpec task state.",
             "Changes:",
             "Remaining risks:",
         ),
@@ -218,7 +229,24 @@ def main() -> int:
         )
     reject_fragments(
         SKILLS / "deep-grill" / "SKILL.md",
-        ("recommend `grilling`", "hands that interview back to `grilling`"),
+        (
+            "recommend `grilling`",
+            "hands that interview back to `grilling`",
+            "mode-gated",
+            "ask the user to switch",
+            "switch to Plan mode",
+            "wait with the pending frontier intact",
+        ),
+        failures,
+    )
+    reject_fragments(
+        SKILLS / "deep-design" / "SKILL.md",
+        (
+            "mode-gated",
+            "ask the user to switch",
+            "switch to Plan mode",
+            "wait with the pending frontier intact",
+        ),
         failures,
     )
 
