@@ -10,7 +10,7 @@
   <a href="./LICENSE"><img src="https://img.shields.io/badge/许可证-MIT-5eead4?style=flat-square" alt="MIT 许可证"></a>
 </p>
 
-`loop` 是唯一的常规入口。只需调用一次，它就会按产物就绪状态持续推进当前产品任务，不再要求你手动指定下一个 Skill。
+安装了 Superpowers 时，它是日常执行的默认方法；`loop` 仍可隐式承接完整的产品生命周期，不要求每次显式点名。它按产物就绪状态持续推进当前产品任务，而 `what` 负责跨工作流的解释与续接控制；两者都不创建第二份持久计划。
 
 ```text
 想法 -> deep-grill -> Product Brief
@@ -36,11 +36,11 @@ npx skills@latest add Leonxlnx/taste-skill --skill design-taste-frontend -g -y
 
 快速安装会跳过提示，并按 `skills` CLI 的 Agent 检测结果全局安装完整 bundle 与 Taste Skill。
 
-开始任务时说：
+直接描述想法或明确说 `$loop` 都可以启动这条产品生命周期：
 
 > 使用 $loop 把这个想法推进到设计和实现。
 
-后续普通回复会继续当前子循环。你也可以单独调用任意 `deep-*` Skill；直接调用不会自动开启持久 `loop`。
+后续普通回复会继续当前子循环。你也可以单独调用任意 `deep-*` Skill；直接调用只完成该项工作，不会自动开启完整生命周期。
 
 ## 从 grill-loop v2 迁移
 
@@ -54,30 +54,31 @@ npx skills@latest remove grill-loop grilling -g -y
 
 | Skill | 负责内容 | 就绪条件 |
 |---|---|---|
-| `loop` | 会话持续、产物迁移和 `?` | 用户要求的终点完成 |
+| `loop` | 隐式可用的产品生命周期与产物迁移 | 用户要求的终点完成 |
 | `deep-grill` | 想法澄清和对抗性审查 | Product Brief 或审查结论确认 |
 | `deep-design` | 产品规格与实现设计 | Build Contract 确认 |
 | `deep-build` | 实现、验证和授权范围内的交付 | 必过场景成功 |
+| `what` | 解释当前工作前沿并等待续接选择 | 用户继续、调整下一步或停止 |
 
-## `?` 表示解释并续接
+## `?` 与 `$what`：解释后再续接
 
-在活跃 loop 中，只发送：
+在任一活跃工作流中，整条消息只有：
 
 ```text
 ?
 ```
 
-`loop` 会冻结当前动作，重新说明最后确认点、当前子循环和产物、发生的变化、重要性，以及原本准备执行的下一步，但不会结束当前 loop。
+或显式调用 `$what`，都会由独立的 `what` Skill 暂停当前动作。它会说明最后确认点、当前工作流和步骤、已变化的产物、这些状态的重要性，以及原本准备执行的下一步。普通句子里包含 `?` 不会触发；没有活跃工作流时，`?` 没有特殊含义。
 
-解释后，Codex 会先检查当前模式的工具元数据。若 `request_user_input` 可调用，会立即显示本地化原生问题界面，让你继续、调整下一步或停止；当前模式不可调用时，会自动改用同语言的一句续接提示，不因模式切换而暂停。选择继续会立即恢复原本下一步，不必重新点名任何 Skill。
+解释后，`what` 必须等待你选择「继续（推荐）」「调整下一步」或「停止」；只有选择继续，才会执行原本的下一步。`request_user_input` 当前可调用时使用本地化原生界面；不可调用时立即在当前模式用同语言的简洁文字给出相同选择。不会为了提问或续接要求切换到 Plan mode。
 
 ## 原生问题工具
 
-`deep-grill` 和 `deep-design` 会用当前客户端的原生问题界面处理归用户所有的决定。在 Codex 中，该界面是 `request_user_input`，当前仅在 Plan mode 可调用；其他模式不能靠 Skill 文案强制触发。工具受模式限制时，子循环会保留待决问题，请你切换模式，然后等待。只有客户端没有原生问题界面，或者你明确选择文字方式时，才使用文字问题。
+`deep-grill` 和 `deep-design` 用当前客户端的原生问题界面处理归用户所有的实质决定。`request_user_input` 当前可调用时直接使用；当前模式不可调用、客户端不支持，或你明确选择文字时，立即用同语言的简洁问题继续，不暂停等待模式切换。两者会保留待决分支和推荐项，并接受普通回复继续同一决策树。
 
 ## 规格与设计
 
-`deep-design` 负责完整的规格和设计过程。小型工作可以把 Build Contract 放在当前任务或原生计划中。耐久、多会话、跨组件或高后果变更，会使用项目的官方 OpenSpec 工作流作为实体 Build Contract。若存在该契约，`deep-build` 使用官方流程实施。
+`deep-design` 负责完整的规格和设计过程。Superpowers 在可用时提供日常 TDD、调试、评审和验证方法，但不应额外创建持久计划。相关 OpenSpec change 已经活跃时，它的 artifacts 是唯一的实体 Build Contract 和任务状态；仅初始化了 OpenSpec 不会触发新 change。只有用户明确要求，或工作属于耐久、多会话、跨组件、迁移、安全、重要架构、高后果或需要长期交接的范围，才创建或使用新的 OpenSpec change。
 
 领域、架构、前端、测试和交付等专家能力由当前子循环按需调用，用户无需管理内部路由。
 
@@ -124,14 +125,18 @@ npx skills@latest remove grill-loop grilling -g -y
 
 ## Raycast
 
-导入 [`skills/loop/assets/raycast-snippets.json`](./skills/loop/assets/raycast-snippets.json)，即可使用 `;lp`、`;dg`、`;dd` 和 `;db`。安装 Skill 不会修改 Raycast。
+导入 [`skills/loop/assets/raycast-snippets.json`](./skills/loop/assets/raycast-snippets.json)，即可使用 `loop ;lp`、`deep grill ;dg`、`deep design ;dd`、`deep build ;db` 和 `what ;wt`。`npx skills` 会更新已安装的 Skill 和这个 JSON 文件，但不会修改已经导入 Raycast 的条目；导入后请在 Raycast 中原位更新这五条，避免留下旧的 loop-owned `?` 文案或重复入口。
 
 ## 更新
 
 已安装副本是快照：
 
 ```bash
-npx skills@latest update loop deep-grill deep-design deep-build design-taste-frontend -g -y
+# loop、deep-grill、deep-design、deep-build 和 what 同属一个 bundle
+npx skills@latest update loop -g -y
+
+# Taste 是独立上游 Skill，按自己的更新路径刷新
+npx skills@latest update design-taste-frontend -g -y
 ```
 
 如果客户端已经缓存 Skill 元数据，请重新加载或新建任务。

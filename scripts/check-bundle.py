@@ -30,10 +30,8 @@ TASTE_INSTALL = (
     "npx skills@latest add Leonxlnx/taste-skill "
     "--skill design-taste-frontend"
 )
-COMPLETE_UPDATE = (
-    "npx skills@latest update loop deep-grill deep-design deep-build "
-    "design-taste-frontend -g -y"
-)
+BUNDLE_UPDATE = "npx skills@latest update loop -g -y"
+TASTE_UPDATE = "npx skills@latest update design-taste-frontend -g -y"
 
 
 def digest(path: Path) -> str:
@@ -187,7 +185,7 @@ def main() -> int:
     for readme_name in ("README.md", "README.en.md"):
         require_fragments(
             ROOT / readme_name,
-            (TASTE_INSTALL, COMPLETE_UPDATE, "Leonxlnx/taste-skill"),
+            (TASTE_INSTALL, BUNDLE_UPDATE, TASTE_UPDATE, "Leonxlnx/taste-skill"),
             failures,
         )
 
@@ -267,11 +265,10 @@ def main() -> int:
             failures.append(f"{raycast_path}: invalid JSON: {error}")
         else:
             names = [item.get("name") for item in snippets if isinstance(item, dict)]
-            if len(snippets) != len(EXPECTED_RAYCAST_SNIPPETS) or set(names) != set(
-                EXPECTED_RAYCAST_SNIPPETS
-            ):
+            expected_names = list(EXPECTED_RAYCAST_SNIPPETS)
+            if names != expected_names:
                 failures.append(
-                    f"{raycast_path}: expected exactly {sorted(EXPECTED_RAYCAST_SNIPPETS)}, "
+                    f"{raycast_path}: expected exactly ordered entries {expected_names}, "
                     f"got {names}"
                 )
             else:

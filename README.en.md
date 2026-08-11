@@ -10,7 +10,7 @@
   <a href="./LICENSE"><img src="https://img.shields.io/badge/license-MIT-5eead4?style=flat-square" alt="MIT License"></a>
 </p>
 
-`loop` is the only normal entry point. Invoke it once; it keeps the active product task moving by artifact readiness instead of asking you to nominate the next skill.
+When installed, Superpowers is the default method for day-to-day execution. `loop` remains implicitly available for the complete product lifecycle without requiring an explicit invocation every time; `what` owns cross-workflow explanation and continuation controls. Neither creates duplicate durable plans.
 
 ```text
 idea -> deep-grill -> Product Brief
@@ -36,11 +36,11 @@ npx skills@latest add Leonxlnx/taste-skill --skill design-taste-frontend -g -y
 
 The fast commands skip prompts and install the complete bundle and Taste Skill globally according to the `skills` CLI agent detection.
 
-Start a task with:
+Describe the idea directly or explicitly use `$loop` to begin the product lifecycle:
 
 > Use $loop to take this idea through design and build.
 
-Ordinary replies continue the active child. You may also invoke any `deep-*` skill directly for isolated work without activating the persistent loop.
+Ordinary replies continue the active child. You may also invoke any `deep-*` skill directly for isolated work; direct use completes that work but does not automatically start the complete lifecycle.
 
 ## Migrate from grill-loop v2
 
@@ -54,30 +54,31 @@ Then use either installation path above.
 
 | Skill | Owns | Ready when |
 |---|---|---|
-| `loop` | Persistence, transitions, and `?` | The requested endpoint is complete |
+| `loop` | Implicitly available product lifecycle and artifact transitions | The requested endpoint is complete |
 | `deep-grill` | Idea discovery and adversarial audit | Product Brief or audit verdict is confirmed |
 | `deep-design` | Product specification and implementation design | Build Contract is confirmed |
 | `deep-build` | Implementation, verification, and authorized delivery | Must-pass scenarios succeed |
+| `what` | Explain the active frontier and wait for continuation | The user continues, adjusts the next action, or stops |
 
-## `?` explains and reconnects
+## `?` and `$what`: explain, then continue
 
-During an active loop, send exactly:
+During any active workflow, send exactly:
 
 ```text
 ?
 ```
 
-`loop` freezes the current action and re-explains the last confirmed point, current child and artifact, what changed, why it matters, and the pending next action without ending the active loop.
+or explicitly invoke `$what`. The standalone `what` skill pauses the current action and explains the last confirmed point, current workflow and step, changed artifacts, why the state matters, and the pending next action. A normal sentence that merely contains `?` does not trigger it, and `?` has no special meaning outside active work.
 
-After the explanation, Codex checks the current mode's tool metadata. When `request_user_input` is callable, it immediately shows a localized native question that lets you continue, adjust the next action, or stop. When it is not callable in the active mode, Codex automatically uses one concise continuation prompt in your language instead of pausing for a mode switch. Continuing immediately resumes the pending next action without another skill invocation.
+After explaining, `what` waits for `Continue` (recommended), `Adjust next action`, or `Stop`; it executes the pending action only after `Continue`. When `request_user_input` is callable, it uses localized native UI. Otherwise it immediately presents the same concise localized choices in the current mode. It never asks you to switch to Plan mode merely to answer or continue.
 
 ## Native questions
 
-`deep-grill` and `deep-design` use the active client's native question interface for user-owned decisions. In Codex, that interface is `request_user_input`, and it is currently callable only in Plan mode; skill wording cannot force it to trigger in another mode. If the interface is mode-gated, the child keeps the pending decision intact, asks you to switch modes, and waits. Prose is used only when no native question interface exists or you explicitly choose it.
+`deep-grill` and `deep-design` use the active client's native question interface for material user-owned decisions when it is callable. When it is unavailable in the current mode, unsupported by the client, or you explicitly choose prose, they immediately ask the same concise localized question instead. They preserve the pending decision and recommendation, then continue from an ordinary reply rather than waiting for a mode switch.
 
 ## Specification and design
 
-`deep-design` owns the complete specification and design process. For small work, its Build Contract may live in the current task or native plan. For durable, multi-session, cross-component, or high-consequence changes, it uses the project's official OpenSpec workflow as the physical Build Contract. `deep-build` then applies that contract through the official workflow when present.
+`deep-design` owns the complete specification and design process. Superpowers supplies daily TDD, debugging, review, and verification methods when available, without creating a second durable plan. An active relevant OpenSpec change is the sole physical Build Contract and task state; merely having OpenSpec installed or initialized does not create one. Create or use a new change only when the user explicitly requests it or the work is durable, multi-session, cross-component, migratory, security-sensitive, architecturally consequential, high-consequence, or needs a maintained handoff record.
 
 The active child calls domain, architecture, frontend, testing, and delivery specialists as needed; the user does not manage internal routing.
 
@@ -124,14 +125,18 @@ This excerpt stays in exact sync with [`skills/loop/SKILL.md`](./skills/loop/SKI
 
 ## Raycast
 
-Import [`skills/loop/assets/raycast-snippets.json`](./skills/loop/assets/raycast-snippets.json) to use `;lp`, `;dg`, `;dd`, and `;db`. Installing the skills does not modify Raycast.
+Import [`skills/loop/assets/raycast-snippets.json`](./skills/loop/assets/raycast-snippets.json) to use `loop ;lp`, `deep grill ;dg`, `deep design ;dd`, `deep build ;db`, and `what ;wt`. `npx skills` updates installed skills and this JSON file, not entries already imported into Raycast; update those five entries in place after importing so retired loop-owned `?` text and duplicate entries do not remain.
 
 ## Update
 
 Installed copies are snapshots:
 
 ```bash
-npx skills@latest update loop deep-grill deep-design deep-build design-taste-frontend -g -y
+# loop, deep-grill, deep-design, deep-build, and what share one bundle
+npx skills@latest update loop -g -y
+
+# Taste is an independently installed upstream skill
+npx skills@latest update design-taste-frontend -g -y
 ```
 
 Reload the client or start a fresh task when it has cached skill metadata.
