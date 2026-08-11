@@ -1,0 +1,6 @@
+interface:
+  display_name: "What"
+  short_description: "Explain the active frontier and prompt to continue"
+  default_prompt: "Use $what to explain the last confirmed point, the current workflow frontier, what changed, why it matters, and whether to Continue, Adjust next action, or Stop."
+policy:
+  allow_implicit_invocation: true

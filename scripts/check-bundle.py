@@ -11,13 +11,29 @@ import sys
 
 ROOT = Path(__file__).resolve().parents[1]
 SKILLS = ROOT / "skills"
-EXPECTED = {"loop", "deep-grill", "deep-design", "deep-build"}
+EXPECTED = {"loop", "deep-grill", "deep-design", "deep-build", "what"}
+EXPECTED_IMPLICIT_INVOCATION = {
+    "loop": False,
+    "deep-grill": True,
+    "deep-design": True,
+    "deep-build": True,
+    "what": True,
+}
 EXPECTED_RAYCAST_SNIPPETS = {
     "loop": {"keyword": ";lp", "skill": "loop"},
     "deep grill": {"keyword": ";dg", "skill": "deep-grill"},
     "deep design": {"keyword": ";dd", "skill": "deep-design"},
     "deep build": {"keyword": ";db", "skill": "deep-build"},
+    "what": {"keyword": ";wt", "skill": "what"},
 }
+TASTE_INSTALL = (
+    "npx skills@latest add Leonxlnx/taste-skill "
+    "--skill design-taste-frontend"
+)
+COMPLETE_UPDATE = (
+    "npx skills@latest update loop deep-grill deep-design deep-build "
+    "design-taste-frontend -g -y"
+)
 
 
 def digest(path: Path) -> str:
@@ -109,10 +125,9 @@ def main() -> int:
 
     contracts = {
         "loop": (
-            "When the user's entire trimmed message is exactly `?`",
             "without asking the user to nominate a skill or choose a route",
-            "Handle `?` Without Breaking Flow",
-            "native countdown or autoresume surface",
+            "`request_user_input` is callable in the active mode",
+            "fall back automatically without pausing for a mode switch",
             "`Continue` (recommended), `Adjust next action`, or `Stop`",
             "Never require another skill invocation to resume",
             "Route By Artifact Readiness",
@@ -127,6 +142,7 @@ def main() -> int:
         "deep-design": (
             "confirmed Product Brief",
             "confirmed Build Contract",
+            "design-taste-frontend",
             "Use OpenSpec As An Adapter",
             "Do not implement",
         ),
@@ -136,18 +152,42 @@ def main() -> int:
             "Changes:",
             "Remaining risks:",
         ),
+        "what": (
+            "Treat only an entire trimmed `?` message and an explicit `$what` invocation as the checkpoint trigger.",
+            "Do not intercept an ordinary question that merely contains `?`.",
+            "State the last confirmed point, current workflow and step, changed artifacts, why the state matters, and the pending next action.",
+            "When `request_user_input` is callable, invoke it with `Continue` (recommended), `Adjust next action`, and `Stop`.",
+            "Otherwise, render the same localized choices in concise prose without requesting a mode switch.",
+            "End every active-work explanation with that continuation prompt.",
+            "Execute the pending action only after the user chooses `Continue`.",
+            "no resumable frontier exists",
+            "what task to orient around",
+        ),
     }
     for name, fragments in contracts.items():
         require_fragments(SKILLS / name / "SKILL.md", fragments, failures)
         require_fragments(
             SKILLS / name / "agents" / "openai.yaml",
-            ("allow_implicit_invocation: true",),
+            (
+                f"allow_implicit_invocation: {str(EXPECTED_IMPLICIT_INVOCATION[name]).lower()}",
+            ),
+            failures,
+        )
+
+    for readme_name in ("README.md", "README.en.md"):
+        require_fragments(
+            ROOT / readme_name,
+            (TASTE_INSTALL, COMPLETE_UPDATE, "Leonxlnx/taste-skill"),
             failures,
         )
 
     reject_fragments(
         SKILLS / "loop" / "SKILL.md",
         (
+            "Handle `?` Without Breaking Flow",
+            "When the user's entire trimmed message is exactly `?`",
+            "OMO",
+            "countdown or autoresume",
             "`grill-loop`",
             "Use `grilling`",
             "`what`",
@@ -158,13 +198,20 @@ def main() -> int:
         ),
         failures,
     )
+
+    for readme_name in ("README.md", "README.en.md"):
+        reject_fragments(
+            ROOT / readme_name,
+            ("OMO", "countdown or autoresume", "倒计时或自动续接"),
+            failures,
+        )
     reject_fragments(
         SKILLS / "deep-grill" / "SKILL.md",
         ("recommend `grilling`", "hands that interview back to `grilling`"),
         failures,
     )
 
-    for name in ("loop", "deep-design", "deep-build"):
+    for name in ("loop", "deep-design", "deep-build", "what"):
         license_path = SKILLS / name / "LICENSE"
         if license_path.is_file() and digest(license_path) != digest(ROOT / "LICENSE"):
             failures.append(f"{license_path}: differs from repository LICENSE")
