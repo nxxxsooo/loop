@@ -25,7 +25,7 @@ Use domain, architecture, research, frontend, prototype, visual-design, or other
 
 When `design-taste-frontend` is available and the material question concerns a landing page, portfolio, editorial page, or visual redesign, load it as the default visual-design specialist. During `deep-design`, use it to resolve and record visual direction, not to implement. It does not apply to dashboards, data tables, or multi-step product UI; choose a specialist suited to those interfaces.
 
-Ask the user only for material decisions involving goals, priorities, risk tolerance, taste, or authority. If `request_user_input` is callable now, use it for the pending material decision. If it is unavailable in the current mode, present the same localized concise prose question now. Preserve the pending branch or design decision, recommend the same option, and continue from the ordinary reply. Use concise prose only when the active client has no native question interface or the user explicitly chooses prose. Do not repeat a successful native question call in Markdown.
+Ask the user only for material decisions involving goals, priorities, risk tolerance, taste, or authority. If `request_user_input` is callable now, use it for the pending material decision. If it is unavailable in the current mode, present the same localized concise prose question now. Preserve the pending branch or design decision, recommend the same option, and continue from the ordinary reply. Use concise localized prose automatically when `request_user_input` is unavailable in the current mode, when the active client has no native question interface, or when the user explicitly chooses prose. Do not repeat a successful native question call in Markdown.
 
 ## Use OpenSpec As An Adapter
 

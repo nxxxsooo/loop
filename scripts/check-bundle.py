@@ -149,6 +149,7 @@ def main() -> int:
             "If `request_user_input` is callable now, use it for the pending material decision.",
             "If it is unavailable in the current mode, present the same localized concise prose question now.",
             "Preserve the pending branch or design decision, recommend the same option, and continue from the ordinary reply.",
+            "Use concise localized prose automatically when `request_user_input` is unavailable in the current mode, when the active client has no native question interface, or when the user explicitly chooses prose.",
             "If a relevant OpenSpec change is already active, continue its official workflow and treat its artifacts as the sole physical Build Contract. Do not open a second plan.",
             "If no relevant change is active, do not create one merely because OpenSpec is installed or initialized.",
             "Do not implement",
@@ -246,6 +247,7 @@ def main() -> int:
             "ask the user to switch",
             "switch to Plan mode",
             "wait with the pending frontier intact",
+            "Use concise prose only when the active client has no native question interface or the user explicitly chooses prose.",
         ),
         failures,
     )
