@@ -4,6 +4,8 @@
 
 The bundle currently embeds the bare `?` checkpoint inside `loop`. That makes a general conversation control look like a lifecycle-specific feature. It also makes `loop` appear to be the source of replay behavior even when a task actually entered through Superpowers.
 
+The native-question failure reported in Codex comes from the child decision rules: `deep-grill` and `deep-design` currently ask the user to switch to Plan mode when `request_user_input` is unavailable. The approved automatic fallback must therefore apply to those decision rules as well as the `what` checkpoint.
+
 The approved direction is to restore `what` as an independent skill, keep `loop` focused on its fixed product lifecycle, use Superpowers as the default day-to-day execution system when it is available, and reserve OpenSpec for durable change state rather than every initialized OpenSpec project.
 
 ## Goals
@@ -13,7 +15,7 @@ The approved direction is to restore `what` as an independent skill, keep `loop`
 - Prompt the user to continue the active work immediately after the explanation.
 - Keep `loop` as an explicit entry point for the full Product Brief to Build Contract lifecycle.
 - Document one clear collaboration model for Superpowers, `loop`, and OpenSpec.
-- Avoid duplicate plans, duplicate task state, and manual Plan-mode handoffs.
+- Avoid duplicate plans, duplicate task state, and manual Plan-mode handoffs for checkpoints or material user decisions.
 
 ## Non-goals
 
@@ -55,6 +57,15 @@ After the explanation, `what` offers continuation control:
 Use Codex's native choice UI when `request_user_input` is callable. Otherwise, render the same three choices as concise prose in the current mode. The fallback is automatic: never ask the user to switch to Plan mode and never claim that the native tool was used when it was unavailable. The explanation must end with an explicit prompt to continue working. Both paths wait for the user's choice before executing the pending action, so explanation and execution do not become an ambiguous single step.
 
 If no active or recoverable workflow exists, `what` states that there is no pending frontier. It must not fabricate state or offer a misleading `Continue`; it asks the user to provide the task they want to orient around.
+
+### Native user decisions
+
+Apply the same automatic fallback policy to `deep-grill` and `deep-design`. Before asking a material user-owned decision, they inspect the current tool metadata:
+
+- When `request_user_input` is callable, use the native interface.
+- When it is unavailable in the current mode, ask the same decision as concise prose in the current response and continue from the user's ordinary answer.
+
+Neither skill may ask the user to switch modes merely to unlock a question UI. The fallback must preserve the pending branch or design decision, keep the existing recommended option, and use the user's language. It does not claim that a native interface was called.
 
 ### `loop`
 
@@ -98,6 +109,7 @@ Implementation will update the following surfaces:
 
 - Add the standalone `skills/what/` package.
 - Remove the duplicated `?` contract from `skills/loop/`.
+- Replace mode-switch waits in `deep-grill` and `deep-design` with automatic prose fallback while preserving native UI when callable.
 - Refine OpenSpec ownership language in `deep-design` and `deep-build`.
 - Update English and Chinese README positioning, installation commands, skill tables, examples, and the embedded `loop` body.
 - Restore the `what` Raycast snippet and update bundle validation from four skills to five.
@@ -110,6 +122,7 @@ Existing unrelated working-tree changes must be preserved and incorporated rathe
 - If the prior message is ambiguous, `what` reports the ambiguity instead of guessing a workflow state.
 - If a workflow is waiting on a domain decision, `what` explains that decision boundary but does not answer the decision on the user's behalf.
 - If native choice UI is unavailable, prose fallback occurs immediately in the same response without a mode-switch detour.
+- If `deep-grill` or `deep-design` needs a material user decision while native UI is unavailable, it preserves that decision and asks it in concise prose instead of asking for Plan mode.
 - If `$what` is invoked outside active work, it explains that no resumable action was found instead of replaying unrelated history.
 - If an adjustment conflicts with a confirmed artifact, the owning workflow must return to the appropriate approval boundary before implementation continues.
 
@@ -123,6 +136,7 @@ Verification must cover structure, documentation, behavior contracts, and instal
 - Assert that the exact bare `?` trigger belongs to `what` and no longer belongs to `loop`.
 - Assert that ordinary question marks do not match the documented implicit trigger.
 - Assert that unavailable native choice UI falls back without requesting a mode switch.
+- Assert that `deep-grill` and `deep-design` no longer require a mode switch before asking a native-question fallback.
 - Assert that OpenSpec initialization alone is not documented as a creation trigger.
 - Assert that an active OpenSpec change remains the sole implementation state.
 - Compare the installed `~/.agents/skills/` copies with the validated repository versions.
@@ -132,6 +146,7 @@ Verification must cover structure, documentation, behavior contracts, and instal
 
 - A bare `?` or explicit `$what` reliably explains and preserves any active workflow frontier.
 - Every active-workflow explanation ends by prompting the user to continue, adjust the next action, or stop, with `Continue` recommended and no Plan-mode replay.
+- Material decisions in `deep-grill` and `deep-design` use native UI when callable and automatic prose fallback otherwise.
 - `loop` has one responsibility: the explicit fixed product lifecycle.
 - Superpowers, `loop`, and OpenSpec have complementary roles and do not create duplicate task state.
 - The bundle installs and validates as five skills with no documentation or snippet drift.
