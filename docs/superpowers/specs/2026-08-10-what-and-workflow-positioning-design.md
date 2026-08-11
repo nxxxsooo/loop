@@ -117,6 +117,10 @@ Implementation will update the following surfaces:
 
 Existing unrelated working-tree changes must be preserved and incorporated rather than reverted.
 
+## Release Boundary
+
+The currently published `v3.0.2` bundle has four skills and does not contain `what`. This change makes the source tree and the next release a five-skill bundle. Until that release is published, installation and verification instructions must distinguish local source or installed-snapshot synchronization from `npx skills@latest`; they must not claim that the already-published package contains `what`. The release version is intentionally left to the release owner.
+
 ## Error Handling and Edge Cases
 
 - If the prior message is ambiguous, `what` reports the ambiguity instead of guessing a workflow state.
