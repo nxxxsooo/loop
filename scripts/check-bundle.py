@@ -13,7 +13,7 @@ ROOT = Path(__file__).resolve().parents[1]
 SKILLS = ROOT / "skills"
 EXPECTED = {"loop", "deep-grill", "deep-design", "deep-build", "what"}
 EXPECTED_IMPLICIT_INVOCATION = {
-    "loop": False,
+    "loop": True,
     "deep-grill": True,
     "deep-design": True,
     "deep-build": True,
@@ -125,7 +125,7 @@ def main() -> int:
 
     contracts = {
         "loop": (
-            "A fresh loop starts only when the user explicitly invokes `loop`.",
+            "A fresh loop starts when the user invokes `loop` or clearly asks to run this product lifecycle.",
             "without asking the user to nominate a skill or choose a route",
             "Route By Artifact Readiness",
             "Preserve One Source Of State",

@@ -2,7 +2,8 @@
 name: loop
 description: >-
   Run a product idea through deep-grill, deep-design, and deep-build according
-  to artifact readiness. Start only when the user explicitly invokes `loop`.
+  to artifact readiness. Start when the user invokes `loop` or clearly asks to
+  run this product lifecycle.
   After it starts, continue on ordinary replies until the requested endpoint is
   complete, the user stops, the task changes, or new authority is required.
 ---
@@ -19,7 +20,7 @@ deep-build -> verified result
 
 ## Keep The Loop Active
 
-A fresh loop starts only when the user explicitly invokes `loop`. After that, treat every ordinary reply as a continuation of the same loop until the goal is achieved, the user stops, the user clearly changes tasks, or further work requires authority outside the original request. The user does not need to name `loop` or any child again.
+A fresh loop starts when the user invokes `loop` or clearly asks to run this product lifecycle. After that, treat every ordinary reply as a continuation of the same loop until the goal is achieved, the user stops, the user clearly changes tasks, or further work requires authority outside the original request. The user does not need to name `loop` or any child again.
 
 Resume the current child while its output contract is incomplete. When its artifact is confirmed, select the next child from artifact readiness without asking the user to nominate a skill or choose a route. State the transition briefly and continue in the same response when the next action is already authorized. Artifact readiness chooses the child; it does not expand the user's authority or the requested endpoint.
 
@@ -30,7 +31,7 @@ Resume the current child while its output contract is incomplete. When its artif
 - Use `deep-build` when the Build Contract is confirmed and implementation is authorized.
 - Resume the same child when its contract is incomplete, even after a mode switch, clarification, or ordinary user answer.
 - Return an invalidated artifact to the child that produces it. A root product contradiction returns to `deep-grill`; a material behavior, interface, task, or verification gap returns to `deep-design`.
-- Honor a direct invocation of a child skill. Direct use does not require `loop`, but it also does not activate the persistent loop unless the user explicitly starts one.
+- Honor a direct invocation of a child skill. Direct use does not require `loop`, but it also does not activate the persistent loop unless the user invokes `loop` or clearly asks to run this product lifecycle.
 
 The active child selects any domain, architecture, research, interface, visual-design, testing, deployment, or other specialist it needs. The user does not manage internal routing.
 

@@ -3,4 +3,4 @@ interface:
   short_description: "Move an idea from brief through verified build"
   default_prompt: "Use $loop to continue this product task through deep-grill, deep-design, and deep-build according to artifact readiness."
 policy:
-  allow_implicit_invocation: false
+  allow_implicit_invocation: true
