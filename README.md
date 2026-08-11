@@ -30,7 +30,7 @@ npx skills@latest add Leonxlnx/taste-skill --skill design-taste-frontend
 需要直接完成全局安装时：
 
 ```bash
-npx skills@latest add nxxxsooo/loop -g -y
+npx skills@latest add nxxxsooo/loop --skill '*' -g -y
 npx skills@latest add Leonxlnx/taste-skill --skill design-taste-frontend -g -y
 ```
 
@@ -125,19 +125,21 @@ npx skills@latest remove grill-loop grilling -g -y
 
 ## Raycast
 
-导入 [`skills/loop/assets/raycast-snippets.json`](./skills/loop/assets/raycast-snippets.json)，即可使用 `loop ;lp`、`deep grill ;dg`、`deep design ;dd`、`deep build ;db` 和 `what ;wt`。`npx skills` 会更新已安装的 Skill 和这个 JSON 文件，但不会修改已经导入 Raycast 的条目；导入后请在 Raycast 中原位更新这五条，避免留下旧的 loop-owned `?` 文案或重复入口。
+导入 [`skills/loop/assets/raycast-snippets.json`](./skills/loop/assets/raycast-snippets.json)，即可使用 `loop ;lp`、`deep grill ;dg`、`deep design ;dd`、`deep build ;db` 和 `what ;wt`。下面的 bundle 刷新命令会更新已安装的 Skill 和这个 JSON 文件，但不会修改已经导入 Raycast 的条目；导入后请在 Raycast 中原位更新这五条，避免留下旧的 loop-owned `?` 文案或重复入口。
 
 ## 更新
 
 已安装副本是快照：
 
 ```bash
-# loop、deep-grill、deep-design、deep-build 和 what 同属一个 bundle
-npx skills@latest update loop -g -y
+# 发布后用幂等安装刷新整个 loop bundle，并发现新增的 bundled Skill
+npx skills@latest add nxxxsooo/loop --skill '*' -g -y
 
 # Taste 是独立上游 Skill，按自己的更新路径刷新
 npx skills@latest update design-taste-frontend -g -y
 ```
+
+`update loop` 只会按现有 lock 记录更新 `loop` 本身，不能发现旧安装中不存在的 `what`，也不会刷新同 bundle 的其他 Skill。因此，每次 release 后都使用上面的 bundle `add` 命令；它可重复安全运行，并确保整套 bundle 同步。
 
 如果客户端已经缓存 Skill 元数据，请重新加载或新建任务。
 

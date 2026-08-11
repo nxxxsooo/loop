@@ -30,7 +30,7 @@ TASTE_INSTALL = (
     "npx skills@latest add Leonxlnx/taste-skill "
     "--skill design-taste-frontend"
 )
-BUNDLE_UPDATE = "npx skills@latest update loop -g -y"
+BUNDLE_REFRESH = "npx skills@latest add nxxxsooo/loop --skill '*' -g -y"
 TASTE_UPDATE = "npx skills@latest update design-taste-frontend -g -y"
 
 
@@ -185,7 +185,7 @@ def main() -> int:
     for readme_name in ("README.md", "README.en.md"):
         require_fragments(
             ROOT / readme_name,
-            (TASTE_INSTALL, BUNDLE_UPDATE, TASTE_UPDATE, "Leonxlnx/taste-skill"),
+            (TASTE_INSTALL, BUNDLE_REFRESH, TASTE_UPDATE, "Leonxlnx/taste-skill"),
             failures,
         )
 

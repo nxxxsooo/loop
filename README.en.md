@@ -30,7 +30,7 @@ npx skills@latest add Leonxlnx/taste-skill --skill design-taste-frontend
 For a fast global install:
 
 ```bash
-npx skills@latest add nxxxsooo/loop -g -y
+npx skills@latest add nxxxsooo/loop --skill '*' -g -y
 npx skills@latest add Leonxlnx/taste-skill --skill design-taste-frontend -g -y
 ```
 
@@ -125,19 +125,21 @@ This excerpt stays in exact sync with [`skills/loop/SKILL.md`](./skills/loop/SKI
 
 ## Raycast
 
-Import [`skills/loop/assets/raycast-snippets.json`](./skills/loop/assets/raycast-snippets.json) to use `loop ;lp`, `deep grill ;dg`, `deep design ;dd`, `deep build ;db`, and `what ;wt`. `npx skills` updates installed skills and this JSON file, not entries already imported into Raycast; update those five entries in place after importing so retired loop-owned `?` text and duplicate entries do not remain.
+Import [`skills/loop/assets/raycast-snippets.json`](./skills/loop/assets/raycast-snippets.json) to use `loop ;lp`, `deep grill ;dg`, `deep design ;dd`, `deep build ;db`, and `what ;wt`. The bundle-refresh command below updates installed skills and this JSON file, not entries already imported into Raycast; update those five entries in place after importing so retired loop-owned `?` text and duplicate entries do not remain.
 
 ## Update
 
 Installed copies are snapshots:
 
 ```bash
-# loop, deep-grill, deep-design, deep-build, and what share one bundle
-npx skills@latest update loop -g -y
+# After each release, idempotently refresh the whole bundle and discover new bundled skills
+npx skills@latest add nxxxsooo/loop --skill '*' -g -y
 
 # Taste is an independently installed upstream skill
 npx skills@latest update design-taste-frontend -g -y
 ```
+
+`update loop` follows only the existing lock record for `loop`: it cannot discover `what` in an older installation or refresh sibling bundle skills. Use the bundle `add` command after every release instead; it is safe to repeat and synchronizes the complete bundle.
 
 Reload the client or start a fresh task when it has cached skill metadata.
 
