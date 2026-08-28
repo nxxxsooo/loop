@@ -1,6 +1,6 @@
 interface:
   display_name: "Loop"
-  short_description: "Move an idea from brief through verified build"
-  default_prompt: "Use $loop to continue this product task through deep-grill, deep-design, and deep-build according to artifact readiness."
+  short_description: "Start in Plan Mode, then move an idea through verified build"
+  default_prompt: "Start in Plan Mode, then use $loop to continue this product task through deep-grill, deep-design, and deep-build according to artifact readiness."
 policy:
   allow_implicit_invocation: true
