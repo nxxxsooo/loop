@@ -1,5 +1,9 @@
 <p align="right"><a href="./README.en.md">English</a></p>
 
+<p align="center">
+  <img src="./assets/grill-loop-cover.jpg" alt="一根海泡绿绳索穿过四个石墨黑几何体，把它们串成一条持续运转的回路" width="100%">
+</p>
+
 <h1 align="center">loop</h1>
 
 <p align="center"><strong>一次触发，三个深循环，交付可验证结果。</strong></p>

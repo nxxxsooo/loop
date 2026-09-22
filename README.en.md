@@ -1,5 +1,9 @@
 <p align="right"><a href="./README.md">中文说明</a></p>
 
+<p align="center">
+  <img src="./assets/grill-loop-cover.jpg" alt="A seafoam cord threads four graphite shapes into one continuously running loop" width="100%">
+</p>
+
 <h1 align="center">loop</h1>
 
 <p align="center"><strong>One trigger. Three deep loops. A verified result.</strong></p>
