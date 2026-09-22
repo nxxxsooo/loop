@@ -14,7 +14,7 @@
   <a href="./LICENSE"><img src="https://img.shields.io/badge/许可证-MIT-5eead4?style=flat-square" alt="MIT 许可证"></a>
 </p>
 
-安装了 Superpowers 时，日常执行默认走 Superpowers；`loop` 仍可隐式承接完整的产品生命周期，不必每次显式点名，并按产物就绪状态持续推进当前产品任务。`what` 负责跨工作流的解释与续接控制；两者都不创建第二份持久计划。
+`loop` 是持久的产品工作编排器：一次触发后，普通回复持续当前子循环，按产物就绪状态从想法推进到已验证结果。安装了 Superpowers 时，日常执行默认走 Superpowers，`loop` 隐式承接完整生命周期，不必显式点名；`what` 负责跨工作流的解释与续接控制。两者都不创建第二份持久计划。
 
 ```text
 想法 -> deep-grill -> Product Brief
@@ -46,15 +46,7 @@ npx skills@latest add Leonxlnx/taste-skill --skill design-taste-frontend -g -y
 
 后续普通回复会继续当前子循环。你也可以单独调用任意 `deep-*` Skill；直接调用只完成该项工作，不会自动开启完整生命周期。
 
-## 从 grill-loop v2 迁移
-
-仓库已从 `nxxxsooo/grill-loop` 更名为 `nxxxsooo/loop`。GitHub 会重定向旧仓库 URL，但已安装快照仍保留旧 Skill 名。先删除一次，再安装 v3：
-
-```bash
-npx skills@latest remove grill-loop grilling -g -y
-```
-
-然后使用上面任一安装方式。
+## Bundle 内容
 
 | Skill | 负责内容 | 就绪条件 |
 |---|---|---|

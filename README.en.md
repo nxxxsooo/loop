@@ -14,7 +14,7 @@
   <a href="./LICENSE"><img src="https://img.shields.io/badge/license-MIT-5eead4?style=flat-square" alt="MIT License"></a>
 </p>
 
-When installed, Superpowers is the default method for day-to-day execution. `loop` remains implicitly available for the complete product lifecycle; `what` owns cross-workflow explanation and continuation controls. Neither creates a second durable plan.
+`loop` is a persistent product-work orchestrator: one trigger starts a run where ordinary replies continue the active child, and artifact readiness moves the task from idea to verified result. When Superpowers is installed, it is the default method for day-to-day execution; `loop` implicitly takes the complete lifecycle without being named, and `what` owns cross-workflow explanation and continuation controls. Neither creates a second durable plan.
 
 ```text
 idea -> deep-grill -> Product Brief
@@ -46,15 +46,7 @@ Describe the idea directly or explicitly use `$loop` to begin the product lifecy
 
 Ordinary replies continue the active child. You may also invoke any `deep-*` skill directly for isolated work; direct use completes that work but does not automatically start the complete lifecycle.
 
-## Migrate from grill-loop v2
-
-The repository moved from `nxxxsooo/grill-loop` to `nxxxsooo/loop`. GitHub redirects the old repository URL, but installed snapshots keep their old skill names. Remove them once, then install v3:
-
-```bash
-npx skills@latest remove grill-loop grilling -g -y
-```
-
-Then use either installation path above.
+## What's in the bundle
 
 | Skill | Owns | Ready when |
 |---|---|---|
