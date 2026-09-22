@@ -18,6 +18,22 @@ Open the artifact and verify image loading, normal-size readability, full-size i
 
 Reference selection is input to the design recommendation. Follow the question precedence in SKILL.md for remaining material choices: explicit prose preference first, otherwise a callable native interface, otherwise immediate concise prose. Do not ask users to approve the same accepted reference again.
 
+## Live visual review loop
+
+Use a live browser review when the user would understand a question better by seeing it than reading it: UI mockups, layout or direction comparisons, diagrams of spatial relationships. A question about UI is not automatically visual — scope, wording, and tradeoff questions stay in the terminal. Get the user's approval before starting the companion; auto-open their browser only after that approval.
+
+Start the zero-dependency Node server from this skill's `scripts/` with `--project-dir <project root>`, so screens persist under `<project>/.superpowers/brainstorm/<pid>-<ts>/`; remind the user to gitignore `.superpowers/`. Save `screen_dir` and `state_dir` from the startup JSON and give the user the complete URL including its `?key=…` session key — the key gates access, so never share a bare host:port. Run the server so it survives across turns; if the environment reaps background processes, use `--foreground` with the client's background execution mechanism. The scripts are vendored from obra/superpowers; provenance and re-sync live in `scripts/README.md`.
+
+Per visual question:
+
+1. Before pushing, confirm the server is alive: `$STATE_DIR/server-info` exists and `$STATE_DIR/server-stopped` does not. If it stopped, restart with the same `--project-dir` — the port is reused and the user's open tab reconnects by itself.
+2. Write a new HTML file with a semantic, never-reused name (`layout.html`, `layout-v2.html`) into `screen_dir`. Write content fragments, not full documents; the server wraps them with header, theme, and interaction helper. Use the frame's `options`, `cards`, `mockup`, and `split` classes with `toggleSelect` for clickable choices (`data-multiselect` for multiple). Keep 2–4 options per screen, wireframe fidelity for structure questions, polish fidelity for polish questions, and real content when placeholders would hide design issues.
+3. Summarize what is on screen in the terminal, repeat the URL as a fallback, and end the turn asking the user to look and respond.
+4. On the next turn, read `$STATE_DIR/events` (JSON lines, cleared when a new screen is pushed) and merge it with the user's terminal reply. Terminal prose is primary; the event stream adds structured selections and can reveal hesitation in the click pattern. A missing events file means no browser interaction happened.
+5. Iterate with a new versioned file when feedback changes the current screen; advance only when the step is validated. When the conversation returns to non-visual work, push a `waiting` screen so the browser does not keep showing a resolved choice.
+
+A browser click records a selection; it does not by itself close a design decision. Follow the question precedence in SKILL.md for remaining material choices, and record accepted selections into the design recommendation or Build Contract like any other approved evidence. This loop is the verified integration the research board section allows; the export-based board remains the fallback when the environment cannot keep a server running. Stop the server with `stop-server.sh <session dir>` when the review ends; persisted screens remain as design evidence.
+
 ## Motion and preview evidence
 
 Show a playable recording or live demo for motion when possible. Record what was actually triggered and observed; label unseen motion unverified. A proposed timing value is not a measured one.

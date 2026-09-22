@@ -1,5 +1,13 @@
 # Third-party notices
 
+The bundled `skills/deep-design/scripts/` visual review server is vendored
+unchanged from [`obra/superpowers`](https://github.com/obra/superpowers)
+at revision `5bf4e78011075bcfc0dc295f0724994cd123ee71` (v6.4.1 era, retrieved
+2026-09-22), from `skills/brainstorming/scripts/` (`server.cjs`, `helper.js`,
+`frame-template.html`, `start-server.sh`, `stop-server.sh`), MIT licensed.
+Provenance and re-sync instructions live in
+`skills/deep-design/scripts/README.md`.
+
 The bundled `skills/deep-grill` is vendored unchanged from
 [`nxxxsooo/deep-grill` v3.0.1](https://github.com/nxxxsooo/deep-grill/releases/tag/v3.0.1)
 at revision `9dc43b44bfe2bf9031a044f38836d6ddb0994dd0`.

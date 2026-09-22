@@ -82,7 +82,7 @@ For material visual-design questions involving landing pages, portfolios, editor
 
 ### UI design and rebuilds
 
-`deep-design` covers new UI, partial redesigns, and complete rebuilds: confirm scope and preserved behavior, choose product/UI/both/no external research, review actual visual evidence with per-reference feedback, settle direction, and choose whether to preview first. Existing approvals are reused; backend-only tasks skip this branch.
+`deep-design` covers new UI, partial redesigns, and complete rebuilds: confirm scope and preserved behavior, choose product/UI/both/no external research, review actual visual evidence with per-reference feedback, run visual choices through a local browser live review loop when the environment permits, settle direction, and choose whether to preview first. Existing approvals are reused; backend-only tasks skip this branch.
 
 Use independently installed `ui-research` for research methods and an available `react-bits` integration for free motion discovery. Neither is a hard bundle dependency; official sources work directly when they are absent. Reference quotas, paid pages, and client-specific modes do not become extra gates. The former `rebuild-ui-design` workflow is integrated and no longer needs a separate installation.
 

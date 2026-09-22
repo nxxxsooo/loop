@@ -29,7 +29,7 @@ Do not require a particular client's planning mode solely to ask a question. Res
 
 ## UI Design Branch
 
-Read [UI design workflow](references/ui-design-workflow.md) for new interfaces or partial/full rebuilds, and [visual evidence](references/visual-evidence.md) when presenting researched references or a preview. These methods are integrated here; do not invoke the retired `rebuild-ui-design` skill.
+Read [UI design workflow](references/ui-design-workflow.md) for new interfaces or partial/full rebuilds, and [visual evidence](references/visual-evidence.md) when presenting researched references or a preview. For visual choices or mockup approval, use the live visual review loop in visual evidence when the environment can keep its server running. These methods are integrated here; do not invoke the retired `rebuild-ui-design` skill.
 
 For approved motion research, consult [motion reference sources](references/motion-references.md): MotionSites AI, 21st, React Bits, and Godly / Recent, with source roles and access notes.
 
