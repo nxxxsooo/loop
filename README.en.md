@@ -14,7 +14,7 @@
   <a href="./LICENSE"><img src="https://img.shields.io/badge/license-MIT-5eead4?style=flat-square" alt="MIT License"></a>
 </p>
 
-When installed, Superpowers is the default method for day-to-day execution. `loop` remains implicitly available for the complete product lifecycle without requiring an explicit invocation every time; `what` owns cross-workflow explanation and continuation controls. Neither creates duplicate durable plans.
+When installed, Superpowers is the default method for day-to-day execution. `loop` remains implicitly available for the complete product lifecycle; `what` owns cross-workflow explanation and continuation controls. Neither creates a second durable plan.
 
 ```text
 idea -> deep-grill -> Product Brief
@@ -82,7 +82,7 @@ After explaining, `what` waits for `Continue` (recommended), `Adjust next action
 
 ## Specification and design
 
-`deep-design` owns the complete specification and design process. Superpowers supplies daily TDD, debugging, review, and verification methods when available, without creating a second durable plan. An active relevant OpenSpec change is the sole physical Build Contract and task state; merely having OpenSpec installed or initialized does not create one. Create or use a new change only when the user explicitly requests it or the work is durable, multi-session, cross-component, migratory, security-sensitive, architecturally consequential, high-consequence, or needs a maintained handoff record.
+`deep-design` owns the complete specification and design process. Superpowers supplies daily TDD, debugging, review, and verification methods when available, without creating a second durable plan. An active relevant OpenSpec change is the sole physical Build Contract and task state; merely having OpenSpec installed or initialized does not create one. Create or use a new change only when the user explicitly requests it or the work is durable, multi-session, cross-component, migratory, security-sensitive, architecturally consequential, or needs a maintained handoff record.
 
 The active child calls domain, architecture, frontend, testing, and delivery specialists as needed; the user does not manage internal routing.
 

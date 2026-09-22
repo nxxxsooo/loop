@@ -14,7 +14,7 @@
   <a href="./LICENSE"><img src="https://img.shields.io/badge/许可证-MIT-5eead4?style=flat-square" alt="MIT 许可证"></a>
 </p>
 
-安装了 Superpowers 时，它是日常执行的默认方法；`loop` 仍可隐式承接完整的产品生命周期，不要求每次显式点名。它按产物就绪状态持续推进当前产品任务，而 `what` 负责跨工作流的解释与续接控制；两者都不创建第二份持久计划。
+安装了 Superpowers 时，日常执行默认走 Superpowers；`loop` 仍可隐式承接完整的产品生命周期，不必每次显式点名，并按产物就绪状态持续推进当前产品任务。`what` 负责跨工作流的解释与续接控制；两者都不创建第二份持久计划。
 
 ```text
 想法 -> deep-grill -> Product Brief
@@ -82,7 +82,7 @@ npx skills@latest remove grill-loop grilling -g -y
 
 ## 规格与设计
 
-`deep-design` 负责完整的规格和设计过程。Superpowers 在可用时提供日常 TDD、调试、评审和验证方法，但不应额外创建持久计划。相关 OpenSpec change 已经活跃时，它的 artifacts 是唯一的实体 Build Contract 和任务状态；仅初始化了 OpenSpec 不会触发新 change。只有用户明确要求，或工作属于耐久、多会话、跨组件、迁移、安全、重要架构、高后果或需要长期交接的范围，才创建或使用新的 OpenSpec change。
+`deep-design` 负责完整的规格和设计过程。Superpowers 在可用时提供日常 TDD、调试、评审和验证方法，但不应额外创建持久计划。相关 OpenSpec change 已经活跃时，它的 artifacts 是唯一的实体 Build Contract 和任务状态；仅初始化了 OpenSpec 不会触发新 change。只有用户明确要求，或工作属于耐久、多会话、跨组件、迁移、安全、重要架构或需要长期交接的范围，才创建或使用新的 OpenSpec change。
 
 领域、架构、前端、测试和交付等专家能力由当前子循环按需调用，用户无需管理内部路由。
 
@@ -139,7 +139,7 @@ npx skills@latest remove grill-loop grilling -g -y
 
 ## Raycast
 
-导入 [`skills/loop/assets/raycast-snippets.json`](./skills/loop/assets/raycast-snippets.json)，即可使用 `loop ;lp`、`deep grill ;dg`、`deep design ;dd`、`deep build ;db` 和 `what ;wt`。下面的 bundle 刷新命令会更新已安装的 Skill 和这个 JSON 文件，但不会修改已经导入 Raycast 的条目；导入后请在 Raycast 中原位更新这五条，避免留下旧的 loop-owned `?` 文案或重复入口。
+导入 [`skills/loop/assets/raycast-snippets.json`](./skills/loop/assets/raycast-snippets.json)，即可使用 `loop ;lp`、`deep grill ;dg`、`deep design ;dd`、`deep build ;db` 和 `what ;wt`。下面的 bundle 刷新命令会更新已安装的 Skill 和这个 JSON 文件，但不会修改已经导入 Raycast 的条目；导入后请在 Raycast 中原位更新这五条，避免留下旧版 loop `?` 文案或重复入口。
 
 ## 更新
 
