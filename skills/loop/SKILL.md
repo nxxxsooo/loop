@@ -1,11 +1,6 @@
 ---
 name: loop
-description: >-
-  Run a product idea through deep-grill, deep-design, and deep-build according
-  to artifact readiness. Start when the user invokes `loop` or clearly asks to
-  run this product lifecycle.
-  After it starts, continue on ordinary replies until the requested endpoint is
-  complete, the user stops, the task changes, or new authority is required.
+description: Run a product idea through deep-grill, deep-design, and deep-build according to artifact readiness. Start when the user invokes `loop` or clearly asks to run this product lifecycle. After it starts, continue on ordinary replies until the requested endpoint is complete, the user stops, the task changes, or new authority is required.
 ---
 
 # Loop

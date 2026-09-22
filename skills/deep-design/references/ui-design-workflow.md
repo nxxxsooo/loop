@@ -42,11 +42,11 @@ For each retained reference identify its source, evidence type, role, specific d
 
 When motion matters, inspect the actual trigger and sequence on a live demo or a clearly labeled recording. A still image or component source does not prove how it looks. Avoid inventing exact timing/easing from observation; implementation values can be explicit proposals.
 
-Use [motion reference sources](motion-references.md) to route between MotionSites AI for animated page ideas, 21st for component-level patterns, React Bits for free implementable effects, and Godly / Recent for curated interaction inspiration. The catalog is optional and does not override the selected research scope.
+Use [motion reference sources](motion-references.md) to route between MotionSites AI for animated page ideas, 21st for component-level patterns, React Bits for free implementable effects, Godly / Recent for curated interaction inspiration, and GSAP for production motion implementation such as timelines, scroll scenes and text splitting. The catalog is optional and does not override the selected research scope.
 
 Use `react-bits` when a free animated component can answer the design question. Inspect the current official catalog, chosen variant, source, dependencies, rendered semantics and customization options. Record mobile, keyboard and reduced-motion behavior to implement or verify. Prefer existing CSS or the project's existing motion library when it is sufficient. No animation is also a valid decision.
 
-Do not assume React Bits is installed, that its Pro templates are free, or that every suggested effect has acceptable performance. If this optional local skill is absent, use official free documentation directly. Component installation belongs to deep-build; a separately requested isolated preview can have its own bounded dependencies.
+Do not assume React Bits is installed, that its Pro templates are free, or that every suggested effect has acceptable performance. If this optional local skill is absent, use official free documentation directly. The official `gsap-*` skills follow the same optional rule: use them for GSAP implementation guidance when installed, otherwise the official GSAP documentation. Component installation belongs to deep-build; a separately requested isolated preview can have its own bounded dependencies.
 
 Resolve conflicts among references in the order of user task, structure, density, state/interaction behavior and visual tone. Propose a usable target layout with realistic content, primary action, navigation, main components and critical states. Offer alternatives only when they represent meaningful choices; users can select different details from multiple references.
 

@@ -12,7 +12,20 @@ import sys
 
 ROOT = Path(__file__).resolve().parents[1]
 SKILLS = ROOT / "skills"
+VENDOR = SKILLS / "vendor"
 EXPECTED = {"loop", "deep-grill", "deep-design", "deep-build", "what"}
+VENDORED = {
+    "design-taste-frontend",
+    "gsap-core",
+    "gsap-frameworks",
+    "gsap-performance",
+    "gsap-plugins",
+    "gsap-react",
+    "gsap-scrolltrigger",
+    "gsap-timeline",
+    "gsap-utils",
+    "impeccable",
+}
 EXPECTED_IMPLICIT_INVOCATION = {
     "loop": True,
     "deep-grill": True,
@@ -27,12 +40,12 @@ EXPECTED_RAYCAST_SNIPPETS = {
     "deep build": {"keyword": ";db", "skill": "deep-build"},
     "what": {"keyword": ";wt", "skill": "what"},
 }
-TASTE_INSTALL = (
-    "npx skills@latest add Leonxlnx/taste-skill "
-    "--skill design-taste-frontend"
-)
 BUNDLE_REFRESH = "npx skills@latest add nxxxsooo/loop --skill '*' -g -y"
-TASTE_UPDATE = "npx skills@latest update design-taste-frontend -g -y"
+VENDOR_UPSTREAMS = (
+    "Leonxlnx/taste-skill",
+    "greensock/gsap-skills",
+    "pbakaus/impeccable",
+)
 
 
 def digest(path: Path) -> str:
@@ -87,8 +100,12 @@ def reject_fragments(path: Path, fragments: tuple[str, ...], failures: list[str]
 def main() -> int:
     failures: list[str] = []
     actual = {path.name for path in SKILLS.iterdir() if path.is_dir()}
-    if actual != EXPECTED:
-        failures.append(f"skill directories differ: expected {sorted(EXPECTED)}, got {sorted(actual)}")
+    if actual != EXPECTED | {"vendor"}:
+        failures.append(f"skill directories differ: expected {sorted(EXPECTED | {'vendor'})}, got {sorted(actual)}")
+
+    vendored_actual = {path.name for path in VENDOR.iterdir() if path.is_dir()} if VENDOR.is_dir() else set()
+    if vendored_actual != VENDORED:
+        failures.append(f"vendored skills differ: expected {sorted(VENDORED)}, got {sorted(vendored_actual)}")
 
     for name in sorted(EXPECTED):
         folder = SKILLS / name
@@ -109,16 +126,31 @@ def main() -> int:
         if not (folder / "LICENSE").is_file():
             failures.append(f"{folder / 'LICENSE'}: missing")
 
+    for name in sorted(VENDORED):
+        folder = VENDOR / name
+        skill = folder / "SKILL.md"
+        if not skill.is_file():
+            failures.append(f"{skill}: missing")
+            continue
+        try:
+            declared = frontmatter_name(skill)
+        except ValueError as error:
+            failures.append(str(error))
+        else:
+            if declared != name:
+                failures.append(f"{skill}: name {declared!r} does not match directory {name!r}")
+        if not (folder / "LICENSE").is_file():
+            failures.append(f"{folder / 'LICENSE'}: missing")
+
     sources = json.loads((ROOT / "bundle-sources.json").read_text(encoding="utf-8"))
-    if set(sources) != {"deep-grill"}:
-        failures.append(f"bundle-sources.json: expected only deep-grill, got {sorted(sources)}")
+    if set(sources) != VENDORED | {"deep-grill"}:
+        failures.append(f"bundle-sources.json: expected deep-grill plus vendored skills, got {sorted(sources)}")
     for name, source in sources.items():
-        if source.get("release") != "v3.0.1":
-            failures.append(f"bundle-sources.json: {name} is not pinned to release v3.0.1")
-        if source.get("commit") != "9dc43b44bfe2bf9031a044f38836d6ddb0994dd0":
-            failures.append(f"bundle-sources.json: {name} is not pinned to released v3.0.1 commit")
+        if not source.get("commit"):
+            failures.append(f"bundle-sources.json: {name} is not pinned to a commit")
+        local = ROOT / source.get("local", f"skills/{name}")
         for relative, expected_hash in source["files"].items():
-            path = SKILLS / name / relative
+            path = local / relative
             if not path.is_file():
                 failures.append(f"{path}: missing pinned source file")
             elif digest(path) != expected_hash:
@@ -220,7 +252,7 @@ def main() -> int:
     for readme_name in ("README.md", "README.en.md"):
         require_fragments(
             ROOT / readme_name,
-            (TASTE_INSTALL, BUNDLE_REFRESH, TASTE_UPDATE, "Leonxlnx/taste-skill"),
+            (BUNDLE_REFRESH, *VENDOR_UPSTREAMS),
             failures,
         )
 

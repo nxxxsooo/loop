@@ -17,6 +17,26 @@ The immutable upstream source, copyright, and MIT license attribution are
 preserved inside `skills/deep-grill/references/grilling-upstream.md`,
 `skills/deep-grill/NOTICE`, and `skills/deep-grill/THIRD_PARTY_NOTICES.md`.
 
+## Vendored external skills
+
+`skills/vendor/` repackages external skills verbatim so one
+`npx skills add nxxxsooo/loop --skill '*'` installs the complete set. Each
+vendored directory carries the upstream `LICENSE`; byte-level provenance
+(upstream repository, pinned commit, and per-file SHA-256 hashes) is recorded
+in `bundle-sources.json` and validated by `scripts/check-bundle.py`.
+
+| Skill | Upstream | Pin | License |
+|---|---|---|---|
+| `gsap-core` … `gsap-utils` (8) | [greensock/gsap-skills](https://github.com/greensock/gsap-skills) | `aed9cfd3277740755f6bfc1155c7aa645403b760` | MIT |
+| `design-taste-frontend` | [Leonxlnx/taste-skill](https://github.com/Leonxlnx/taste-skill) | `5217fb45be2c0b302f29c9cd31cbd3237501c684` | MIT |
+| `impeccable` | [pbakaus/impeccable](https://github.com/pbakaus/impeccable) | `skill-v4.3.1` | Apache-2.0 |
+
+The vendored `impeccable` directory also carries the upstream `NOTICE.md`
+required by Apache-2.0. Upstream releases do not flow into installed copies
+automatically: they arrive through loop bundle releases after re-vendoring
+and re-pinning. Upgrades should be re-vendored from upstream rather than
+patched in place so the hash manifest stays verifiable.
+
 ## UI workflow references
 
 The UI workflow was informed by the installed

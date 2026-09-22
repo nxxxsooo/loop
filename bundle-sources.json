@@ -11,6 +11,168 @@
       "NOTICE": "2151a3480a71a5c512eb673f7832e8a67c6cb5634c753a5569a060f678d6188c",
       "THIRD_PARTY_NOTICES.md": "95f18ef89fceb067f1a1399c58ef24c6f28619add7c33840eee250c76474c948",
       "references/grilling-upstream.md": "fa5c1e5ee76b1c8f1ae56101f52c9e239de75d5c578adc61227b92d10b7e52ef"
+    },
+    "local": "skills/deep-grill"
+  },
+  "gsap-core": {
+    "source": "https://github.com/greensock/gsap-skills",
+    "release": null,
+    "commit": "aed9cfd3277740755f6bfc1155c7aa645403b760",
+    "path": "skills/gsap-core",
+    "local": "skills/vendor/gsap-core",
+    "files": {
+      "LICENSE": "51b04b06556662dd817e8f4aa6d06bc7139dc73739e1319a7233cfde3e147b90",
+      "SKILL.md": "3887b47e050ab5afbe2a9a820f23d39fa02ab785e06a343be44c6f91d84d12b3"
+    }
+  },
+  "gsap-frameworks": {
+    "source": "https://github.com/greensock/gsap-skills",
+    "release": null,
+    "commit": "aed9cfd3277740755f6bfc1155c7aa645403b760",
+    "path": "skills/gsap-frameworks",
+    "local": "skills/vendor/gsap-frameworks",
+    "files": {
+      "LICENSE": "51b04b06556662dd817e8f4aa6d06bc7139dc73739e1319a7233cfde3e147b90",
+      "SKILL.md": "842d9d3659ec3ddc8abbdc524708f8facf81f468ac25d0577f48c759c4fa31e6"
+    }
+  },
+  "gsap-performance": {
+    "source": "https://github.com/greensock/gsap-skills",
+    "release": null,
+    "commit": "aed9cfd3277740755f6bfc1155c7aa645403b760",
+    "path": "skills/gsap-performance",
+    "local": "skills/vendor/gsap-performance",
+    "files": {
+      "LICENSE": "51b04b06556662dd817e8f4aa6d06bc7139dc73739e1319a7233cfde3e147b90",
+      "SKILL.md": "cb5408d6fba707aabcbfe3320317a14c1f8fca6070074e5261047930f50d441e"
+    }
+  },
+  "gsap-plugins": {
+    "source": "https://github.com/greensock/gsap-skills",
+    "release": null,
+    "commit": "aed9cfd3277740755f6bfc1155c7aa645403b760",
+    "path": "skills/gsap-plugins",
+    "local": "skills/vendor/gsap-plugins",
+    "files": {
+      "LICENSE": "51b04b06556662dd817e8f4aa6d06bc7139dc73739e1319a7233cfde3e147b90",
+      "SKILL.md": "5838b856c74c07fbc9fa99b6dfd1eee34ea554c3e530c30e0d58014b707d70a4"
+    }
+  },
+  "gsap-react": {
+    "source": "https://github.com/greensock/gsap-skills",
+    "release": null,
+    "commit": "aed9cfd3277740755f6bfc1155c7aa645403b760",
+    "path": "skills/gsap-react",
+    "local": "skills/vendor/gsap-react",
+    "files": {
+      "LICENSE": "51b04b06556662dd817e8f4aa6d06bc7139dc73739e1319a7233cfde3e147b90",
+      "SKILL.md": "88e2a5312b45e8cc7b3c496637ff5bc9af2ae9c925b555c8b235b34cbc989d74"
+    }
+  },
+  "gsap-scrolltrigger": {
+    "source": "https://github.com/greensock/gsap-skills",
+    "release": null,
+    "commit": "aed9cfd3277740755f6bfc1155c7aa645403b760",
+    "path": "skills/gsap-scrolltrigger",
+    "local": "skills/vendor/gsap-scrolltrigger",
+    "files": {
+      "LICENSE": "51b04b06556662dd817e8f4aa6d06bc7139dc73739e1319a7233cfde3e147b90",
+      "SKILL.md": "9351b6666a4749c0740406ea363aaccb99a087ff45cc5e8b99a0f367facf3ef4"
+    }
+  },
+  "gsap-timeline": {
+    "source": "https://github.com/greensock/gsap-skills",
+    "release": null,
+    "commit": "aed9cfd3277740755f6bfc1155c7aa645403b760",
+    "path": "skills/gsap-timeline",
+    "local": "skills/vendor/gsap-timeline",
+    "files": {
+      "LICENSE": "51b04b06556662dd817e8f4aa6d06bc7139dc73739e1319a7233cfde3e147b90",
+      "SKILL.md": "1a8b0f39cc4be3ed3d834b89672e4ae2f151b901dc3450bebf10bbc45379fe02"
+    }
+  },
+  "gsap-utils": {
+    "source": "https://github.com/greensock/gsap-skills",
+    "release": null,
+    "commit": "aed9cfd3277740755f6bfc1155c7aa645403b760",
+    "path": "skills/gsap-utils",
+    "local": "skills/vendor/gsap-utils",
+    "files": {
+      "LICENSE": "51b04b06556662dd817e8f4aa6d06bc7139dc73739e1319a7233cfde3e147b90",
+      "SKILL.md": "1927bcc4ea95b38203404ad5ea1d060b15c4a886c65ae53e885ff1793aabe0ba"
+    }
+  },
+  "design-taste-frontend": {
+    "source": "https://github.com/Leonxlnx/taste-skill",
+    "release": null,
+    "commit": "5217fb45be2c0b302f29c9cd31cbd3237501c684",
+    "path": "skills/taste-skill",
+    "local": "skills/vendor/design-taste-frontend",
+    "files": {
+      "LICENSE": "4575a543ab88dad12ccea7d97e563d0bce5b448b06072e65d3264497dad326df",
+      "SKILL.md": "aa194351b246b8b4799099d4ed7b033d29eab6e6e3d58d8d2172978be7b3ec89"
+    }
+  },
+  "impeccable": {
+    "source": "https://github.com/pbakaus/impeccable",
+    "release": "skill-v4.3.1",
+    "commit": "cd12f8660e2dde57b9615c8a6b8ea674101f9cfc",
+    "path": ".claude/skills/impeccable",
+    "local": "skills/vendor/impeccable",
+    "files": {
+      "LICENSE": "02bb8c3b4e70190e3986c0404ad2fd8d639b4f534252d82379cc1b502b6d1812",
+      "NOTICE.md": "c60a093c2845fd9fb82f9c6f742ece31f379f8190b535309d32d66c45ccffdcb",
+      "SKILL.md": "3895765e9434400dfc1b30e364be002cf499c1718fb2431e65b907c14ae2cb27",
+      "reference/adapt.md": "ec58806f16fc7ba29bccef08f2e158cd00be077ce05d45e943a59bd26dc6dc55",
+      "reference/adapt.native.md": "17c583cf8ad41266ea1e787b666b9d91fe13469d3d0f6af57c08e0146f9b17ac",
+      "reference/android.md": "058f81f256134841875fd3183e06b37a023de0c877fd2b9eecd97011640791fe",
+      "reference/animate.md": "94b4ce6299fea93d9f256b2d25705961a76bc5ea940c56db4145686ebc99df1b",
+      "reference/audit.md": "57402ef6fd9d0745f8c60d778f77da83a8b16edf751fa1013598a0f6e5f0f541",
+      "reference/audit.native.md": "fe91fcf28638f95577af481a50edaf339d6c9a3ad3b9fa477bc81c116b8bc392",
+      "reference/bolder.md": "4879f38b23d0a251a63cbb0327e660296194cd2e71eb4da3236c6ebfe5807746",
+      "reference/clarify.md": "6c382f8283756e8a693d832b750f7e4cbff1ca5bdcc3825b2b4ef4da9f21876a",
+      "reference/colorize.md": "d1fbd55074abb2251bdaa03749d34acc42c38e46e47549f18f5848df57d43c42",
+      "reference/craft-floor.md": "96e2e6bd4fcf9a2c6da65fb029f96d9176308fae2efd9d8653d3b8d838960e07",
+      "reference/craft.md": "9205e222bc6565b37fb504ceec93233c2d2a456802b69d16e6b1c44723907c4c",
+      "reference/critique.md": "c9284892cb1f21aaeaf93fdf2e9e7a679d05e0baa8ddf309a79a9790d262ad38",
+      "reference/degraded/asset-producer.md": "ad389ab12800738b0e5c97618278b7a824654b25990166ec9f389caa5c3386ca",
+      "reference/degraded/documenter.md": "bcc05ea92faebb5c74037a9d4263a5ce9a56f5ab07c8ab3c59ee704d8cade745",
+      "reference/degraded/finish-reviewer.md": "5f24c5a97b4ffcabc7c432b064cfdd04c7a2ad52f52e765be648dc0aadab8f38",
+      "reference/degraded/manual-edit-applier.md": "5fae7f8a2fc3ddd49ad0a413446dc44daedef5b6b7de5eb935bd2fbfad646d58",
+      "reference/delight.md": "56500b1f9d2fcec8324d7f448d813048b5831a46d3feeb1055bd3eb17ec3660f",
+      "reference/distill.md": "b2f60e0154bf0e687badc46d8c8420e2118a9a6e21162050722be779dc02cb6d",
+      "reference/doctor.md": "d6a1fa1689642a6db9027493747d7ed54f9e0cae660472022c0a0a8dfdead3f4",
+      "reference/document.md": "87b3db688c7963898bda8096f7868fed05ec5a0a80d14298e8b906b70cdf9c42",
+      "reference/extract.md": "bfc51972fbf387566dc9e29c8b1af479a66ab401fdbce659fae9e6a5a9d85316",
+      "reference/harden.md": "8a1c872773996dfa1c1eb765ac7ed8e8d41f99d4f12f090b4725b694e85eaa62",
+      "reference/hooks.md": "f597742c8e5562263d3bce725cb55e920d8c2c60223f41a632d523ca30cdd12b",
+      "reference/init.md": "78c236dadb7e70337dc9dfa67e65fc15b7abed137ad320c16410ddfa7aec34f9",
+      "reference/ios.md": "40c87038b5f75147a5952a96237acf312a327bf70c1bcd8e0a5f064625ae9668",
+      "reference/layout.md": "64802d14087fc96b38ef3881fef8098b36068d07f3b942031637b18eef3dd2af",
+      "reference/live-setup.md": "6e7e3b7c4cf331cdb43f4546c164acd6c45a267ce3289dcfa87e13202d98c747",
+      "reference/live.md": "b4def5b57733b6ba233570bd5691a536901f8b15479fc0111a2cde56224d0e1a",
+      "reference/new-work.md": "df4f14df1daaad1606b682995f649da19a85debf264092447b3b7ddb8b4bc1ce",
+      "reference/onboard.md": "9a2c08ee2516d2ee87129e7ebe6a0895f9990c9852d1f6fa7e70be9a6a88a659",
+      "reference/operate.md": "a9d2203acd45ca33a13d5c68b02b23ed512425ac15f0e8438318ed124b43729d",
+      "reference/optimize.md": "6d368b679a0ed1815812815de65863b5840d419589dfbda06224c01149240287",
+      "reference/overdrive.md": "a9856cb40da6519b1334bcfc75a4fbe83bef39ca86ee6f3effcb2a96794c627c",
+      "reference/polish.md": "b8d49a3cab3428d9f351502e9c2c5802cef187e0d2af626ef3e1cd1837fd06bf",
+      "reference/quieter.md": "ee6d6d127c1c2ab3526d529a8e3698be2185b5e346ac617f37501de2c0698b97",
+      "reference/routing.md": "af34b8af89edb10e228c0482754423f48238fce816eceb8703b8781c130da54e",
+      "reference/shape.md": "a55f016c046cb6a27c55bd7f346375aeb506a755c4fbca19a5f92dbd42309c23",
+      "reference/typeset.md": "696c15f96d49a03091b71a408151a3297521f7a8231b98ca9b1103667a0b5f89",
+      "reference/visualize.md": "82a5e564563333aabb7ab4d2f8c26c785dfe2c2416ac6e9f30cba31440676194",
+      "scripts/VERSION": "800cf1c0392b24de7c0a1c6ea6778ecb433dec71c49a150bce96a98477527b2f",
+      "scripts/command-metadata.json": "6bdbc3f745ceee15e10b050f109ce42bbeb53ab3c3b5239257de1d596654dee7",
+      "scripts/data/font-index-failures.json": "835f19a0a3812f3652dd6979a2ce5597f654fd01f26e1b420b92d5f42b997ce4",
+      "scripts/data/font-index.json": "47edbdfaf27073c47033d1ac7dfee881be49e2dcbda7671d1157300481dde6da",
+      "scripts/impeccable": "39d9600489073e227e4f4d55c451ce4252a6632ed7ae37923efbbcbc91f16d07",
+      "scripts/impeccable.cmd": "759bab1d8adc071fdde2efcf6e2157aa4026f3c2b4f3c342a8070bf328011616",
+      "scripts/live-browser-dom.js": "de1b7404f4cdfd7b515196afb17b74b1980f0bc88cb8681ae93a76ca48ec7bdb",
+      "scripts/live-browser-ignores.js": "c1cb6877ca99a0c1b38ba0c7d59f32702d3022f6821d8045f7133f7c40b6362f",
+      "scripts/live-browser-session.js": "edddeb3fad88adec9a055b1bf9d5c75418cbe97a13b1a7f6765e73249e482563",
+      "scripts/live-browser.js": "7af0a8665057c83b39bca2c8c7427ef2343734f70d4128c377113a6726a1e3b1",
+      "scripts/modern-screenshot.umd.js": "bb36665889124a0b6e15f16045265737449c3bdcf2712cdb08af3cfa01563e2b"
     }
   }
 }

@@ -21,7 +21,7 @@ Trace desired behavior through the relevant system boundaries. Resolve only what
 
 Use domain, architecture, research, frontend, prototype, visual-design, or other specialists only for a material unresolved design question. Feed their accepted decisions back into the Build Contract. They do not own progression or create parallel workflow state.
 
-When UI structure, visual direction, or interaction design is material, use the conditional UI branch below. Backend-only work skips it. For landing pages, portfolios, or editorial interfaces, `design-taste-frontend` remains the default aesthetic specialist when available; dashboards, tables, and multi-step product UI need task-appropriate methods. Specialists inform this contract rather than starting another lifecycle or implementing production UI.
+When UI structure, visual direction, or interaction design is material, use the conditional UI branch below. Backend-only work skips it. For landing pages, portfolios, or editorial interfaces, `design-taste-frontend` remains the default aesthetic specialist when available; dashboards, tables, and multi-step product UI need task-appropriate methods. The `impeccable` skill complements it for improvement-only requests such as polish, critique, or audit; it does not replace the default specialist or open a second lifecycle. Specialists inform this contract rather than starting another lifecycle or implementing production UI.
 
 Ask the user only for material decisions involving goals, priorities, risk tolerance, taste, or authority. Honor an explicit user preference for prose first. Otherwise use the active client's callable native question interface: `request_user_input` in Codex or its available equivalent in another client. If no native question interface is callable now, immediately ask the same localized concise prose question. Preserve the pending branch or design decision, recommend the same option, and continue from the ordinary reply. Do not repeat a successful native question call in Markdown.
 
@@ -31,7 +31,7 @@ Do not require a particular client's planning mode solely to ask a question. Res
 
 Read [UI design workflow](references/ui-design-workflow.md) for new interfaces or partial/full rebuilds, and [visual evidence](references/visual-evidence.md) when presenting researched references or a preview. For visual choices or mockup approval, use the live visual review loop in visual evidence when the environment can keep its server running. These methods are integrated here; do not invoke the retired `rebuild-ui-design` skill.
 
-For approved motion research, consult [motion reference sources](references/motion-references.md): MotionSites AI, 21st, React Bits, and Godly / Recent, with source roles and access notes.
+For approved motion research, consult [motion reference sources](references/motion-references.md): MotionSites AI, 21st, React Bits, Godly / Recent, and GSAP, with source roles and access notes.
 
 When used as a standalone pasted prompt, resolve references from the installed `deep-design` directory or the repository's `skills/deep-design/`. If neither is accessible, use this minimum contract and state the evidence gap rather than inventing a reference file:
 
