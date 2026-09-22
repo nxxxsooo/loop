@@ -4,7 +4,7 @@
 
 **Goal:** Restore `what` as a standalone fifth bundle skill, make a bare `?` explain and then prompt continuation in any active workflow, and make unavailable native question UI fall back automatically instead of asking for Plan mode.
 
-**Architecture:** `what` becomes a small control-plane skill that reads the active workflow frontier but never owns its durable state. `loop` retains only the explicit Product Brief-to-verified-result lifecycle, while `deep-grill`, `deep-design`, and `deep-build` provide automatic question fallback, selective OpenSpec ownership, and Superpowers-compatible execution methods.
+**Architecture:** `what` becomes a small control-plane skill that reads the active workflow frontier but never owns its durable state. `loop` retains only its implicitly available Product Brief-to-verified-result lifecycle. The upstream-owned `deep-grill` releases its automatic question fallback first; `loop` then pins and vendors that exact release while `deep-design` and `deep-build` provide their local fallback, selective OpenSpec ownership, and Superpowers-compatible execution methods.
 
 **Tech Stack:** Markdown Skills, YAML metadata, Python standard-library validator, JSON Raycast snippets, Git, and the shared `~/.agents/skills/` runtime snapshot.
 
@@ -16,6 +16,7 @@
 - Do not ask the user to switch to Plan mode merely to use `request_user_input`. Use native UI when callable and concise localized prose otherwise.
 - An existing relevant OpenSpec change is the sole durable task state. Repository initialization alone never requires a new OpenSpec change.
 - Do not vendor Superpowers or `design-taste-frontend`; the bundle must work when those external skills are unavailable.
+- Treat `skills/deep-grill/` as an unchanged vendor copy. Make its behavior change in `/Users/mingjian/Documents/sync/GitHub/deep-grill`, publish upstream `v3.0.1`, then refresh the bundle from that exact tag and update its provenance metadata.
 - The currently published `v3.0.2` bundle has four skills and no `what`. Treat the source tree as the next release; do not claim that an already-published `npx skills@latest` install contains `what`.
 - Keep every `SKILL.md` lean, under 200 lines where practical, and maintain frontmatter names that match their directory names.
 - Edit source files with `apply_patch`. Synchronize installed copies only after repository validation passes.
@@ -27,8 +28,10 @@
 | `skills/what/SKILL.md` | Cross-workflow explain-and-continue protocol and exact trigger boundary. |
 | `skills/what/agents/openai.yaml` | Discoverable metadata, explicit default prompt, and exact-`?` implicit exposure. |
 | `skills/what/LICENSE` | Bundle MIT license copy. |
-| `skills/loop/SKILL.md` and `agents/openai.yaml` | Explicit product lifecycle only; no duplicated `?` checkpoint. |
-| `skills/deep-grill/SKILL.md` and `skills/deep-design/SKILL.md` | Native-question-first behavior with automatic prose fallback. |
+| `skills/loop/SKILL.md` and `agents/openai.yaml` | Implicit product lifecycle only; no duplicated `?` checkpoint. |
+| `/Users/mingjian/Documents/sync/GitHub/deep-grill/SKILL.md` | Upstream automatic native-question/prose fallback contract, released as `v3.0.1`. |
+| `skills/deep-grill/` and `bundle-sources.json` | Unchanged vendor copy and exact provenance pin for upstream `deep-grill v3.0.1`. |
+| `skills/deep-design/SKILL.md` | Local native-question-first behavior with automatic prose fallback. |
 | `skills/deep-design/SKILL.md` and `skills/deep-build/SKILL.md` | Selective OpenSpec ownership and Superpowers-compatible execution methods. |
 | `scripts/check-bundle.py` | Five-skill structural and behavior-contract regression checks. |
 | `skills/loop/assets/raycast-snippets.json` | Exact bodies for five Raycast snippets, including `what ;wt`. |
@@ -38,6 +41,36 @@
 | `/Users/mingjian/Documents/sync/Vault/Notes/manual/deep-grill-workflow.md` | Updated no-mode-switch decision fallback. |
 
 ---
+
+### Task 0: Release the upstream `deep-grill` question fallback
+
+**Repository:** `/Users/mingjian/Documents/sync/GitHub/deep-grill`
+
+**Files:**
+- Modify: `SKILL.md`
+- Modify: `scripts/check-readme-sync.py`
+- Modify: `README.md`
+- Modify: `README.zh-CN.md`
+
+**Interfaces:**
+- Consumes: Current native-question availability for a material frontier decision.
+- Produces: A native question when callable or the same concise localized prose question immediately when it is not.
+
+- [x] **Step 1: Record the upstream baseline and write the failing contract check**
+
+Run `python3 scripts/check-readme-sync.py`. Then revise its required and rejected fragments so it requires automatic current-mode prose fallback and rejects mode-switch waits. Run it again and observe the expected failure before editing `SKILL.md`.
+
+- [x] **Step 2: Replace the mode-gated wait with automatic fallback**
+
+In `SKILL.md`, keep native UI first when callable. When it is unavailable in the current mode, present the same localized concise prose decision immediately, preserve the pending frontier, retain the recommended option, and continue from the ordinary reply. Remove every request to switch modes or wait for a gated interface. Keep successful native calls out of duplicate Markdown.
+
+- [x] **Step 3: Synchronize the upstream README excerpts and verify green**
+
+Update only each embedded `deep-grill` skill-body excerpt, then run `python3 scripts/check-readme-sync.py`, `git diff --check`, and an `rg` check that finds no mode-switch instruction.
+
+- [x] **Step 4: Commit, push, tag, and publish `v3.0.1`**
+
+Commit the scoped upstream change, push it to the default branch, create an annotated `v3.0.1` tag on the verified commit, push the tag, create a GitHub Release, and verify both the remote tag and published release. Do not alter any existing `v3.0.0` tag.
 
 ### Task 1: Add `what` and make the bundle validator test its contract
 
@@ -51,7 +84,7 @@
 - Consumes: Active conversation/workflow state, nearest `CONTEXT.md` when present, and `request_user_input` availability.
 - Produces: A compact explanation followed by `Continue` (recommended), `Adjust next action`, or `Stop`.
 
-- [ ] **Step 1: Record the current validator baseline**
+- [x] **Step 1: Record the current validator baseline**
 
 Run:
 
@@ -61,14 +94,14 @@ python3 scripts/check-bundle.py
 
 Expected: the current four-skill bundle passes before the new contract is introduced.
 
-- [ ] **Step 2: Write the failing five-skill validator expectations**
+- [x] **Step 2: Write the failing five-skill validator expectations**
 
 In `scripts/check-bundle.py`, replace the shared implicit-policy assertion with per-skill expectations and add `what` to both expected registries:
 
 ```python
 EXPECTED = {"loop", "deep-grill", "deep-design", "deep-build", "what"}
 EXPECTED_IMPLICIT_INVOCATION = {
-    "loop": False,
+    "loop": True,
     "deep-grill": True,
     "deep-design": True,
     "deep-build": True,
@@ -79,7 +112,7 @@ EXPECTED_RAYCAST_SNIPPETS["what"] = {"keyword": ";wt", "skill": "what"}
 
 Require `what` fragments for the exact bare-message trigger, `$what`, the five explanation fields, automatic native/prose continuation fallback, and `Continue` as recommended. Reject the retired `loop` `?` heading and trigger wording. Require the same repository `LICENSE` digest for `what` as for the local skills.
 
-- [ ] **Step 3: Verify the red state**
+- [x] **Step 3: Verify the red state**
 
 Run:
 
@@ -89,7 +122,7 @@ python3 scripts/check-bundle.py
 
 Expected: failure that reports the missing `skills/what/` package and the missing `what` Raycast snippet. Do not change unrelated validation rules to hide this failure.
 
-- [ ] **Step 4: Create the minimal standalone `what` skill**
+- [x] **Step 4: Create the minimal standalone `what` skill**
 
 Add this frontmatter and triggering boundary to `skills/what/SKILL.md`:
 
@@ -122,7 +155,7 @@ When `request_user_input` is callable, invoke it with `Continue` (recommended), 
 
 Add a no-active-work branch that says no resumable frontier exists and asks what task to orient around. Add `agents/openai.yaml` with `display_name: "What"`, short description, a `$what` default prompt, and `allow_implicit_invocation: true`. Copy the repository `LICENSE` byte-for-byte.
 
-- [ ] **Step 5: Verify the green state for the standalone package**
+- [x] **Step 5: Verify the green state for the standalone package**
 
 Run:
 
@@ -132,7 +165,7 @@ python3 scripts/check-bundle.py
 
 Expected: the only remaining failure, if any, concerns stale `loop` ownership or Raycast/documentation work that later tasks intentionally fix. Confirm that `skills/what/` itself has no missing-file, metadata, license, or contract failure.
 
-- [ ] **Step 6: Commit the standalone skill slice**
+- [x] **Step 6: Commit the standalone skill slice**
 
 Run:
 
@@ -166,7 +199,7 @@ When the user's entire trimmed message is exactly `?`
 `request_user_input` is callable in the active mode
 ```
 
-Also require `loop` metadata to set `allow_implicit_invocation: false` so it starts only when explicitly requested.
+Also require `loop` metadata to set `allow_implicit_invocation: true` so it remains available for clear product-lifecycle requests.
 
 - [ ] **Step 2: Run the loop contract test in red**
 
@@ -176,20 +209,20 @@ Run:
 python3 scripts/check-bundle.py
 ```
 
-Expected: failure identifying the existing checkpoint section and implicit `loop` policy.
+Expected: failure identifying the existing checkpoint section and stale explicit-only `loop` policy.
 
-- [ ] **Step 3: Remove checkpoint ownership from `loop`**
+- [ ] **Step 3: Remove checkpoint ownership from `loop` while keeping it implicitly available**
 
-Update `skills/loop/SKILL.md` so its description and body cover only the three artifact contracts, active-session continuation, artifact-readiness routing, and one source of state. Remove the whole `## Handle ? Without Breaking Flow` section. Do not copy `what` instructions into `loop`.
+Update `skills/loop/SKILL.md` so its description and body cover only the three artifact contracts, active-session continuation, artifact-readiness routing, and one source of state. Keep it available when the user clearly asks for this lifecycle. Remove the whole `## Handle ? Without Breaking Flow` section. Do not copy `what` instructions into `loop`.
 
 Set `skills/loop/agents/openai.yaml` to this policy:
 
 ```yaml
 policy:
-  allow_implicit_invocation: false
+  allow_implicit_invocation: true
 ```
 
-Shorten its default prompt to the explicit lifecycle request and remove `?`, `request_user_input`, and continuation-UI wording.
+Shorten its default prompt to the lifecycle request and remove `?`, `request_user_input`, and continuation-UI wording.
 
 - [ ] **Step 4: Keep README excerpts byte-equivalent to the shortened loop body**
 
@@ -217,10 +250,12 @@ git commit -m "refactor: keep checkpoint control outside loop"
 
 Expected: lifecycle removal is reviewable independently from child-rule changes.
 
-### Task 3: Make question fallback automatic and clarify OpenSpec/Superpowers ownership
+### Task 3: Pin the released `deep-grill` fallback and clarify OpenSpec/Superpowers ownership
 
 **Files:**
-- Modify: `skills/deep-grill/SKILL.md`
+- Refresh unchanged from upstream: `skills/deep-grill/{SKILL.md,agents/openai.yaml,LICENSE,NOTICE,THIRD_PARTY_NOTICES.md,references/grilling-upstream.md}`
+- Modify: `bundle-sources.json`
+- Modify: `THIRD_PARTY_NOTICES.md`
 - Modify: `skills/deep-design/SKILL.md`
 - Modify: `skills/deep-build/SKILL.md`
 - Modify: `scripts/check-bundle.py`
@@ -231,7 +266,7 @@ Expected: lifecycle removal is reviewable independently from child-rule changes.
 
 - [ ] **Step 1: Add regression checks for the reported Codex failure**
 
-Require both `deep-grill` and `deep-design` to contain automatic fallback wording and reject these phrases:
+Require the vendored `deep-grill` and local `deep-design` to contain automatic fallback wording and reject these phrases:
 
 ```text
 ask the user to switch
@@ -249,11 +284,13 @@ Run:
 python3 scripts/check-bundle.py
 ```
 
-Expected: failures identify the current mode-switch waits and old OpenSpec wording before those instructions are edited.
+Expected: failures identify the current vendored mode-switch wait and old local OpenSpec wording before those instructions are edited.
 
-- [ ] **Step 3: Replace child mode-switch waits with automatic fallback**
+- [ ] **Step 3: Refresh the released upstream child and replace the local mode-switch wait**
 
-In both `deep-grill` and `deep-design`, use this decision rule:
+Task 0 publishes the `deep-grill` source change. Refresh the vendor copy from its exact `v3.0.1` tag, update all provenance hashes in `bundle-sources.json`, and update the upstream release link in `THIRD_PARTY_NOTICES.md`. Do not edit the vendored files by hand.
+
+In `deep-design`, use this decision rule:
 
 ```markdown
 - If `request_user_input` is callable now, use it for the pending material decision.
@@ -290,7 +327,7 @@ Expected: the validator passes; the `rg` command returns no mode-switch instruct
 Run:
 
 ```bash
-git add skills/deep-grill/SKILL.md skills/deep-design/SKILL.md skills/deep-build/SKILL.md scripts/check-bundle.py
+git add skills/deep-grill bundle-sources.json THIRD_PARTY_NOTICES.md skills/deep-design/SKILL.md skills/deep-build/SKILL.md scripts/check-bundle.py
 git commit -m "fix: fall back when native questions are unavailable"
 ```
 
@@ -338,7 +375,7 @@ Keep the other three bodies byte-for-byte equivalent to their source skills. Do 
 
 In both README files:
 
-- Replace the claim that `loop` is the only normal entry point with the approved roles: Superpowers is the default execution system when available; `loop` is the explicit fixed product lifecycle; `what` is a cross-workflow explanation-and-continue control; OpenSpec is a selective durable ledger.
+- Replace the claim that `loop` is the only normal entry point with the approved roles: Superpowers is the default execution system when available; `loop` is the implicitly available fixed product lifecycle; `what` is a cross-workflow explanation-and-continue control; OpenSpec is a selective durable ledger.
 - Expand the skill table to five skills and move `?` ownership from `loop` to `what`.
 - State that `?` and `$what` explain the frontier and then prompt `Continue` (recommended), `Adjust next action`, or `Stop`.
 - State that native question UI is used when callable and concise prose is automatic otherwise; remove all Plan-mode-switch instructions.
@@ -351,7 +388,7 @@ In both README files:
 
 Create `what-workflow.md` with frontmatter, a one-line purpose, a short use/avoid decision table, examples for `?` and `$what`, the three continuation outcomes, and the relationship to Superpowers, `loop`, and OpenSpec.
 
-Update `loop-workflow.md` to describe `loop` as an explicit lifecycle rather than the default entry point, list five Raycast mappings, and route the checkpoint protocol to `what`. Update `deep-grill-workflow.md` so an unavailable native UI produces concise prose immediately, not a Plan-mode request. Preserve the existing Taste and source links unless the changed role text requires an update.
+Update `loop-workflow.md` to describe `loop` as an implicitly available lifecycle rather than the default entry point, list five Raycast mappings, and route the checkpoint protocol to `what`. Update `deep-grill-workflow.md` so an unavailable native UI produces concise prose immediately, not a Plan-mode request. Preserve the existing Taste and source links unless the changed role text requires an update.
 
 - [ ] **Step 5: Verify documentation and snippet parity**
 

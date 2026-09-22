@@ -13,7 +13,7 @@ The approved direction is to restore `what` as an independent skill, keep `loop`
 - Make `what` available from any active workflow without taking ownership of that workflow.
 - Preserve the existing explain-and-resume behavior for a bare `?`.
 - Prompt the user to continue the active work immediately after the explanation.
-- Keep `loop` as an explicit entry point for the full Product Brief to Build Contract lifecycle.
+- Keep `loop` implicitly available for the full Product Brief-to-verified-result lifecycle while limiting it to that lifecycle.
 - Document one clear collaboration model for Superpowers, `loop`, and OpenSpec.
 - Avoid duplicate plans, duplicate task state, and manual Plan-mode handoffs for checkpoints or material user decisions.
 
@@ -69,7 +69,7 @@ Neither skill may ask the user to switch modes merely to unlock a question UI. T
 
 ### `loop`
 
-Remove ownership of the bare `?` protocol from `loop`, including its frontmatter, workflow section, metadata, and validation assertions. `loop` remains an explicit orchestrator for this fixed lifecycle:
+Remove ownership of the bare `?` protocol from `loop`, including its frontmatter, workflow section, metadata, and validation assertions. `loop` remains implicitly available for this fixed lifecycle:
 
 `deep-grill` -> confirmed Product Brief -> `deep-design` -> confirmed Build Contract -> `deep-build` -> verified result
 
@@ -151,6 +151,6 @@ Verification must cover structure, documentation, behavior contracts, and instal
 - A bare `?` or explicit `$what` reliably explains and preserves any active workflow frontier.
 - Every active-workflow explanation ends by prompting the user to continue, adjust the next action, or stop, with `Continue` recommended and no Plan-mode replay.
 - Material decisions in `deep-grill` and `deep-design` use native UI when callable and automatic prose fallback otherwise.
-- `loop` has one responsibility: the explicit fixed product lifecycle.
+- `loop` has one responsibility: the implicit fixed product lifecycle. Its former replay control could make Superpowers visually look as though it was inside `loop`; moving that control to `what` fixes ownership without removing the familiar `loop` entry vibe.
 - Superpowers, `loop`, and OpenSpec have complementary roles and do not create duplicate task state.
 - The bundle installs and validates as five skills with no documentation or snippet drift.
