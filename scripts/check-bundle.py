@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import re
 from pathlib import Path
 import sys
 
@@ -144,13 +145,19 @@ def main() -> int:
             "confirmed Build Contract",
             "design-taste-frontend",
             "Use OpenSpec As An Adapter",
-            "If `request_user_input` is callable now, use it for the pending material decision.",
-            "If it is unavailable in the current mode, present the same localized concise prose question now.",
+            "Honor an explicit user preference for prose first.",
+            "If no native question interface is callable now, immediately ask the same localized concise prose question.",
             "Preserve the pending branch or design decision, recommend the same option, and continue from the ordinary reply.",
-            "Use concise localized prose automatically when `request_user_input` is unavailable in the current mode, when the active client has no native question interface, or when the user explicitly chooses prose.",
+            "its available equivalent in another client",
             "If a relevant OpenSpec change is already active, continue its official workflow and treat its artifacts as the sole physical Build Contract. Do not open a second plan.",
             "If no relevant change is active, do not create one merely because OpenSpec is installed or initialized.",
             "Do not implement",
+            "## UI Design Branch",
+            "ui-research",
+            "react-bits",
+            "references/ui-design-workflow.md",
+            "references/visual-evidence.md",
+            "Backend-only work skips it",
         ),
         "deep-build": (
             "confirmed Build Contract",
@@ -159,6 +166,9 @@ def main() -> int:
             "Superpowers TDD, debugging, review, and verification skills may be used as focused implementation methods when available, but they must not create a duplicate plan or replace OpenSpec task state.",
             "Changes:",
             "Remaining risks:",
+            "## Execute UI Contracts",
+            "actual implementation screenshots",
+            "before migrating remaining pages",
         ),
         "what": (
             "Treat only an entire trimmed `?` message and an explicit `$what` invocation as the checkpoint trigger.",
@@ -181,6 +191,31 @@ def main() -> int:
             ),
             failures,
         )
+
+    # Packaged methods must survive installation and work without the retired skill.
+    for name in ("deep-design", "deep-build"):
+        entry = SKILLS / name / "SKILL.md"
+        description = next(
+            (line for line in entry.read_text().splitlines() if line.startswith("description:")),
+            "",
+        )
+        if description.split(":", 1)[-1].strip() in ("", ">", ">-", "|", "|-"):
+            failures.append(f"{entry}: description must be a portable single-line scalar")
+        for page in (SKILLS / name).rglob("*.md"):
+            for target in re.findall(r"\[[^\]]*\]\(([^)]+)\)", page.read_text()):
+                if "://" not in target and not target.startswith("#"):
+                    if not (page.parent / target.split("#", 1)[0]).is_file():
+                        failures.append(f"{page}: broken packaged reference {target}")
+    require_fragments(
+        SKILLS / "deep-design" / "references" / "ui-design-workflow.md",
+        ("No animation is also a valid decision", "There is no source quota", "Build Contract"),
+        failures,
+    )
+    require_fragments(
+        SKILLS / "deep-design" / "references" / "visual-evidence.md",
+        ("export", "actual", "Revision requests do not"),
+        failures,
+    )
 
     for readme_name in ("README.md", "README.en.md"):
         require_fragments(

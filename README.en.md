@@ -84,6 +84,16 @@ The active child calls domain, architecture, frontend, testing, and delivery spe
 
 For material visual-design questions involving landing pages, portfolios, editorial pages, or visual redesigns, `deep-design` loads `design-taste-frontend` by default when available. Dashboards, data tables, and multi-step product UI use a more suitable specialist.
 
+### UI design and rebuilds
+
+`deep-design` covers new UI, partial redesigns, and complete rebuilds: confirm scope and preserved behavior, choose product/UI/both/no external research, review actual visual evidence with per-reference feedback, settle direction, and choose whether to preview first. Existing approvals are reused; backend-only tasks skip this branch.
+
+Use independently installed `ui-research` for research methods and an available `react-bits` integration for free motion discovery. Neither is a hard bundle dependency; official sources work directly when they are absent. Reference quotas, paid pages, and client-specific modes do not become extra gates. The former `rebuild-ui-design` workflow is integrated and no longer needs a separate installation.
+
+All decisions feed one Build Contract. `deep-build` owns real pages, browser interactions, and screenshot verification; broad rebuilds review a representative end-to-end slice before migrating the rest. Preview revisions do not count as approval, and component research does not authorize installation.
+
+See the [UI workflow](skills/deep-design/references/ui-design-workflow.md) and [visual evidence](skills/deep-design/references/visual-evidence.md) methods.
+
 ## The complete loop contract
 
 This excerpt stays in exact sync with [`skills/loop/SKILL.md`](./skills/loop/SKILL.md):

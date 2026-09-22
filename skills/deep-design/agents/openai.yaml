@@ -1,6 +1,6 @@
 interface:
   display_name: "Deep Design"
-  short_description: "Turn a Product Brief into a Build Contract"
-  default_prompt: "Use $deep-design to turn the confirmed Product Brief into an implementation-ready Build Contract. Use OpenSpec internally when the project's scale or existing setup warrants it, and do not implement yet."
+  short_description: "Design behavior, UI direction, and a verified build contract"
+  default_prompt: "Use $deep-design to turn confirmed product intent into a Build Contract. For new UI or a redesign, resolve scope, research, visual evidence, motion, preview preference, and staged verification. Reuse approved decisions, use OpenSpec when appropriate, and leave production implementation to deep-build."
 policy:
   allow_implicit_invocation: true

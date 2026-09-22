@@ -1,11 +1,6 @@
 ---
 name: deep-build
-description: >-
-  Implement a confirmed Build Contract through small verified slices and
-  deliver the authorized result. Use when behavior, interfaces, tasks, and
-  must-pass scenarios are settled and implementation authority is clear.
-  Continue across ordinary replies until delivery or a contract gap requires
-  deep-design.
+description: Implement a confirmed Build Contract through small verified slices and deliver the authorized result. Use when behavior, interfaces, tasks, and must-pass scenarios are settled and implementation authority is clear. Continue across ordinary replies until delivery or a contract gap requires deep-design.
 ---
 
 # Deep Build
@@ -25,6 +20,18 @@ Implement the smallest dependency-ready vertical slice that produces observable 
 After each slice, run the narrowest credible verification and inspect the result. Fix failures before expanding scope. Reassess the remaining contract when evidence changes; do not preserve a task list that the system has disproved. Keep user changes intact and do not broaden the requested behavior through opportunistic refactors.
 
 Verify the must-pass scenarios at real entry points when practical, then run proportionate regression checks. Record meaningful gaps and the risk they leave. For an OpenSpec-backed contract, validate and archive the change only when the official workflow calls for it and the delivered behavior is complete.
+
+## Execute UI Contracts
+
+For UI work, implement the contract's approved direction, preserved behavior, preview decision, target routes/states/viewports and review milestones. If a requested preview is still unapproved, return that decision to deep-design before production edits. Do not restart settled reference research or change design direction through a component choice.
+
+Build layout/reflow and hierarchy before visual finish and motion, using realistic content and required states. Inspect shared component/token consumers and isolate scoped changes. Use `react-bits` when the contract selects its free components; verify current source, variants and dependencies in the target stack. Preserve existing files and add only needed packages. Missing optional specialists do not block an equivalent verified implementation.
+
+For broad redesigns, implement the representative end-to-end workflow first. Show the running result and obtain the contract's milestone approval before migrating remaining pages. Honor an explicit prose preference; otherwise use the active client's callable native question tool, falling back immediately to concise prose when none is callable. Revisions keep that milestone open. Small visual corrections stay in the current slice, while new scope, navigation or layout principles return to deep-design.
+
+When the product can run, use browser interactions and actual implementation screenshots at agreed viewports. Check preserved routes, permissions, validation, requests/data effects and important states; inspect density, alignment, wrapping, overflow/clipping, focus, touch targets, reduced motion, broken assets and related console errors. Use meaningful runtime measurements for performance claims, not DOM-query timings or build success alone.
+
+Do not require a Before/After board unless requested. Missing baseline screenshots are not a blocker; missing runtime access is a verification gap. State unavailable startup, auth, data or browser evidence and the checks not performed. A prototype or generated image cannot prove that production behavior passed.
 
 ## Deliver Within Authority
 

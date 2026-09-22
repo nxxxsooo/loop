@@ -84,6 +84,16 @@ npx skills@latest remove grill-loop grilling -g -y
 
 其中，落地页、作品集、编辑型页面或视觉改版出现实质视觉设计问题时，`deep-design` 会在可用时默认加载 `design-taste-frontend`；仪表盘、数据表和多步骤产品界面不走该 Skill。
 
+### UI 设计与重构
+
+`deep-design` 同时承接新 UI、局部重构和完整重构：确认范围与保留行为，选择产品／UI／两者／不做外部研究，提供有真实图片和逐项反馈的参考板，收敛视觉与交互方向，再决定是否先做高保真预览。已确认的选择直接复用，后端任务跳过这些 UI 步骤。
+
+按需使用独立安装的 `ui-research` 做参考研究，使用可用的 `react-bits` 集成能力查询免费动效组件；这些不是 bundle 的硬依赖，缺失时可以直接研究官方来源。研究数量、付费页面和特定客户端模式不会成为额外门槛。旧 `rebuild-ui-design` 的流程已融入，无需另装该 Skill。
+
+所有决定进入同一份 Build Contract。`deep-build` 负责实际页面、浏览器交互和截图验证；大范围重构先验收一个代表性完整流程，再迁移剩余页面。预览修订不会被当作批准，也不会因为研究了某个组件就自动安装它。
+
+参考方法见 [UI 工作流](skills/deep-design/references/ui-design-workflow.md) 和 [视觉证据](skills/deep-design/references/visual-evidence.md)。
+
 ## 完整 loop 契约
 
 以下内容与 [`skills/loop/SKILL.md`](./skills/loop/SKILL.md) 保持完全一致：
