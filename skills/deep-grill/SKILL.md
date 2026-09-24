@@ -1,12 +1,6 @@
 ---
 name: deep-grill
-description: >-
-  Deeply grill an idea, decision, design, plan, or implied approach through
-  evidence, failure modes, and user-owned decisions. Use discovery mode for raw
-  ideas, clarification, "grill me", or an unfinished Product Brief; use audit
-  mode for a formed target that needs a verdict or revision. Continue every
-  reply in an active deep-grill session until its Product Brief or verdict is
-  confirmed, without requiring the user to name the skill again.
+description: Deeply grill an idea, decision, design, plan, or implied approach through evidence, failure modes, and user-owned decisions. Use discovery mode for raw ideas, clarification, "grill me", or an unfinished Product Brief; use audit mode for a formed target that needs a verdict or revision. Continue every reply in an active deep-grill session until its Product Brief or verdict is confirmed, without requiring the user to name the skill again.
 ---
 
 # Deep Grill
