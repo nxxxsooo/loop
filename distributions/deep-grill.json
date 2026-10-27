@@ -1,0 +1,21 @@
+{
+  "source": "skills/deep-grill",
+  "repository": "https://github.com/nxxxsooo/deep-grill",
+  "baseline_commit": "dd2ce0e743aa0d2370db64edd5882d4d3ccda4b8",
+  "retired_files": ["references/grilling-upstream.md", "NOTICE", "THIRD_PARTY_NOTICES.md"],
+  "files": [
+    ".gitignore",
+    "LICENSE",
+    "README.md",
+    "README.zh-CN.md",
+    "SKILL.md",
+    "agents/openai.yaml",
+    "assets/deep-grill-comparison-cn-square.png",
+    "assets/deep-grill-comparison-square.png",
+    "assets/deep-grill-launch-cn-portrait.png",
+    "assets/deep-grill-social-preview.png",
+    "logo.png",
+    "logo.svg",
+    "scripts/check-readme-sync.py"
+  ]
+}

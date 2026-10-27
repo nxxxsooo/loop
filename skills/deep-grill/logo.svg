@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="flame" x1="0" y1="1" x2="0.6" y2="0">
+      <stop offset="0" stop-color="#ff5c4d"/>
+      <stop offset="1" stop-color="#ff8a5c"/>
+    </linearGradient>
+    <linearGradient id="bars" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#ff5c4d"/>
+      <stop offset="1" stop-color="#ff8a5c"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="#111418"/>
+  <!-- flame: outer body -->
+  <path fill="url(#flame)" d="M256 96c10 54-36 84-58 120-18 30-22 62-6 92 12 23 34 39 64 42 30-3 52-19 64-42 16-30 12-62-6-92-9-15-22-29-34-44 22 14 46 32 60 60 22 44 14 96-24 130-22 20-50 30-60 30s-38-10-60-30c-38-34-46-86-24-130 20-40 66-70 84-136z"/>
+  <!-- flame: inner core -->
+  <path fill="#111418" opacity="0.55" d="M256 250c14 18 22 34 14 54-6 15-14 22-14 22s-8-7-14-22c-8-20 0-36 14-54z"/>
+  <!-- grill bars -->
+  <rect x="120" y="388" width="272" height="20" rx="10" fill="url(#bars)"/>
+  <rect x="152" y="424" width="208" height="20" rx="10" fill="url(#bars)" opacity="0.62"/>
+  <rect x="184" y="460" width="144" height="20" rx="10" fill="url(#bars)" opacity="0.34"/>
+</svg>

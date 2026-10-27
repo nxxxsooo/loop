@@ -1,6 +1,6 @@
 interface:
   display_name: "Deep Design"
   short_description: "Design behavior, UI direction, and a verified build contract"
-  default_prompt: "Use $deep-design to turn confirmed product intent into a Build Contract. For new UI or a redesign, resolve scope, research, visual evidence, motion, preview preference, and staged verification. Reuse approved decisions, use OpenSpec when appropriate, and leave production implementation to deep-build."
+  default_prompt: "Use $deep-design to orchestrate design and turn confirmed product intent into a Build Contract. Use impeccable for interface design, review, and polish without creating another lifecycle. Resolve scope, research, visual evidence, motion, preview preference, and staged verification. Reuse approvals, use OpenSpec when appropriate, and leave production implementation to deep-build."
 policy:
   allow_implicit_invocation: true

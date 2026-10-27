@@ -1,2 +1,6 @@
 # Maintainer-only publication workspaces.
 .local/
+
+# Python validation caches.
+__pycache__/
+*.pyc

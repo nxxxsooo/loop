@@ -24,7 +24,9 @@ idea -> deep-grill -> Product Brief
 
 ## Install
 
-One command installs the complete loop bundle: the five skills maintained in this repository plus ten external skills packaged under `skills/vendor/` from pinned upstream commits (eight official GSAP skills, `design-taste-frontend`, and `impeccable`):
+**Use this repository for the complete lifecycle. For idea discovery and adversarial review alone, use the [standalone deep-grill repository](https://github.com/nxxxsooo/deep-grill).** Both use the same DG source; the standalone distribution can be released and updated independently.
+
+One command installs the complete loop bundle: the five skills maintained in this repository plus nine external skills packaged under `skills/vendor/` from pinned upstream commits (eight official GSAP skills and `impeccable`):
 
 ```bash
 npx skills@latest add nxxxsooo/loop --skill '*'
@@ -36,7 +38,13 @@ For a fast global install:
 npx skills@latest add nxxxsooo/loop --skill '*' -g -y
 ```
 
-Both partitions appear in the install list; select only the loop-owned skills by name (for example `--skill loop --skill deep-grill`) for a partial install. `design-taste-frontend`, `impeccable`, and the official GSAP skills ship with the bundle and no longer need a separate upstream install.
+Both partitions appear in the install list; select only the loop-owned skills by name (for example `--skill loop --skill deep-grill`) for a partial install. `impeccable` and the official GSAP skills ship with the bundle and no longer need a separate upstream install.
+
+Install standalone DG only:
+
+```bash
+npx skills@latest add nxxxsooo/deep-grill --skill deep-grill -g -y
+```
 
 Describe the idea directly or explicitly use `$loop` to begin the product lifecycle:
 
@@ -51,7 +59,7 @@ Loop-owned skills (maintained here, under `skills/`):
 | Skill | Owns | Ready when |
 |---|---|---|
 | `loop` | Implicitly available product lifecycle and artifact transitions | The requested endpoint is complete |
-| `deep-grill` | Idea discovery and adversarial audit | Product Brief or audit verdict is confirmed |
+| [`deep-grill`](https://github.com/nxxxsooo/deep-grill) | Idea discovery and adversarial audit; independently installable and updatable | Product Brief or audit verdict is confirmed |
 | `deep-design` | Product specification and implementation design | Build Contract is confirmed |
 | `deep-build` | Implementation, verification, and authorized delivery | Must-pass scenarios succeed |
 | `what` | Explain the active frontier and wait for continuation | The user continues, adjusts the next action, or stops |
@@ -60,8 +68,7 @@ Vendored external skills (`skills/vendor/`, verbatim upstream, installed with th
 
 | Skill | Upstream | Role |
 |---|---|---|
-| `design-taste-frontend` | `Leonxlnx/taste-skill` | Default aesthetic specialist for landing pages, portfolios, and editorial pages |
-| `impeccable` | `pbakaus/impeccable` | Improvement-only frontend work such as polish, critique, and audit |
+| `impeccable` | `pbakaus/impeccable` | Interface design, redesign, review, and polish |
 | `gsap-core` … `gsap-utils` (8) | `greensock/gsap-skills` | Official GSAP implementation guidance |
 
 Byte-level provenance for the vendored skills (upstream repository, pinned commit, and per-file hashes) lives in [`bundle-sources.json`](./bundle-sources.json) and is validated by `scripts/check-bundle.py`; they are re-vendored with loop releases instead of following their own upstream update paths.
@@ -88,13 +95,13 @@ After explaining, `what` waits for `Continue` (recommended), `Adjust next action
 
 The active child calls domain, architecture, frontend, testing, and delivery specialists as needed; the user does not manage internal routing.
 
-For material visual-design questions involving landing pages, portfolios, editorial pages, or visual redesigns, `deep-design` loads `design-taste-frontend` by default when available. Dashboards, data tables, and multi-step product UI use a more suitable specialist.
+`deep-design` orchestrates the design process and produces the Build Contract. `impeccable` supplies interface design, review, and polish, feeding decisions into that same contract. `design-taste-frontend` is retired: it is no longer a default specialist, dependency, or bundled skill.
 
 ### UI design and rebuilds
 
 `deep-design` covers new UI, partial redesigns, and complete rebuilds: confirm scope and preserved behavior, choose product/UI/both/no external research, review actual visual evidence with per-reference feedback, run visual choices through a local browser live review loop when the environment permits, settle direction, and choose whether to preview first. Existing approvals are reused; backend-only tasks skip this branch.
 
-Use independently installed `ui-research` for research methods and an available `react-bits` integration for free motion discovery. Neither is a hard bundle dependency, and official sources work directly when they are absent; reference quotas, paid pages, and client-specific modes do not become extra gates. The former `rebuild-ui-design` workflow is integrated and no longer needs a separate installation. The official `gsap-*` skills and `impeccable` ship with the bundle: when the Build Contract selects GSAP, implementation follows the `gsap-*` guidance first, and `impeccable` handles improvement-only requests such as polish, critique, or audit without replacing `design-taste-frontend` as the default aesthetic specialist.
+Use independently installed `ui-research` for research methods and an available `react-bits` integration for free motion discovery. Neither is a hard bundle dependency, and official sources work directly when they are absent; reference quotas, paid pages, and client-specific modes do not become extra gates. The former `rebuild-ui-design` workflow is integrated and no longer needs a separate installation. The official `gsap-*` skills and `impeccable` ship with the bundle: when the Build Contract selects GSAP, implementation follows the `gsap-*` guidance first. `impeccable` supplies methods for both new interface design and improvements; `deep-build` still owns production implementation.
 
 All decisions feed one Build Contract. `deep-build` owns real pages, browser interactions, and screenshot verification; broad rebuilds review a representative end-to-end slice before migrating the rest. Preview revisions do not count as approval, and component research does not authorize installation.
 
@@ -156,6 +163,10 @@ npx skills@latest add nxxxsooo/loop --skill '*' -g -y
 
 Reload the client or start a fresh task when it has cached skill metadata.
 
+## Maintenance and independent releases
+
+The sole maintained DG source is [`skills/deep-grill/`](./skills/deep-grill/), including its standalone READMEs, images, and checker. The standalone repository is a distribution entry point, no longer an upstream source for loop. See the [maintenance guide](./docs/standalone-deep-grill.md) for exports and independent releases. Updating DG does not require a loop release; installed snapshots still need refreshing from their chosen source. Avoid mixing both installation sources for the same skill.
+
 ## License
 
-The bundle uses the [MIT License](./LICENSE). `deep-grill` preserves its incorporated upstream source and attribution. The external skills under `skills/vendor/` ship under their upstream licenses (MIT for the official GSAP skills and `design-taste-frontend`; Apache-2.0 with the upstream `NOTICE.md` for `impeccable`); see [`THIRD_PARTY_NOTICES.md`](./THIRD_PARTY_NOTICES.md).
+The bundle uses the [MIT License](./LICENSE). `deep-grill` carries its own MIT LICENSE. The external skills under `skills/vendor/` ship under their upstream licenses (MIT for the official GSAP skills; Apache-2.0 with the upstream `NOTICE.md` for `impeccable`); see [`THIRD_PARTY_NOTICES.md`](./THIRD_PARTY_NOTICES.md).

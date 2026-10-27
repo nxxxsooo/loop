@@ -6,7 +6,9 @@ from __future__ import annotations
 import hashlib
 import json
 import re
+import runpy
 from pathlib import Path
+import subprocess
 import sys
 
 
@@ -15,7 +17,6 @@ SKILLS = ROOT / "skills"
 VENDOR = SKILLS / "vendor"
 EXPECTED = {"loop", "deep-grill", "deep-design", "deep-build", "what"}
 VENDORED = {
-    "design-taste-frontend",
     "gsap-core",
     "gsap-frameworks",
     "gsap-performance",
@@ -42,7 +43,6 @@ EXPECTED_RAYCAST_SNIPPETS = {
 }
 BUNDLE_REFRESH = "npx skills@latest add nxxxsooo/loop --skill '*' -g -y"
 VENDOR_UPSTREAMS = (
-    "Leonxlnx/taste-skill",
     "greensock/gsap-skills",
     "pbakaus/impeccable",
 )
@@ -143,8 +143,8 @@ def main() -> int:
             failures.append(f"{folder / 'LICENSE'}: missing")
 
     sources = json.loads((ROOT / "bundle-sources.json").read_text(encoding="utf-8"))
-    if set(sources) != VENDORED | {"deep-grill"}:
-        failures.append(f"bundle-sources.json: expected deep-grill plus vendored skills, got {sorted(sources)}")
+    if set(sources) != VENDORED:
+        failures.append(f"bundle-sources.json: expected external vendors only, got {sorted(sources)}")
     for name, source in sources.items():
         if not source.get("commit"):
             failures.append(f"bundle-sources.json: {name} is not pinned to a commit")
@@ -175,7 +175,10 @@ def main() -> int:
         "deep-design": (
             "confirmed Product Brief",
             "confirmed Build Contract",
-            "design-taste-frontend",
+            "Use `impeccable` when available for interface design, redesign, review, and polish",
+            "Deep-design owns the design process and Build Contract",
+            "not a second lifecycle or independent approval",
+            "Planning authority does not authorize production UI edits",
             "Use OpenSpec As An Adapter",
             "Honor an explicit user preference for prose first.",
             "If no native question interface is callable now, immediately ask the same localized concise prose question.",
@@ -225,7 +228,7 @@ def main() -> int:
         )
 
     # Packaged methods must survive installation and work without the retired skill.
-    for name in ("deep-design", "deep-build"):
+    for name in sorted(EXPECTED):
         entry = SKILLS / name / "SKILL.md"
         description = next(
             (line for line in entry.read_text().splitlines() if line.startswith("description:")),
@@ -252,7 +255,7 @@ def main() -> int:
     for readme_name in ("README.md", "README.en.md"):
         require_fragments(
             ROOT / readme_name,
-            (BUNDLE_REFRESH, *VENDOR_UPSTREAMS),
+            (BUNDLE_REFRESH, *VENDOR_UPSTREAMS, "https://github.com/nxxxsooo/deep-grill", "docs/standalone-deep-grill.md"),
             failures,
         )
 
@@ -302,6 +305,8 @@ def main() -> int:
             "ask the user to switch",
             "switch to Plan mode",
             "wait with the pending frontier intact",
+            "grilling-upstream.md",
+            "another grilling skill",
         ),
         failures,
     )
@@ -313,6 +318,8 @@ def main() -> int:
             "switch to Plan mode",
             "wait with the pending frontier intact",
             "Use concise prose only when the active client has no native question interface or the user explicitly chooses prose.",
+            "design-taste-frontend",
+            "improvement-only",
         ),
         failures,
     )
@@ -361,6 +368,21 @@ def main() -> int:
                                 f"{raycast_path}: {name!r} text differs from "
                                 f"skills/{expected['skill']}/SKILL.md body"
                             )
+
+    # DG is owned source, with an independently exportable package, not a vendor pin.
+    try:
+        exporter = runpy.run_path(str(ROOT / "scripts/export-deep-grill.py"))
+        exporter["package"](ROOT)
+    except (ValueError, OSError, KeyError) as error:
+        failures.append(f"standalone DG manifest: {error}")
+    check = subprocess.run(
+        [sys.executable, str(SKILLS / "deep-grill/scripts/check-readme-sync.py")],
+        capture_output=True, text=True,
+    )
+    if check.returncode:
+        failures.append(check.stderr or check.stdout)
+    if (VENDOR / "design-taste-frontend").exists():
+        failures.append("retired design-taste-frontend must not be bundled")
 
     if failures:
         print("\n".join(failures), file=sys.stderr)

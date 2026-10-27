@@ -8,15 +8,6 @@ at revision `5bf4e78011075bcfc0dc295f0724994cd123ee71` (v6.4.1 era, retrieved
 Provenance and re-sync instructions live in
 `skills/deep-design/scripts/README.md`.
 
-The bundled `skills/deep-grill` is vendored unchanged from
-[`nxxxsooo/deep-grill` v3.0.1](https://github.com/nxxxsooo/deep-grill/releases/tag/v3.0.1)
-at revision `9dc43b44bfe2bf9031a044f38836d6ddb0994dd0`.
-
-Its discovery mode incorporates Matt Pocock's interactive grilling contract.
-The immutable upstream source, copyright, and MIT license attribution are
-preserved inside `skills/deep-grill/references/grilling-upstream.md`,
-`skills/deep-grill/NOTICE`, and `skills/deep-grill/THIRD_PARTY_NOTICES.md`.
-
 ## Vendored external skills
 
 `skills/vendor/` repackages external skills verbatim so one
@@ -28,7 +19,6 @@ in `bundle-sources.json` and validated by `scripts/check-bundle.py`.
 | Skill | Upstream | Pin | License |
 |---|---|---|---|
 | `gsap-core` … `gsap-utils` (8) | [greensock/gsap-skills](https://github.com/greensock/gsap-skills) | `aed9cfd3277740755f6bfc1155c7aa645403b760` | MIT |
-| `design-taste-frontend` | [Leonxlnx/taste-skill](https://github.com/Leonxlnx/taste-skill) | `5217fb45be2c0b302f29c9cd31cbd3237501c684` | MIT |
 | `impeccable` | [pbakaus/impeccable](https://github.com/pbakaus/impeccable) | `skill-v4.3.1` | Apache-2.0 |
 
 The vendored `impeccable` directory also carries the upstream `NOTICE.md`

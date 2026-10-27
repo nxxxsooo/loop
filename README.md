@@ -24,7 +24,9 @@
 
 ## 安装
 
-一条命令安装完整 loop bundle：自己的 5 个 Skill，加上 `skills/vendor/` 按上游 commit pin 打包的 10 个外部 Skill（GSAP 官方 8 个、`design-taste-frontend`、`impeccable`）：
+**完整工作流用本仓库；只需要想法澄清与方案审查，请到 [deep-grill 独立仓库](https://github.com/nxxxsooo/deep-grill)。** 两者使用同一份 DG 源码，独立仓可单独发布和更新。
+
+一条命令安装完整 loop bundle：自己的 5 个 Skill，加上 `skills/vendor/` 按上游 commit pin 打包的 9 个外部 Skill（GSAP 官方 8 个、`impeccable`）：
 
 ```bash
 npx skills@latest add nxxxsooo/loop --skill '*'
@@ -36,7 +38,13 @@ npx skills@latest add nxxxsooo/loop --skill '*'
 npx skills@latest add nxxxsooo/loop --skill '*' -g -y
 ```
 
-安装列表会同时列出两区 Skill；只装自己的部分时按名选择，例如 `--skill loop --skill deep-grill`。`design-taste-frontend`、`impeccable` 和 GSAP 官方 Skill 已随 bundle 打包，无需再从上游单独安装。
+安装列表会同时列出两区 Skill；只装自己的部分时按名选择，例如 `--skill loop --skill deep-grill`。`impeccable` 和 GSAP 官方 Skill 已随 bundle 打包，无需再从上游单独安装。
+
+只安装独立 DG：
+
+```bash
+npx skills@latest add nxxxsooo/deep-grill --skill deep-grill -g -y
+```
 
 直接描述想法或明确说 `$loop` 都可以启动这条产品生命周期：
 
@@ -51,7 +59,7 @@ npx skills@latest add nxxxsooo/loop --skill '*' -g -y
 | Skill | 负责内容 | 就绪条件 |
 |---|---|---|
 | `loop` | 隐式可用的产品生命周期与产物迁移 | 用户要求的终点完成 |
-| `deep-grill` | 想法澄清和对抗性审查 | Product Brief 或审查结论确认 |
+| [`deep-grill`](https://github.com/nxxxsooo/deep-grill) | 想法澄清和对抗性审查；支持独立安装与更新 | Product Brief 或审查结论确认 |
 | `deep-design` | 产品规格与实现设计 | Build Contract 确认 |
 | `deep-build` | 实现、验证和授权范围内的交付 | 必过场景成功 |
 | `what` | 解释当前工作前沿并等待续接选择 | 用户继续、调整下一步或停止 |
@@ -60,8 +68,7 @@ npx skills@latest add nxxxsooo/loop --skill '*' -g -y
 
 | Skill | 上游 | 作用 |
 |---|---|---|
-| `design-taste-frontend` | `Leonxlnx/taste-skill` | 落地页／作品集／编辑型页面的默认审美专家 |
-| `impeccable` | `pbakaus/impeccable` | polish／critique／audit 等改进型前端任务 |
+| `impeccable` | `pbakaus/impeccable` | 界面设计、重构、审查与打磨 |
 | `gsap-core` … `gsap-utils`（8 个） | `greensock/gsap-skills` | GSAP 动效实现规范 |
 
 外部 Skill 的字节级来源（上游仓库、pin commit、逐文件哈希）记录在 [`bundle-sources.json`](./bundle-sources.json)，由 `scripts/check-bundle.py` 校验；它们随 loop release 一起 re-vendor，不走各自上游的更新路径。
@@ -88,13 +95,13 @@ npx skills@latest add nxxxsooo/loop --skill '*' -g -y
 
 领域、架构、前端、测试和交付等专家能力由当前子循环按需调用，用户无需管理内部路由。
 
-其中，落地页、作品集、编辑型页面或视觉改版出现实质视觉设计问题时，`deep-design` 会在可用时默认加载 `design-taste-frontend`；仪表盘、数据表和多步骤产品界面不走该 Skill。
+`deep-design` 统筹设计流程并产出 Build Contract；`impeccable` 负责界面设计、审查与打磨，其结果回到同一份契约。`design-taste-frontend` 已停用，不再作为默认专家、依赖或 bundle 内容。
 
 ### UI 设计与重构
 
 `deep-design` 同时承接新 UI、局部重构和完整重构：确认范围与保留行为，选择产品／UI／两者／不做外部研究，提供有真实图片和逐项反馈的参考板，视觉选择可在环境允许时走本地浏览器实时评审，收敛视觉与交互方向，再决定是否先做高保真预览。已确认的选择直接复用，后端任务跳过这些 UI 步骤。
 
-按需使用独立安装的 `ui-research` 做参考研究，使用可用的 `react-bits` 集成能力查询免费动效组件；两者不是 bundle 的硬依赖，缺失时可以直接研究官方来源，研究数量、付费页面和特定客户端模式也不会成为额外门槛。旧 `rebuild-ui-design` 的流程已融入，无需另装该 Skill。官方 `gsap-*` Skill 与 `impeccable` 已随 bundle 打包：Build Contract 选定 GSAP 时，实现优先遵循 `gsap-*` 的规范；`impeccable` 承接 polish／critique／audit 等改进型请求，但不取代 `design-taste-frontend` 的默认审美专家地位。
+按需使用独立安装的 `ui-research` 做参考研究，使用可用的 `react-bits` 集成能力查询免费动效组件；两者不是 bundle 的硬依赖，缺失时可以直接研究官方来源，研究数量、付费页面和特定客户端模式也不会成为额外门槛。旧 `rebuild-ui-design` 的流程已融入，无需另装该 Skill。官方 `gsap-*` Skill 与 `impeccable` 已随 bundle 打包：Build Contract 选定 GSAP 时，实现优先遵循 `gsap-*` 的规范；界面设计与改进统一由 `impeccable` 提供专业方法，生产实现仍由 `deep-build` 负责。
 
 所有决定进入同一份 Build Contract。`deep-build` 负责实际页面、浏览器交互和截图验证；大范围重构先验收一个代表性完整流程，再迁移剩余页面。预览修订不会被当作批准，也不会因为研究了某个组件就自动安装它。
 
@@ -156,6 +163,10 @@ npx skills@latest add nxxxsooo/loop --skill '*' -g -y
 
 如果客户端已经缓存 Skill 元数据，请重新加载或新建任务。
 
+## 维护与独立发布
+
+DG 的唯一维护源码在 [`skills/deep-grill/`](./skills/deep-grill/)，包含独立仓 README、图片和校验脚本。独立仓是分发入口，不再反向作为 loop 的上游。导出和单独发布流程见 [维护说明](./docs/standalone-deep-grill.md)。DG 可以单独更新，无需同时发布整个 loop；已安装副本仍需按各自来源刷新，避免混用两个安装来源。
+
 ## 许可证
 
-本 bundle 使用 [MIT License](./LICENSE)。`deep-grill` 保留已整合上游源码的归属信息，`skills/vendor/` 下的外部 Skill 按各自上游许可证分发（GSAP 官方 Skill 与 `design-taste-frontend` 为 MIT，`impeccable` 为 Apache-2.0 并附上游 `NOTICE.md`），详见 [`THIRD_PARTY_NOTICES.md`](./THIRD_PARTY_NOTICES.md)。
+本 bundle 使用 [MIT License](./LICENSE)。`deep-grill` 使用自己的 MIT LICENSE；`skills/vendor/` 下的外部 Skill 按各自上游许可证分发（GSAP 官方 Skill 为 MIT，`impeccable` 为 Apache-2.0 并附上游 `NOTICE.md`），详见 [`THIRD_PARTY_NOTICES.md`](./THIRD_PARTY_NOTICES.md)。

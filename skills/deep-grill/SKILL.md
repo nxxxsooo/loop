@@ -13,7 +13,7 @@ Use discovery mode when the input is a raw idea, the user asks to be interviewed
 
 Use audit mode when the user supplies a formed plan, design, decision, or implied approach and wants autonomous pressure-testing, a verdict, or revisions. Its output is an audit verdict.
 
-If the mode is initially unclear, state and audit the smallest plausible approach. Switch to discovery mode only when continuing would invent a material user-owned decision. Discovery mode may use audit passes between question rounds; the modes share one tree rather than handing work to another grilling skill.
+If the mode is initially unclear, state and audit the smallest plausible approach. Switch to discovery mode only when continuing would invent a material user-owned decision. Discovery mode may use audit passes between question rounds; both modes are self-contained within deep-grill.
 
 ## Keep The Session Active
 
@@ -59,8 +59,6 @@ Ask the user to confirm the brief through the native question interface when cal
 
 ## Audit Output
 
-Report the target, verdict, recommended revisions, supporting evidence, strongest objections, failure scenarios, evidence limits, residual risks, unresolved items, and unexamined scope. Keep one or two bounded user choices inside the audit using the same native question and prose fallback rules. If a decision tree emerges, continue in discovery mode instead of recommending another grilling skill.
+Report the target, verdict, recommended revisions, supporting evidence, strongest objections, failure scenarios, evidence limits, residual risks, unresolved items, and unexamined scope. Keep one or two bounded user choices inside the audit using the same native question and prose fallback rules. If a decision tree emerges, continue in discovery mode within deep-grill.
 
 Do not implement or otherwise act on a Product Brief or verdict until the user confirms it or separately authorizes the next phase.
-
-The upstream interactive-grilling contract incorporated into discovery mode is preserved in [references/grilling-upstream.md](references/grilling-upstream.md).

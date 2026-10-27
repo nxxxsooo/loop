@@ -1,19 +1,4 @@
 {
-  "deep-grill": {
-    "source": "https://github.com/nxxxsooo/deep-grill",
-    "release": "v3.0.2",
-    "commit": "dd2ce0e743aa0d2370db64edd5882d4d3ccda4b8",
-    "path": ".",
-    "files": {
-      "SKILL.md": "68d9a57b693f1d353d4878bb23e78a5459da77ad574f3fa0074e455d69de4edc",
-      "agents/openai.yaml": "37b3321192560f71f7190de35acaa9be89e87620e80d0816142cce4655dc82a2",
-      "LICENSE": "c3f1ee6aa30e2c4fece9f5e13cf9e1d00d0a6f060567c66603376ddb05d648c7",
-      "NOTICE": "2151a3480a71a5c512eb673f7832e8a67c6cb5634c753a5569a060f678d6188c",
-      "THIRD_PARTY_NOTICES.md": "95f18ef89fceb067f1a1399c58ef24c6f28619add7c33840eee250c76474c948",
-      "references/grilling-upstream.md": "fa5c1e5ee76b1c8f1ae56101f52c9e239de75d5c578adc61227b92d10b7e52ef"
-    },
-    "local": "skills/deep-grill"
-  },
   "gsap-core": {
     "source": "https://github.com/greensock/gsap-skills",
     "release": null,
@@ -100,17 +85,6 @@
     "files": {
       "LICENSE": "51b04b06556662dd817e8f4aa6d06bc7139dc73739e1319a7233cfde3e147b90",
       "SKILL.md": "1927bcc4ea95b38203404ad5ea1d060b15c4a886c65ae53e885ff1793aabe0ba"
-    }
-  },
-  "design-taste-frontend": {
-    "source": "https://github.com/Leonxlnx/taste-skill",
-    "release": null,
-    "commit": "5217fb45be2c0b302f29c9cd31cbd3237501c684",
-    "path": "skills/taste-skill",
-    "local": "skills/vendor/design-taste-frontend",
-    "files": {
-      "LICENSE": "4575a543ab88dad12ccea7d97e563d0bce5b448b06072e65d3264497dad326df",
-      "SKILL.md": "aa194351b246b8b4799099d4ed7b033d29eab6e6e3d58d8d2172978be7b3ec89"
     }
   },
   "impeccable": {

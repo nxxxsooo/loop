@@ -1,6 +1,6 @@
 # UI Design Workflow
 
-Use only when interface decisions are material. Deep Design owns design progression; research and aesthetic specialists supply methods. Their search quotas, mandatory execution steps, or client-specific modes do not replace this contract.
+Use only when interface decisions are material. Deep Design owns design progression and the Build Contract; `impeccable` supplies interface design, review, and polish methods. Use its planning methods for new UI and redesigns, and critique/audit/polish methods for existing surfaces as appropriate. Its findings feed this same contract, not another approval process. Specialist search quotas, mandatory execution steps, or client-specific modes do not replace this contract or authorize production edits.
 
 ## Inspect and establish the boundary
 
