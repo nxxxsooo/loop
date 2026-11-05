@@ -1,6 +1,6 @@
 ---
 name: what
-description: Use when the user sends a message consisting only of `?`, explicitly invokes `$what`, or asks to re-orient around an active task after not understanding the current update.
+description: Use when the user sends a message consisting only of `?`, explicitly invokes `$what` or `@what`, sends review feedback with `what?` annotations that has this skill attached, or asks to re-orient around an active task after not understanding the current update.
 ---
 
 # What
@@ -9,9 +9,13 @@ Temporarily hold the pending action, explain the active frontier, then prompt th
 
 ## Trigger And Scope
 
-Treat only an entire trimmed `?` message and an explicit `$what` invocation as the checkpoint trigger. Do not intercept an ordinary question that merely contains `?`.
+Treat only an entire trimmed `?` message, an explicit `$what` or `@what` invocation, and an explicit attachment of this skill as the checkpoint trigger. Do not intercept an ordinary question that merely contains `?`.
 
 When the user instead asks to re-orient around an active task after not understanding the current update, answer in the same checkpoint style without taking ownership of ordinary prose that simply includes a question mark.
+
+## Explain Annotated Passages
+
+Review feedback, such as OpenCode Annotate's, may arrive with this skill attached and with annotations whose comment is `what?`. Each such annotation quotes a passage the user does not understand. Explain each quoted passage before anything else: in plain language, with more detail, a concrete example where it helps, and how it relates to the current task. Follow any instruction the feedback adds for these notes, and address its other annotations as usual.
 
 ## Explain The Frontier
 
@@ -27,4 +31,4 @@ When `request_user_input` is callable, invoke it with `Continue` (recommended), 
 
 ## No Active Work
 
-When no active or resumable task frontier exists, say that no resumable frontier exists and ask what task to orient around. Do not pretend there is pending work, and do not fabricate continuation controls for a task that is not active.
+When no active or resumable task frontier exists, say that no resumable frontier exists and ask what task to orient around. Do not pretend there is pending work, and do not fabricate continuation controls for a task that is not active. After explaining annotated `what?` passages, stop there instead: the passages were the task.

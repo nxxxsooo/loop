@@ -206,8 +206,10 @@ def main() -> int:
             "before migrating remaining pages",
         ),
         "what": (
-            "Treat only an entire trimmed `?` message and an explicit `$what` invocation as the checkpoint trigger.",
+            "Treat only an entire trimmed `?` message, an explicit `$what` or `@what` invocation, and an explicit attachment of this skill as the checkpoint trigger.",
             "Do not intercept an ordinary question that merely contains `?`.",
+            "Explain each quoted passage before anything else",
+            "After explaining annotated `what?` passages, stop there instead",
             "State the last confirmed point, current workflow and step, changed artifacts, why the state matters, and the pending next action.",
             "When `request_user_input` is callable, invoke it with `Continue` (recommended), `Adjust next action`, and `Stop`.",
             "Otherwise, render the same localized choices in concise prose without requesting a mode switch.",

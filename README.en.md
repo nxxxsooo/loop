@@ -81,7 +81,9 @@ During any active workflow, send exactly:
 ?
 ```
 
-or explicitly invoke `$what`. The standalone `what` skill pauses the current action and explains the last confirmed point, current workflow and step, changed artifacts, why the state matters, and the pending next action. A normal sentence that merely contains `?` does not trigger it, and `?` has no special meaning outside active work.
+or explicitly invoke `$what` (`@what` in OpenCode). The standalone `what` skill pauses the current action and explains the last confirmed point, current workflow and step, changed artifacts, why the state matters, and the pending next action. A normal sentence that merely contains `?` does not trigger it, and `?` has no special meaning outside active work.
+
+In [OpenCode Annotate](https://github.com/nxxxsooo/opencode-annotate), select a passage and press **what?** to mark it. Sending the review attaches `what`: it explains each marked passage in plain language, with an example where it helps, before any pending work continues.
 
 After explaining, `what` waits for `Continue` (recommended), `Adjust next action`, or `Stop`; it executes the pending action only after `Continue`. When `request_user_input` is callable, it uses localized native UI. Otherwise it immediately presents the same concise localized choices in the current mode. It never asks you to switch to Plan mode merely to answer or continue.
 
