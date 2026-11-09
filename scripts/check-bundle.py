@@ -197,6 +197,7 @@ def main() -> int:
         "deep-build": (
             "confirmed Build Contract",
             "Build In Verified Slices",
+            "a delegate's report is not evidence",
             "When an active relevant OpenSpec change exists, it remains the sole task state.",
             "Superpowers TDD, debugging, review, and verification skills may be used as focused implementation methods when available, but they must not create a duplicate plan or replace OpenSpec task state.",
             "Changes:",

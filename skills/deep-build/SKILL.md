@@ -17,6 +17,8 @@ Return to `deep-design` before editing when a material behavior, interface, data
 
 Implement the smallest dependency-ready vertical slice that produces observable behavior. Follow the established project stack and local ownership boundaries. Use engineering, testing, security, frontend, deployment, or other specialists only within the active slice and only when their focused method is needed.
 
+When the active client provides a dedicated implementation subagent, such as an OpenCode `worker` pinned to a cheaper model, delegate slice implementation to it with a self-contained brief: the relevant Build Contract excerpt, target files, must-preserve items, non-goals, and the slice's verification commands. Keep contract judgment, diff review, and must-pass verification in the main agent; a delegate's report is not evidence. Without such a subagent, implement directly.
+
 After each slice, run the narrowest credible verification and inspect the result. Fix failures before expanding scope. Reassess the remaining contract when evidence changes; do not preserve a task list that the system has disproved. Keep user changes intact and do not broaden the requested behavior through opportunistic refactors.
 
 Verify the must-pass scenarios at real entry points when practical, then run proportionate regression checks. Record meaningful gaps and the risk they leave. For an OpenSpec-backed contract, validate and archive the change only when the official workflow calls for it and the delivered behavior is complete.
