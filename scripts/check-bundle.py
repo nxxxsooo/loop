@@ -158,7 +158,8 @@ def main() -> int:
 
     contracts = {
         "loop": (
-            "A fresh loop starts when the user invokes `loop` or clearly asks to run this product lifecycle.",
+            "A fresh loop starts when the user invokes `loop` or wants a product idea, feature, app, or tool built end to end across more than one stage.",
+            "Single-stage requests and small fixes stay with the matching child or ordinary work.",
             "without asking the user to nominate a skill or choose a route",
             "Route By Artifact Readiness",
             "Preserve One Source Of State",
