@@ -9,7 +9,7 @@ import sys
 
 
 ROOT = Path(__file__).resolve().parents[1]
-SNIPPETS = {"loop": "loop", "deep grill": "deep-grill", "deep design": "deep-design", "deep build": "deep-build", "what": "what"}
+SNIPPETS = {"loop": "loop", "deep grill": "deep-grill", "deep design": "deep-design", "deep build": "deep-build", "loop reorient": None}
 
 
 def body(name: str) -> str:
@@ -18,6 +18,14 @@ def body(name: str) -> str:
     if len(parts) != 3 or parts[0]:
         raise ValueError(f"{name}: invalid frontmatter")
     return parts[2].strip()
+
+
+def snippet_text(name: str) -> str:
+    skill = SNIPPETS[name]
+    if skill is not None:
+        return body(skill)
+    # Accepted standalone prompt, hand-written from loop's reorientation protocol.
+    return (ROOT / "scripts/loop-reorient.txt").read_text(encoding="utf-8").strip()
 
 
 def outputs() -> dict[Path, str]:
@@ -43,7 +51,7 @@ def outputs() -> dict[Path, str]:
     if [item["name"] for item in snippets] != list(SNIPPETS):
         raise ValueError("unexpected Raycast snippet names or order")
     for item in snippets:
-        item["text"] = body(SNIPPETS[item["name"]])
+        item["text"] = snippet_text(item["name"])
     result[path] = json.dumps(snippets, ensure_ascii=False, indent=2) + "\n"
     return result
 

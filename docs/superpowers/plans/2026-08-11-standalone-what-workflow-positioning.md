@@ -1,5 +1,7 @@
 # Standalone `what` and Workflow Positioning Implementation Plan
 
+> Historical plan, superseded: reorientation now belongs to `loop`; the standalone package is retired. Paths and examples below record the former implementation, not tasks to execute. See [the current contract](../../../skills/loop/SKILL.md).
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use `superpowers:subagent-driven-development` (recommended) or `superpowers:executing-plans` to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Restore `what` as a standalone fifth bundle skill, make a bare `?` explain and then prompt continuation in any active workflow, and make unavailable native question UI fall back automatically instead of asking for Plan mode.

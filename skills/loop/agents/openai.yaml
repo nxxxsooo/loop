@@ -1,6 +1,6 @@
 interface:
   display_name: "Loop"
-  short_description: "Start in Plan Mode, then move an idea through verified build"
-  default_prompt: "Start in Plan Mode, then use $loop to continue this product task through deep-grill, deep-design, and deep-build according to artifact readiness."
+  short_description: "Build ideas end to end, or pause and explain active work"
+  default_prompt: "Use $loop to advance this product task by artifact readiness, or use its reorientation mode to explain the current frontier and wait for my continuation choice."
 policy:
   allow_implicit_invocation: true

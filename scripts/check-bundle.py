@@ -15,7 +15,7 @@ import sys
 ROOT = Path(__file__).resolve().parents[1]
 SKILLS = ROOT / "skills"
 VENDOR = SKILLS / "vendor"
-EXPECTED = {"loop", "deep-grill", "deep-design", "deep-build", "what"}
+EXPECTED = {"loop", "deep-grill", "deep-design", "deep-build"}
 VENDORED = {
     "gsap-core",
     "gsap-frameworks",
@@ -32,14 +32,13 @@ EXPECTED_IMPLICIT_INVOCATION = {
     "deep-grill": True,
     "deep-design": True,
     "deep-build": True,
-    "what": True,
 }
 EXPECTED_RAYCAST_SNIPPETS = {
     "loop": {"keyword": ";lp", "skill": "loop"},
     "deep grill": {"keyword": ";dg", "skill": "deep-grill"},
     "deep design": {"keyword": ";dd", "skill": "deep-design"},
     "deep build": {"keyword": ";db", "skill": "deep-build"},
-    "what": {"keyword": ";wt", "skill": "what"},
+    "loop reorient": {"keyword": ";wt", "source": "scripts/loop-reorient.txt"},
 }
 BUNDLE_REFRESH = "npx skills@latest add nxxxsooo/loop --skill '*' -g -y"
 VENDOR_UPSTREAMS = (
@@ -158,7 +157,16 @@ def main() -> int:
 
     contracts = {
         "loop": (
-            "A fresh loop starts when the user invokes `loop` or wants a product idea, feature, app, or tool built end to end across more than one stage.",
+            "A fresh build loop starts when the user invokes `loop` for product progression",
+            "## Select The Mode",
+            "## Build Mode",
+            "references/reorientation.md",
+            "## Set The Native Goal",
+            'opencode api post "/api/session/$OPENCODE_SESSION_ID/command"',
+            '"name":"goal"',
+            "Check status first",
+            "Pause the goal before a reorientation explanation",
+            "Clear the goal when the user stops, changes tasks, or changes the endpoint",
             "Single-stage requests and small fixes stay with the matching child or ordinary work.",
             "without asking the user to nominate a skill or choose a route",
             "Route By Artifact Readiness",
@@ -207,20 +215,24 @@ def main() -> int:
             "actual implementation screenshots",
             "before migrating remaining pages",
         ),
-        "what": (
-            "Treat only an entire trimmed `?` message, an explicit `$what` or `@what` invocation, and an explicit attachment of this skill as the checkpoint trigger.",
+    }
+    require_fragments(
+        SKILLS / "loop" / "references/reorientation.md",
+        (
+            "Treat only an entire trimmed `?` message, an explicit `$what` or `@what` invocation",
             "Do not intercept an ordinary question that merely contains `?`.",
             "Explain each quoted passage before anything else",
             "After explaining annotated `what?` passages, stop there instead",
             "State the last confirmed point, current workflow and step, changed artifacts, why the state matters, and the pending next action.",
-            "When `request_user_input` is callable, invoke it with `Continue` (recommended), `Adjust next action`, and `Stop`.",
+            "invoke it with `Continue` (recommended), `Adjust next action`, and `Stop`.",
             "Otherwise, render the same localized choices in concise prose without requesting a mode switch.",
             "End every active-work explanation with that continuation prompt.",
             "Execute the pending action only after the user chooses `Continue`.",
             "no resumable frontier exists",
             "what task to orient around",
         ),
-    }
+        failures,
+    )
     for name, fragments in contracts.items():
         require_fragments(SKILLS / name / "SKILL.md", fragments, failures)
         require_fragments(
@@ -273,7 +285,6 @@ def main() -> int:
             "countdown or autoresume",
             "`grill-loop`",
             "Use `grilling`",
-            "`what`",
             "Offer `wayfinder`",
             "Wayfinder",
             "Wait for the next user reply",
@@ -281,16 +292,9 @@ def main() -> int:
         ),
         failures,
     )
-    reject_fragments(
+    require_fragments(
         SKILLS / "loop" / "agents" / "openai.yaml",
-        (
-            "message containing only ?",
-            "request_user_input",
-            "Continue",
-            "Adjust next action",
-            "continuation prompt",
-            "checkpoint",
-        ),
+        ("reorientation mode", "continuation choice"),
         failures,
     )
 
@@ -328,7 +332,7 @@ def main() -> int:
         failures,
     )
 
-    for name in ("loop", "deep-design", "deep-build", "what"):
+    for name in ("loop", "deep-design", "deep-build"):
         license_path = SKILLS / name / "LICENSE"
         if license_path.is_file() and digest(license_path) != digest(ROOT / "LICENSE"):
             failures.append(f"{license_path}: differs from repository LICENSE")
@@ -363,14 +367,18 @@ def main() -> int:
                             f"{raycast_path}: {name!r} keyword must be {expected['keyword']!r}"
                         )
                     try:
-                        expected_text = skill_body(SKILLS / expected["skill"] / "SKILL.md")
+                        expected_text = (
+                            (ROOT / expected["source"]).read_text(encoding="utf-8").strip()
+                            if "source" in expected
+                            else skill_body(SKILLS / expected["skill"] / "SKILL.md")
+                        )
                     except (OSError, ValueError) as error:
                         failures.append(str(error))
                     else:
                         if item.get("text") != expected_text:
                             failures.append(
                                 f"{raycast_path}: {name!r} text differs from "
-                                f"skills/{expected['skill']}/SKILL.md body"
+                                "its canonical source"
                             )
 
     # DG is owned source, with an independently exportable package, not a vendor pin.

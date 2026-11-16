@@ -14,7 +14,9 @@
   <a href="./LICENSE"><img src="https://img.shields.io/badge/许可证-MIT-5eead4?style=flat-square" alt="MIT 许可证"></a>
 </p>
 
-`loop` 是持久的产品工作编排器：一次触发后，普通回复持续当前子循环，按产物就绪状态从想法推进到已验证结果。安装了 Superpowers 时，日常执行默认走 Superpowers，`loop` 隐式承接完整生命周期，不必显式点名；`what` 负责跨工作流的解释与续接控制。两者都不创建第二份持久计划。
+`loop` 是持久的产品工作编排器：一次触发后，普通回复持续当前子循环，按产物就绪状态从想法推进到已验证结果。安装了 Superpowers 时，日常执行默认走 Superpowers，`loop` 隐式承接完整生命周期，不必显式点名；它的重定向模式负责跨工作流的解释与续接控制，不创建第二份持久计划。
+
+在 OpenCode 中，loop 构建会把请求的终点注册为内置 `/goal`。OpenCode 的 reviewer 持续推进会话，直到可见证据表明终点已达成。重定向解释会暂停目标；停止或切换任务会清除目标。
 
 ```text
 想法 -> deep-grill -> Product Brief
@@ -26,7 +28,7 @@
 
 **完整工作流用本仓库；只需要想法澄清与方案审查，请到 [deep-grill 独立仓库](https://github.com/nxxxsooo/deep-grill)。** 两者使用同一份 DG 源码，独立仓可单独发布和更新。
 
-一条命令安装完整 loop bundle：自己的 5 个 Skill，加上 `skills/vendor/` 按上游 commit pin 打包的 9 个外部 Skill（GSAP 官方 8 个、`impeccable`）：
+一条命令安装完整 loop bundle：自己的 4 个 Skill，加上 `skills/vendor/` 按上游 commit pin 打包的 9 个外部 Skill（GSAP 官方 8 个、`impeccable`）：
 
 ```bash
 npx skills@latest add nxxxsooo/loop --skill '*'
@@ -58,11 +60,10 @@ npx skills@latest add nxxxsooo/deep-grill --skill deep-grill -g -y
 
 | Skill | 负责内容 | 就绪条件 |
 |---|---|---|
-| `loop` | 隐式可用的产品生命周期与产物迁移 | 用户要求的终点完成 |
+| `loop` | 产品生命周期、产物迁移与重定向解释 | 请求终点完成，或用户选择如何续接 |
 | [`deep-grill`](https://github.com/nxxxsooo/deep-grill) | 想法澄清和对抗性审查；支持独立安装与更新 | Product Brief 或审查结论确认 |
 | `deep-design` | 产品规格与实现设计 | Build Contract 确认 |
 | `deep-build` | 实现、验证和授权范围内的交付 | 必过场景成功 |
-| `what` | 解释当前工作前沿并等待续接选择 | 用户继续、调整下一步或停止 |
 
 打包的外部 Skill（`skills/vendor/`，verbatim 上游，随本 bundle 一次安装）：
 
@@ -81,11 +82,11 @@ npx skills@latest add nxxxsooo/deep-grill --skill deep-grill -g -y
 ?
 ```
 
-或显式调用 `$what`（OpenCode 中为 `@what`），都会由独立的 `what` Skill 暂停当前动作。它会说明最后确认点、当前工作流和步骤、已变化的产物、这些状态的重要性，以及原本准备执行的下一步。普通句子里包含 `?` 不会触发；没有活跃工作流时，`?` 没有特殊含义。
+或显式调用 `$what`（OpenCode 中为 `@what`），都会进入 loop 的重定向模式，暂停当前动作。它会说明最后确认点、当前工作流和步骤、已变化的产物、这些状态的重要性，以及原本准备执行的下一步。普通句子里包含 `?` 不会触发；没有可续接任务时，会询问要围绕哪个任务解释。
 
-在 [OpenCode Annotate](https://github.com/nxxxsooo/opencode-annotate) 中选中一段文字并按 **what?** 即可标记。发送批注时会附加 `what`：它先用平实语言逐段解释标记内容，必要时举例，再决定是否继续原来的下一步。
+在 [OpenCode Annotate](https://github.com/nxxxsooo/opencode-annotate) 中选中一段文字并按 **what?** 即可标记。附加的重定向指令会进入 loop 的同一模式：先用平实语言逐段解释标记内容，必要时举例，再决定是否继续原来的下一步。
 
-解释后，`what` 必须等待你选择「继续（推荐）」「调整下一步」或「停止」；只有选择继续，才会执行原本的下一步。`request_user_input` 当前可调用时使用本地化原生界面；不可调用时立即在当前模式用同语言的简洁文字给出相同选择。不会为了提问或续接要求切换到 Plan mode。
+解释活跃工作后，loop 必须等待你选择「继续（推荐）」「调整下一步」或「停止」；只有选择继续，才会执行原本的下一步。客户端原生提问工具当前可调用时使用本地化原生界面；不可调用时立即在当前模式用同语言的简洁文字给出相同选择。不会为了提问或续接要求切换到 Plan mode。
 
 ## 原生问题工具
 
@@ -116,6 +117,14 @@ npx skills@latest add nxxxsooo/deep-grill --skill deep-grill -g -y
 <!-- loop-skill-body:start -->
 > # Loop
 >
+> ## Select The Mode
+>
+> Use **build mode** for end-to-end product work as defined below. Use **reorientation mode** for an entire trimmed `?` message, explicit `$what` or `@what` invocation, an explicit request for loop's reorientation mode, attached reorientation instructions, or a request to re-orient after not understanding the current update. An ordinary question merely containing `?` does not trigger it.
+>
+> Reorientation takes precedence over automatic progression, including inside an active child or a non-product workflow. Read [Reorientation and continuation](references/reorientation.md) before responding, especially for attached review feedback with `what?` annotations. Explain those passages first, pause the pending action, and wait for an explicit continuation choice. This mode neither starts a product build loop nor replaces the current workflow or its state.
+>
+> ## Build Mode
+>
 > Own progression, not the child methods. Route the active product task through three artifact contracts:
 >
 > ```text
@@ -126,7 +135,7 @@ npx skills@latest add nxxxsooo/deep-grill --skill deep-grill -g -y
 >
 > ## Keep The Loop Active
 >
-> A fresh loop starts when the user invokes `loop` or wants a product idea, feature, app, or tool built end to end across more than one stage. Single-stage requests and small fixes stay with the matching child or ordinary work. After that, treat every ordinary reply as a continuation of the same loop until the goal is achieved, the user stops, the user clearly changes tasks, or further work requires authority outside the original request. The user does not need to name `loop` or any child again.
+> A fresh build loop starts when the user invokes `loop` for product progression or wants a product idea, feature, app, or tool built end to end across more than one stage. Single-stage requests and small fixes stay with the matching child or ordinary work. After that, treat every ordinary reply as a continuation of the same loop until the goal is achieved, the user stops, the user clearly changes tasks, or further work requires authority outside the original request. A reorientation trigger pauses this progression until the user explicitly resumes it. The user does not need to name `loop` or any child again.
 >
 > Resume the current child while its output contract is incomplete. When its artifact is confirmed, select the next child from artifact readiness without asking the user to nominate a skill or choose a route. State the transition briefly and continue in the same response when the next action is already authorized. Artifact readiness chooses the child; it does not expand the user's authority or the requested endpoint.
 >
@@ -145,12 +154,27 @@ npx skills@latest add nxxxsooo/deep-grill --skill deep-grill -g -y
 >
 > Carry the goal, current child, confirmed artifacts, constraints, authority, and evidence through the conversation and artifact references. For sustained work, use the active client's native goal or plan mechanism when available. Do not create duplicate workflow state, custom gates, hooks, or background processes.
 >
+> ## Set The Native Goal
+>
+> When a build loop starts, register its requested endpoint as the client's native goal without asking, and state the goal in one line. The goal holds the endpoint, never the child route or artifact state. In OpenCode, set it on the current session from the shell:
+>
+> ```sh
+> opencode api post "/api/session/$OPENCODE_SESSION_ID/command" -d '{"name":"goal","text":"<objective>","delivery":"steer"}'
+> ```
+>
+> Write the objective in the user's language, under 4000 characters: the endpoint, the project, authority limits (for example no deploy or publish), and observable done-when evidence. The same call with `text` set to `pause`, `resume`, or `clear` controls the goal; an empty `text` returns its status inside a `CommandExecutionError`, which is a status report rather than a session failure. OpenCode's reviewer judges completion from visible evidence after each turn and keeps the session going until then, so show verification output.
+>
+> - Check status first and skip setting a goal when one is already active for this endpoint. Single-stage work and reorientation mode set no goal.
+> - Ask user decisions through the native question tool inside the turn. Ending a turn to wait for a prose answer lets the reviewer pause the goal as blocked; when the user's next ordinary reply continues the loop, resume it.
+> - Pause the goal before a reorientation explanation and resume it only when the user chooses Continue.
+> - Clear the goal when the user stops, changes tasks, or changes the endpoint; set a new one if the new endpoint still spans stages.
+>
 > Never imitate a child contract inside `loop`. Delegate the work, accept its artifact only when its readiness rules are met, and reroute from evidence. Stop when the requested endpoint is complete, the user stops or changes tasks, progress requires new authority, or remaining work has diminishing returns.
 <!-- loop-skill-body:end -->
 
 ## Raycast
 
-导入 [`skills/loop/assets/raycast-snippets.json`](./skills/loop/assets/raycast-snippets.json)，即可使用 `loop ;lp`、`deep grill ;dg`、`deep design ;dd`、`deep build ;db` 和 `what ;wt`。下面的 bundle 刷新命令会更新已安装的 Skill 和这个 JSON 文件，但不会修改已经导入 Raycast 的条目；导入后请在 Raycast 中原位更新这五条，避免留下旧版 loop `?` 文案或重复入口。
+导入 [`skills/loop/assets/raycast-snippets.json`](./skills/loop/assets/raycast-snippets.json)，即可使用 `loop ;lp`、`deep grill ;dg`、`deep design ;dd`、`deep build ;db` 和 `loop reorient ;wt`。下面的 bundle 刷新命令会更新已安装的 Skill 和这个 JSON 文件，但不会修改已经导入 Raycast 的条目；请原位更新这五条，并替换原来的独立重定向条目，避免重复入口。
 
 ## 更新
 
@@ -161,7 +185,7 @@ npx skills@latest add nxxxsooo/deep-grill --skill deep-grill -g -y
 npx skills@latest add nxxxsooo/loop --skill '*' -g -y
 ```
 
-`update loop` 只会按现有 lock 记录更新 `loop` 本身，不能发现旧安装中不存在的 `what`，也不会刷新同 bundle 的其他 Skill。因此，每次 release 后都使用上面的 bundle `add` 命令；它可重复安全运行，并确保整套 bundle 同步。
+`update loop` 只会按现有 lock 记录更新 `loop` 本身，不会刷新同 bundle 的其他 Skill。因此，每次 release 后都使用上面的 bundle `add` 命令；它可重复安全运行，并确保整套 bundle 同步。旧安装中的独立 `what` Skill 请移除，重定向模式现已归入 `loop`。
 
 如果客户端已经缓存 Skill 元数据，请重新加载或新建任务。
 

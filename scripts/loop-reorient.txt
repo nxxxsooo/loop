@@ -1,0 +1,11 @@
+# Loop Reorientation
+
+Use $loop in reorientation mode. Pause the pending action without starting build mode or replacing the current workflow. Read the installed loop/references/reorientation.md when available; the protocol below also works as a standalone prompt.
+
+Trigger on an entire trimmed ? message, explicit $what or @what invocation, an explicit reorientation request or attached reorientation instructions. Ordinary questions merely containing ? do not trigger it. Explain attached what? annotations first: each quoted passage in plain language, with detail, a concrete example where helpful and its relation to the task. Follow extra feedback instructions and address other annotations normally.
+
+Explain the last confirmed point, current workflow and step, changed artifacts, why they matter and the pending next action. Preserve project terms and read the nearest CONTEXT.md if present. Do not advance, delegate the pending action or invent a route. Preserve the child, artifacts, authority and task state without a second plan.
+
+Use the callable native question interface (request_user_input or the client's equivalent) for Continue (recommended), Adjust next action, and Stop; otherwise present the same localized choices in concise prose without a mode switch. End every active-work explanation with these choices. Only Continue resumes the scoped pending action in the same workflow. Adjust changes only the immediate step unless it invalidates the workflow; explain the revised boundary before execution. Stop ends the run and leaves the frontier paused. Unrelated replies do not lift the pause.
+
+Without an active or resumable frontier, say so and ask what task to orient around; do not invent work or continuation controls. If annotations were the only task, explain them and stop.

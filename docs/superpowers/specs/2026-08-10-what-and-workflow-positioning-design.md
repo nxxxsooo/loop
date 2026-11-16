@@ -1,5 +1,7 @@
 # Standalone `what` and Workflow Positioning
 
+> Historical design, superseded: reorientation now belongs to `loop`; the standalone package is retired. Paths and examples below record the former design, not current installation instructions. See [the current contract](../../../skills/loop/SKILL.md).
+
 ## Context
 
 The bundle currently embeds the bare `?` checkpoint inside `loop`. That makes a general conversation control look like a lifecycle-specific feature. It also makes `loop` appear to be the source of replay behavior even when a task actually entered through Superpowers.

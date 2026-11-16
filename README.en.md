@@ -14,7 +14,9 @@
   <a href="./LICENSE"><img src="https://img.shields.io/badge/license-MIT-5eead4?style=flat-square" alt="MIT License"></a>
 </p>
 
-`loop` is a persistent product-work orchestrator: one trigger starts a run where ordinary replies continue the active child, and artifact readiness moves the task from idea to verified result. When Superpowers is installed, it is the default method for day-to-day execution; `loop` implicitly takes the complete lifecycle without being named, and `what` owns cross-workflow explanation and continuation controls. Neither creates a second durable plan.
+`loop` is a persistent product-work orchestrator: one trigger starts a run where ordinary replies continue the active child, and artifact readiness moves the task from idea to verified result. When Superpowers is installed, it is the default method for day-to-day execution; `loop` implicitly takes the complete lifecycle without being named. Its reorientation mode explains active work and controls continuation across workflows, without creating a second durable plan.
+
+In OpenCode, a loop build registers its endpoint as the built-in `/goal`. OpenCode's reviewer keeps the session going until visible evidence shows the endpoint is met. Reorientation pauses the goal; stopping or changing tasks clears it.
 
 ```text
 idea -> deep-grill -> Product Brief
@@ -26,7 +28,7 @@ idea -> deep-grill -> Product Brief
 
 **Use this repository for the complete lifecycle. For idea discovery and adversarial review alone, use the [standalone deep-grill repository](https://github.com/nxxxsooo/deep-grill).** Both use the same DG source; the standalone distribution can be released and updated independently.
 
-One command installs the complete loop bundle: the five skills maintained in this repository plus nine external skills packaged under `skills/vendor/` from pinned upstream commits (eight official GSAP skills and `impeccable`):
+One command installs the complete loop bundle: the four skills maintained in this repository plus nine external skills packaged under `skills/vendor/` from pinned upstream commits (eight official GSAP skills and `impeccable`):
 
 ```bash
 npx skills@latest add nxxxsooo/loop --skill '*'
@@ -58,11 +60,10 @@ Loop-owned skills (maintained here, under `skills/`):
 
 | Skill | Owns | Ready when |
 |---|---|---|
-| `loop` | Implicitly available product lifecycle and artifact transitions | The requested endpoint is complete |
+| `loop` | Product lifecycle, artifact transitions, and reorientation | The endpoint is complete, or the user chooses how to continue |
 | [`deep-grill`](https://github.com/nxxxsooo/deep-grill) | Idea discovery and adversarial audit; independently installable and updatable | Product Brief or audit verdict is confirmed |
 | `deep-design` | Product specification and implementation design | Build Contract is confirmed |
 | `deep-build` | Implementation, verification, and authorized delivery | Must-pass scenarios succeed |
-| `what` | Explain the active frontier and wait for continuation | The user continues, adjusts the next action, or stops |
 
 Vendored external skills (`skills/vendor/`, verbatim upstream, installed with the bundle):
 
@@ -81,11 +82,11 @@ During any active workflow, send exactly:
 ?
 ```
 
-or explicitly invoke `$what` (`@what` in OpenCode). The standalone `what` skill pauses the current action and explains the last confirmed point, current workflow and step, changed artifacts, why the state matters, and the pending next action. A normal sentence that merely contains `?` does not trigger it, and `?` has no special meaning outside active work.
+or explicitly invoke `$what` (`@what` in OpenCode). These select loop's reorientation mode, which pauses the current action and explains the last confirmed point, current workflow and step, changed artifacts, why the state matters, and the pending next action. A normal sentence that merely contains `?` does not trigger it. With no resumable task, it asks which task to orient around.
 
-In [OpenCode Annotate](https://github.com/nxxxsooo/opencode-annotate), select a passage and press **what?** to mark it. Sending the review attaches `what`: it explains each marked passage in plain language, with an example where it helps, before any pending work continues.
+In [OpenCode Annotate](https://github.com/nxxxsooo/opencode-annotate), select a passage and press **what?** to mark it. Attached reorientation instructions select the same loop mode: it explains each marked passage in plain language, with an example where it helps, before any pending work continues.
 
-After explaining, `what` waits for `Continue` (recommended), `Adjust next action`, or `Stop`; it executes the pending action only after `Continue`. When `request_user_input` is callable, it uses localized native UI. Otherwise it immediately presents the same concise localized choices in the current mode. It never asks you to switch to Plan mode merely to answer or continue.
+After explaining active work, loop waits for `Continue` (recommended), `Adjust next action`, or `Stop`; it executes the pending action only after `Continue`. When the client's native question interface is callable, it uses localized native UI. Otherwise it immediately presents the same concise localized choices in the current mode. It never asks you to switch to Plan mode merely to answer or continue.
 
 ## Native questions
 
@@ -116,6 +117,14 @@ This excerpt stays in exact sync with [`skills/loop/SKILL.md`](./skills/loop/SKI
 <!-- loop-skill-body:start -->
 > # Loop
 >
+> ## Select The Mode
+>
+> Use **build mode** for end-to-end product work as defined below. Use **reorientation mode** for an entire trimmed `?` message, explicit `$what` or `@what` invocation, an explicit request for loop's reorientation mode, attached reorientation instructions, or a request to re-orient after not understanding the current update. An ordinary question merely containing `?` does not trigger it.
+>
+> Reorientation takes precedence over automatic progression, including inside an active child or a non-product workflow. Read [Reorientation and continuation](references/reorientation.md) before responding, especially for attached review feedback with `what?` annotations. Explain those passages first, pause the pending action, and wait for an explicit continuation choice. This mode neither starts a product build loop nor replaces the current workflow or its state.
+>
+> ## Build Mode
+>
 > Own progression, not the child methods. Route the active product task through three artifact contracts:
 >
 > ```text
@@ -126,7 +135,7 @@ This excerpt stays in exact sync with [`skills/loop/SKILL.md`](./skills/loop/SKI
 >
 > ## Keep The Loop Active
 >
-> A fresh loop starts when the user invokes `loop` or wants a product idea, feature, app, or tool built end to end across more than one stage. Single-stage requests and small fixes stay with the matching child or ordinary work. After that, treat every ordinary reply as a continuation of the same loop until the goal is achieved, the user stops, the user clearly changes tasks, or further work requires authority outside the original request. The user does not need to name `loop` or any child again.
+> A fresh build loop starts when the user invokes `loop` for product progression or wants a product idea, feature, app, or tool built end to end across more than one stage. Single-stage requests and small fixes stay with the matching child or ordinary work. After that, treat every ordinary reply as a continuation of the same loop until the goal is achieved, the user stops, the user clearly changes tasks, or further work requires authority outside the original request. A reorientation trigger pauses this progression until the user explicitly resumes it. The user does not need to name `loop` or any child again.
 >
 > Resume the current child while its output contract is incomplete. When its artifact is confirmed, select the next child from artifact readiness without asking the user to nominate a skill or choose a route. State the transition briefly and continue in the same response when the next action is already authorized. Artifact readiness chooses the child; it does not expand the user's authority or the requested endpoint.
 >
@@ -145,12 +154,27 @@ This excerpt stays in exact sync with [`skills/loop/SKILL.md`](./skills/loop/SKI
 >
 > Carry the goal, current child, confirmed artifacts, constraints, authority, and evidence through the conversation and artifact references. For sustained work, use the active client's native goal or plan mechanism when available. Do not create duplicate workflow state, custom gates, hooks, or background processes.
 >
+> ## Set The Native Goal
+>
+> When a build loop starts, register its requested endpoint as the client's native goal without asking, and state the goal in one line. The goal holds the endpoint, never the child route or artifact state. In OpenCode, set it on the current session from the shell:
+>
+> ```sh
+> opencode api post "/api/session/$OPENCODE_SESSION_ID/command" -d '{"name":"goal","text":"<objective>","delivery":"steer"}'
+> ```
+>
+> Write the objective in the user's language, under 4000 characters: the endpoint, the project, authority limits (for example no deploy or publish), and observable done-when evidence. The same call with `text` set to `pause`, `resume`, or `clear` controls the goal; an empty `text` returns its status inside a `CommandExecutionError`, which is a status report rather than a session failure. OpenCode's reviewer judges completion from visible evidence after each turn and keeps the session going until then, so show verification output.
+>
+> - Check status first and skip setting a goal when one is already active for this endpoint. Single-stage work and reorientation mode set no goal.
+> - Ask user decisions through the native question tool inside the turn. Ending a turn to wait for a prose answer lets the reviewer pause the goal as blocked; when the user's next ordinary reply continues the loop, resume it.
+> - Pause the goal before a reorientation explanation and resume it only when the user chooses Continue.
+> - Clear the goal when the user stops, changes tasks, or changes the endpoint; set a new one if the new endpoint still spans stages.
+>
 > Never imitate a child contract inside `loop`. Delegate the work, accept its artifact only when its readiness rules are met, and reroute from evidence. Stop when the requested endpoint is complete, the user stops or changes tasks, progress requires new authority, or remaining work has diminishing returns.
 <!-- loop-skill-body:end -->
 
 ## Raycast
 
-Import [`skills/loop/assets/raycast-snippets.json`](./skills/loop/assets/raycast-snippets.json) to use `loop ;lp`, `deep grill ;dg`, `deep design ;dd`, `deep build ;db`, and `what ;wt`. The bundle-refresh command below updates installed skills and this JSON file, not entries already imported into Raycast; update those five entries in place after importing so retired loop-owned `?` text and duplicate entries do not remain.
+Import [`skills/loop/assets/raycast-snippets.json`](./skills/loop/assets/raycast-snippets.json) to use `loop ;lp`, `deep grill ;dg`, `deep design ;dd`, `deep build ;db`, and `loop reorient ;wt`. The bundle-refresh command below updates installed skills and this JSON file, not entries already imported into Raycast; update those five entries in place, replacing the former standalone reorientation entry to avoid duplicates.
 
 ## Update
 
@@ -161,7 +185,7 @@ Installed copies are snapshots, including the vendored external skills under `sk
 npx skills@latest add nxxxsooo/loop --skill '*' -g -y
 ```
 
-`update loop` follows only the existing lock record for `loop`: it cannot discover `what` in an older installation or refresh sibling bundle skills. Use the bundle `add` command after every release instead; it is safe to repeat and synchronizes the complete bundle.
+`update loop` follows only the existing lock record for `loop`; it does not refresh sibling bundle skills. Use the bundle `add` command after every release instead; it is safe to repeat and synchronizes the complete bundle. Remove the retired standalone `what` skill from older installations; reorientation now lives in `loop`.
 
 Reload the client or start a fresh task when it has cached skill metadata.
 
