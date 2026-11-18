@@ -1,6 +1,6 @@
 ---
 name: deep-design
-description: Turn confirmed product intent into an implementation-ready Build Contract. Use for behavior, interfaces, architecture, new UI, partial or complete UI rebuilds, reference research, visual direction, and preview decisions. Continue across ordinary replies until the contract is confirmed; production implementation belongs to deep-build.
+description: Turn confirmed product intent into an implementation-ready Build Contract. Use for behavior, interfaces, architecture, new UI, partial or complete UI rebuilds, reference research, visual direction, preview decisions, and GSAP, React Bits, or shadcn guidance. Continue across ordinary replies until the contract is confirmed; production implementation belongs to deep-build.
 ---
 
 # Deep Design
@@ -33,12 +33,41 @@ Read [UI design workflow](references/ui-design-workflow.md) for new interfaces o
 
 For approved motion research, consult [motion reference sources](references/motion-references.md): MotionSites AI, 21st, React Bits, Godly / Recent, and GSAP, with source roles and access notes.
 
+### On-demand component and motion guidance
+
+Read only the relevant references below; these are bundled guidance, not standalone skills to load. For a direct library question, use the matching reference without requiring a Product Brief. Design decisions still feed the same Build Contract; production edits belong to `deep-build` under implementation authority. Include selected reference paths in the build handoff so implementation agents can read them directly.
+
+| Need | Read |
+|---|---|
+| GSAP tweens, easing, responsive/reduced-motion setup | [GSAP core](references/gsap-core.md) |
+| GSAP sequencing, position parameters, playback | [GSAP timeline](references/gsap-timeline.md) |
+| ScrollTrigger, pinning, scrub and scroll scenes | [GSAP ScrollTrigger](references/gsap-scrolltrigger.md) |
+| GSAP in React/Next.js, useGSAP, scoped cleanup | [GSAP React](references/gsap-react.md) |
+| GSAP in Vue/Nuxt, Svelte and other frameworks | [GSAP frameworks](references/gsap-frameworks.md) |
+| GSAP plugin registration, Flip, Draggable, text/SVG effects | [GSAP plugins](references/gsap-plugins.md) |
+| GSAP helpers, ranges, arrays and value mapping | [GSAP utils](references/gsap-utils.md) |
+| GSAP performance, batching and frequent updates | [GSAP performance](references/gsap-performance.md) |
+| Free React Bits discovery, comparison and integration | [React Bits workflow](references/react-bits.md) |
+| React Bits official registry, retrieval and variants | [React Bits sources](references/react-bits-official-sources.md) |
+| React Bits motion quality and verification | [React Bits verification](references/react-bits-motion-quality.md) |
+| shadcn/ui, components.json, component selection and safe updates | [shadcn workflow](references/shadcn.md) |
+| shadcn CLI, presets, commands and project context | [shadcn CLI](references/shadcn-cli.md) |
+| shadcn forms, validation and inputs | [shadcn forms](references/shadcn-forms.md) |
+| shadcn composition, groups and accessibility | [shadcn composition](references/shadcn-composition.md) |
+| shadcn primitive API differences | [shadcn Base vs Radix](references/shadcn-base-vs-radix.md) |
+| shadcn icons | [shadcn icons](references/shadcn-icons.md) |
+| shadcn styling rules | [shadcn styling](references/shadcn-styling.md) |
+| shadcn theming and customization | [shadcn customization](references/shadcn-customization.md) |
+| shadcn registry authoring and addresses | [shadcn registry](references/shadcn-registry.md) |
+| shadcn MCP setup and tools | [shadcn MCP](references/shadcn-mcp.md) |
+| Bundled sources, licenses, retained resources and update boundaries | [Guidance provenance](references/component-motion-provenance.md) |
+
 When used as a standalone pasted prompt, resolve references from the installed `deep-design` directory or the repository's `skills/deep-design/`. If neither is accessible, use this minimum contract and state the evidence gap rather than inventing a reference file:
 
 1. Inspect tasks, affected states, technical contracts, and shared consumers. Confirm the change boundary and supported viewports. A bounded page/component can combine scope and direction approval; a full rebuild requires scope approval and a representative workflow before wider migration.
 2. Reuse or ask the research choice: product behavior, UI appearance, both, or no external research. `ui-research`, when available, supplies search and analysis methods only within that choice. No fixed reference quota or mandatory search overrides an explicit opt-out.
 3. Use actual readable images with source IDs and adopt/avoid notes for newly researched visual candidates. Provide per-reference selection/comments with saved drafts and exportable feedback; links or invented mockups are not source evidence. Inspect motion live or label recordings and unverified candidates. A missing capture blocks that candidate's visual approval, not unrelated work.
-4. Resolve one coherent direction for layout, hierarchy, density, typography, components and relevant states. Use `react-bits` for free motion/component discovery only when it addresses the design question; verify official source/variant/dependencies and record fallbacks. Do not install into the product during design.
+4. Resolve one coherent direction for layout, hierarchy, density, typography, components and relevant states. Read the React Bits workflow above for free motion/component discovery only when it addresses the design question; verify official source/variant/dependencies and record fallbacks. Read the shadcn workflow for shadcn/ui or a project with `components.json`. Do not install into the product during design.
 5. Ask whether to preview first or proceed to implementation after contract approval. A requested isolated preview needs explicit approval; revision feedback leaves it pending. Existing explicit choices are reused.
 6. Put direction, evidence links, preview status, behavior checklist, target routes/states/viewports, motion constraints and rollout milestones into the same Build Contract. For broad redesigns, require review of the first implemented core workflow before remaining-page migration. `deep-build` owns production changes, browser interactions and actual implementation screenshots.
 

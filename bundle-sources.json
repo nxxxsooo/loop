@@ -4,10 +4,10 @@
     "release": null,
     "commit": "aed9cfd3277740755f6bfc1155c7aa645403b760",
     "path": "skills/gsap-core",
-    "local": "skills/vendor/gsap-core",
+    "local": "skills/deep-design",
     "files": {
-      "LICENSE": "51b04b06556662dd817e8f4aa6d06bc7139dc73739e1319a7233cfde3e147b90",
-      "SKILL.md": "3887b47e050ab5afbe2a9a820f23d39fa02ab785e06a343be44c6f91d84d12b3"
+      "assets/gsap-core.LICENSE": "51b04b06556662dd817e8f4aa6d06bc7139dc73739e1319a7233cfde3e147b90",
+      "references/gsap-core.md": "3887b47e050ab5afbe2a9a820f23d39fa02ab785e06a343be44c6f91d84d12b3"
     }
   },
   "gsap-frameworks": {
@@ -15,10 +15,10 @@
     "release": null,
     "commit": "aed9cfd3277740755f6bfc1155c7aa645403b760",
     "path": "skills/gsap-frameworks",
-    "local": "skills/vendor/gsap-frameworks",
+    "local": "skills/deep-design",
     "files": {
-      "LICENSE": "51b04b06556662dd817e8f4aa6d06bc7139dc73739e1319a7233cfde3e147b90",
-      "SKILL.md": "842d9d3659ec3ddc8abbdc524708f8facf81f468ac25d0577f48c759c4fa31e6"
+      "assets/gsap-frameworks.LICENSE": "51b04b06556662dd817e8f4aa6d06bc7139dc73739e1319a7233cfde3e147b90",
+      "references/gsap-frameworks.md": "842d9d3659ec3ddc8abbdc524708f8facf81f468ac25d0577f48c759c4fa31e6"
     }
   },
   "gsap-performance": {
@@ -26,10 +26,10 @@
     "release": null,
     "commit": "aed9cfd3277740755f6bfc1155c7aa645403b760",
     "path": "skills/gsap-performance",
-    "local": "skills/vendor/gsap-performance",
+    "local": "skills/deep-design",
     "files": {
-      "LICENSE": "51b04b06556662dd817e8f4aa6d06bc7139dc73739e1319a7233cfde3e147b90",
-      "SKILL.md": "cb5408d6fba707aabcbfe3320317a14c1f8fca6070074e5261047930f50d441e"
+      "assets/gsap-performance.LICENSE": "51b04b06556662dd817e8f4aa6d06bc7139dc73739e1319a7233cfde3e147b90",
+      "references/gsap-performance.md": "cb5408d6fba707aabcbfe3320317a14c1f8fca6070074e5261047930f50d441e"
     }
   },
   "gsap-plugins": {
@@ -37,10 +37,10 @@
     "release": null,
     "commit": "aed9cfd3277740755f6bfc1155c7aa645403b760",
     "path": "skills/gsap-plugins",
-    "local": "skills/vendor/gsap-plugins",
+    "local": "skills/deep-design",
     "files": {
-      "LICENSE": "51b04b06556662dd817e8f4aa6d06bc7139dc73739e1319a7233cfde3e147b90",
-      "SKILL.md": "5838b856c74c07fbc9fa99b6dfd1eee34ea554c3e530c30e0d58014b707d70a4"
+      "assets/gsap-plugins.LICENSE": "51b04b06556662dd817e8f4aa6d06bc7139dc73739e1319a7233cfde3e147b90",
+      "references/gsap-plugins.md": "5838b856c74c07fbc9fa99b6dfd1eee34ea554c3e530c30e0d58014b707d70a4"
     }
   },
   "gsap-react": {
@@ -48,10 +48,10 @@
     "release": null,
     "commit": "aed9cfd3277740755f6bfc1155c7aa645403b760",
     "path": "skills/gsap-react",
-    "local": "skills/vendor/gsap-react",
+    "local": "skills/deep-design",
     "files": {
-      "LICENSE": "51b04b06556662dd817e8f4aa6d06bc7139dc73739e1319a7233cfde3e147b90",
-      "SKILL.md": "88e2a5312b45e8cc7b3c496637ff5bc9af2ae9c925b555c8b235b34cbc989d74"
+      "assets/gsap-react.LICENSE": "51b04b06556662dd817e8f4aa6d06bc7139dc73739e1319a7233cfde3e147b90",
+      "references/gsap-react.md": "88e2a5312b45e8cc7b3c496637ff5bc9af2ae9c925b555c8b235b34cbc989d74"
     }
   },
   "gsap-scrolltrigger": {
@@ -59,10 +59,10 @@
     "release": null,
     "commit": "aed9cfd3277740755f6bfc1155c7aa645403b760",
     "path": "skills/gsap-scrolltrigger",
-    "local": "skills/vendor/gsap-scrolltrigger",
+    "local": "skills/deep-design",
     "files": {
-      "LICENSE": "51b04b06556662dd817e8f4aa6d06bc7139dc73739e1319a7233cfde3e147b90",
-      "SKILL.md": "9351b6666a4749c0740406ea363aaccb99a087ff45cc5e8b99a0f367facf3ef4"
+      "assets/gsap-scrolltrigger.LICENSE": "51b04b06556662dd817e8f4aa6d06bc7139dc73739e1319a7233cfde3e147b90",
+      "references/gsap-scrolltrigger.md": "9351b6666a4749c0740406ea363aaccb99a087ff45cc5e8b99a0f367facf3ef4"
     }
   },
   "gsap-timeline": {
@@ -70,10 +70,10 @@
     "release": null,
     "commit": "aed9cfd3277740755f6bfc1155c7aa645403b760",
     "path": "skills/gsap-timeline",
-    "local": "skills/vendor/gsap-timeline",
+    "local": "skills/deep-design",
     "files": {
-      "LICENSE": "51b04b06556662dd817e8f4aa6d06bc7139dc73739e1319a7233cfde3e147b90",
-      "SKILL.md": "1a8b0f39cc4be3ed3d834b89672e4ae2f151b901dc3450bebf10bbc45379fe02"
+      "assets/gsap-timeline.LICENSE": "51b04b06556662dd817e8f4aa6d06bc7139dc73739e1319a7233cfde3e147b90",
+      "references/gsap-timeline.md": "1a8b0f39cc4be3ed3d834b89672e4ae2f151b901dc3450bebf10bbc45379fe02"
     }
   },
   "gsap-utils": {
@@ -81,10 +81,10 @@
     "release": null,
     "commit": "aed9cfd3277740755f6bfc1155c7aa645403b760",
     "path": "skills/gsap-utils",
-    "local": "skills/vendor/gsap-utils",
+    "local": "skills/deep-design",
     "files": {
-      "LICENSE": "51b04b06556662dd817e8f4aa6d06bc7139dc73739e1319a7233cfde3e147b90",
-      "SKILL.md": "1927bcc4ea95b38203404ad5ea1d060b15c4a886c65ae53e885ff1793aabe0ba"
+      "assets/gsap-utils.LICENSE": "51b04b06556662dd817e8f4aa6d06bc7139dc73739e1319a7233cfde3e147b90",
+      "references/gsap-utils.md": "1927bcc4ea95b38203404ad5ea1d060b15c4a886c65ae53e885ff1793aabe0ba"
     }
   },
   "impeccable": {

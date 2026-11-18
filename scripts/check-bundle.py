@@ -16,7 +16,8 @@ ROOT = Path(__file__).resolve().parents[1]
 SKILLS = ROOT / "skills"
 VENDOR = SKILLS / "vendor"
 EXPECTED = {"loop", "deep-grill", "deep-design", "deep-build"}
-VENDORED = {
+VENDORED = {"impeccable"}
+GSAP_REFERENCES = {
     "gsap-core",
     "gsap-frameworks",
     "gsap-performance",
@@ -25,7 +26,6 @@ VENDORED = {
     "gsap-scrolltrigger",
     "gsap-timeline",
     "gsap-utils",
-    "impeccable",
 }
 EXPECTED_IMPLICIT_INVOCATION = {
     "loop": True,
@@ -41,7 +41,7 @@ EXPECTED_RAYCAST_SNIPPETS = {
     "loop reorient": {"keyword": ";wt", "source": "scripts/loop-reorient.txt"},
 }
 BUNDLE_REFRESH = "npx skills@latest add nxxxsooo/loop --skill '*' -g -y"
-VENDOR_UPSTREAMS = (
+BUNDLED_UPSTREAMS = (
     "greensock/gsap-skills",
     "pbakaus/impeccable",
 )
@@ -96,6 +96,39 @@ def reject_fragments(path: Path, fragments: tuple[str, ...], failures: list[str]
             failures.append(f"{path}: contains retired contract fragment {fragment!r}")
 
 
+def check_pinned_sources(root: Path, failures: list[str]) -> None:
+    sources = json.loads((root / "bundle-sources.json").read_text(encoding="utf-8"))
+    expected = VENDORED | GSAP_REFERENCES
+    if set(sources) != expected:
+        failures.append(f"bundle-sources.json: expected {sorted(expected)}, got {sorted(sources)}")
+
+    for name, source in sources.items():
+        commit = source.get("commit", "")
+        if not re.fullmatch(r"[0-9a-f]{40}", commit):
+            failures.append(f"bundle-sources.json: {name} is not pinned to a commit")
+        if name in GSAP_REFERENCES:
+            local = "skills/deep-design"
+            files = {f"references/{name}.md", f"assets/{name}.LICENSE"}
+            if (
+                source.get("source") != "https://github.com/greensock/gsap-skills"
+                or source.get("path") != f"skills/{name}"
+                or set(source["files"]) != files
+            ):
+                failures.append(f"bundle-sources.json: {name} must pin its relocated reference and license")
+        elif name in VENDORED:
+            local = f"skills/vendor/{name}"
+        else:
+            continue
+        if source.get("local") != local:
+            failures.append(f"bundle-sources.json: {name} must point to {local}")
+        for relative, expected_hash in source["files"].items():
+            path = root / local / relative
+            if not path.is_file():
+                failures.append(f"{path}: missing pinned source file")
+            elif digest(path) != expected_hash:
+                failures.append(f"{path}: differs from pinned source {commit}")
+
+
 def main() -> int:
     failures: list[str] = []
     actual = {path.name for path in SKILLS.iterdir() if path.is_dir()}
@@ -141,19 +174,13 @@ def main() -> int:
         if not (folder / "LICENSE").is_file():
             failures.append(f"{folder / 'LICENSE'}: missing")
 
-    sources = json.loads((ROOT / "bundle-sources.json").read_text(encoding="utf-8"))
-    if set(sources) != VENDORED:
-        failures.append(f"bundle-sources.json: expected external vendors only, got {sorted(sources)}")
-    for name, source in sources.items():
-        if not source.get("commit"):
-            failures.append(f"bundle-sources.json: {name} is not pinned to a commit")
-        local = ROOT / source.get("local", f"skills/{name}")
-        for relative, expected_hash in source["files"].items():
-            path = local / relative
-            if not path.is_file():
-                failures.append(f"{path}: missing pinned source file")
-            elif digest(path) != expected_hash:
-                failures.append(f"{path}: differs from pinned source {source['commit']}")
+    check_pinned_sources(ROOT, failures)
+    discoverable = {path.relative_to(SKILLS).as_posix() for path in SKILLS.rglob("SKILL.md")}
+    expected_entries = {f"{name}/SKILL.md" for name in EXPECTED} | {
+        f"vendor/{name}/SKILL.md" for name in VENDORED
+    }
+    if discoverable != expected_entries:
+        failures.append(f"unexpected bundle entrypoints: {sorted(discoverable ^ expected_entries)}")
 
     contracts = {
         "loop": (
@@ -198,7 +225,11 @@ def main() -> int:
             "Do not implement",
             "## UI Design Branch",
             "ui-research",
-            "react-bits",
+            "### On-demand component and motion guidance",
+            "references/react-bits.md",
+            "references/shadcn.md",
+            "references/component-motion-provenance.md",
+            *(f"references/{name}.md" for name in sorted(GSAP_REFERENCES)),
             "references/ui-design-workflow.md",
             "references/visual-evidence.md",
             "Backend-only work skips it",
@@ -207,11 +238,15 @@ def main() -> int:
             "confirmed Build Contract",
             "Build In Verified Slices",
             "a delegate's report is not evidence",
+            "Default to `worker-sol`",
             "When an active relevant OpenSpec change exists, it remains the sole task state.",
             "Superpowers TDD, debugging, review, and verification skills may be used as focused implementation methods when available, but they must not create a duplicate plan or replace OpenSpec task state.",
             "Changes:",
             "Remaining risks:",
             "## Execute UI Contracts",
+            "../deep-design/references/react-bits.md",
+            "../deep-design/SKILL.md#on-demand-component-and-motion-guidance",
+            "../deep-design/references/shadcn.md",
             "actual implementation screenshots",
             "before migrating remaining pages",
         ),
@@ -271,7 +306,7 @@ def main() -> int:
     for readme_name in ("README.md", "README.en.md"):
         require_fragments(
             ROOT / readme_name,
-            (BUNDLE_REFRESH, *VENDOR_UPSTREAMS, "https://github.com/nxxxsooo/deep-grill", "docs/standalone-deep-grill.md"),
+            (BUNDLE_REFRESH, *BUNDLED_UPSTREAMS, "https://github.com/nxxxsooo/deep-grill", "docs/standalone-deep-grill.md"),
             failures,
         )
 

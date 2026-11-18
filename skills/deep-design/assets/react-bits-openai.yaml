@@ -1,0 +1,4 @@
+interface:
+  display_name: "React Bits"
+  short_description: "Find and integrate free React Bits motion components"
+  default_prompt: "Use $react-bits to compare free animated components for this interface, verify their official source and dependencies, then integrate the chosen effect."

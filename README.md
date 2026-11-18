@@ -28,7 +28,7 @@
 
 **完整工作流用本仓库；只需要想法澄清与方案审查，请到 [deep-grill 独立仓库](https://github.com/nxxxsooo/deep-grill)。** 两者使用同一份 DG 源码，独立仓可单独发布和更新。
 
-一条命令安装完整 loop bundle：自己的 4 个 Skill，加上 `skills/vendor/` 按上游 commit pin 打包的 9 个外部 Skill（GSAP 官方 8 个、`impeccable`）：
+一条命令安装完整的 5 个 Skill：Loop 自己维护的 4 个 Skill，以及按上游提交打包的 `impeccable`：
 
 ```bash
 npx skills@latest add nxxxsooo/loop --skill '*'
@@ -40,7 +40,7 @@ npx skills@latest add nxxxsooo/loop --skill '*'
 npx skills@latest add nxxxsooo/loop --skill '*' -g -y
 ```
 
-安装列表会同时列出两区 Skill；只装自己的部分时按名选择，例如 `--skill loop --skill deep-grill`。`impeccable` 和 GSAP 官方 Skill 已随 bundle 打包，无需再从上游单独安装。
+只装部分 Skill 时按名称选择，例如 `--skill loop --skill deep-grill`。GSAP、React Bits 和 shadcn 指南随 `deep-design` 安装，不会作为独立 Skill 出现在安装列表。
 
 只安装独立 DG：
 
@@ -65,14 +65,13 @@ npx skills@latest add nxxxsooo/deep-grill --skill deep-grill -g -y
 | `deep-design` | 产品规格与实现设计 | Build Contract 确认 |
 | `deep-build` | 实现、验证和授权范围内的交付 | 必过场景成功 |
 
-打包的外部 Skill（`skills/vendor/`，verbatim 上游，随本 bundle 一次安装）：
+打包的外部 Skill（`skills/vendor/`，原样保留上游内容）：
 
 | Skill | 上游 | 作用 |
 |---|---|---|
 | `impeccable` | `pbakaus/impeccable` | 界面设计、重构、审查与打磨 |
-| `gsap-core` … `gsap-utils`（8 个） | `greensock/gsap-skills` | GSAP 动效实现规范 |
 
-外部 Skill 的字节级来源（上游仓库、pin commit、逐文件哈希）记录在 [`bundle-sources.json`](./bundle-sources.json)，由 `scripts/check-bundle.py` 校验；它们随 loop release 一起 re-vendor，不走各自上游的更新路径。
+[`deep-design` 参考索引](./skills/deep-design/SKILL.md#on-demand-component-and-motion-guidance)包含 `greensock/gsap-skills` 的 8 个官方主题，以及 React Bits 和 shadcn 指南。`impeccable`、GSAP 参考文件及许可证的上游提交和文件哈希记录在 [`bundle-sources.json`](./bundle-sources.json)，由 `scripts/check-bundle.py` 校验。
 
 ## `?` 与 `$what`：解释后再续接
 
@@ -104,7 +103,7 @@ npx skills@latest add nxxxsooo/deep-grill --skill deep-grill -g -y
 
 `deep-design` 同时承接新 UI、局部重构和完整重构：确认范围与保留行为，选择产品／UI／两者／不做外部研究，提供有真实图片和逐项反馈的参考板，视觉选择可在环境允许时走本地浏览器实时评审，收敛视觉与交互方向，再决定是否先做高保真预览。已确认的选择直接复用，后端任务跳过这些 UI 步骤。
 
-按需使用独立安装的 `ui-research` 做参考研究，使用可用的 `react-bits` 集成能力查询免费动效组件；两者不是 bundle 的硬依赖，缺失时可以直接研究官方来源，研究数量、付费页面和特定客户端模式也不会成为额外门槛。旧 `rebuild-ui-design` 的流程已融入，无需另装该 Skill。官方 `gsap-*` Skill 与 `impeccable` 已随 bundle 打包：Build Contract 选定 GSAP 时，实现优先遵循 `gsap-*` 的规范；界面设计与改进统一由 `impeccable` 提供专业方法，生产实现仍由 `deep-build` 负责。
+如已安装 `ui-research`，可按需用于参考研究。查找免费动效时阅读内置 React Bits 指南，使用 shadcn/ui 时阅读 shadcn 指南，Build Contract 选定 GSAP 时阅读相关主题。研究数量、付费页面和特定客户端模式都不是额外门槛。旧 `rebuild-ui-design` 的流程已融入；界面设计与改进由 `impeccable` 提供方法，生产实现由 `deep-build` 负责。
 
 所有决定进入同一份 Build Contract。`deep-build` 负责实际页面、浏览器交互和截图验证；大范围重构先验收一个代表性完整流程，再迁移剩余页面。预览修订不会被当作批准，也不会因为研究了某个组件就自动安装它。
 
@@ -178,14 +177,14 @@ npx skills@latest add nxxxsooo/deep-grill --skill deep-grill -g -y
 
 ## 更新
 
-已安装副本是快照，vendor 里的外部 Skill 也在内——它们随 loop release 一起 re-vendor 和 re-pin：
+已安装副本是快照。刷新整套 bundle 可更新 Skill、内置参考资料和随包分发的 `impeccable`：
 
 ```bash
-# 发布后用幂等安装刷新整个 loop bundle（含 vendor 外部 Skill），并发现新增的 bundled Skill
+# 发布后刷新整个 loop bundle
 npx skills@latest add nxxxsooo/loop --skill '*' -g -y
 ```
 
-`update loop` 只会按现有 lock 记录更新 `loop` 本身，不会刷新同 bundle 的其他 Skill。因此，每次 release 后都使用上面的 bundle `add` 命令；它可重复安全运行，并确保整套 bundle 同步。旧安装中的独立 `what` Skill 请移除，重定向模式现已归入 `loop`。
+`update loop` 只按现有 lock 记录更新 `loop`，不会刷新同 bundle 的其他 Skill。每次发布后请用上面的 bundle `add` 命令。它不会删除旧条目：确认替代参考资料已安装后，如果不再需要单独暴露，可以移除旧的 `gsap-*`、`react-bits` 和 `shadcn` 条目。重定向模式已归入 `loop`，也可以移除旧的独立 `what` 条目。
 
 如果客户端已经缓存 Skill 元数据，请重新加载或新建任务。
 
@@ -195,4 +194,4 @@ DG 的唯一维护源码在 [`skills/deep-grill/`](./skills/deep-grill/)，包�
 
 ## 许可证
 
-本 bundle 使用 [MIT License](./LICENSE)。`deep-grill` 使用自己的 MIT LICENSE；`skills/vendor/` 下的外部 Skill 按各自上游许可证分发（GSAP 官方 Skill 为 MIT，`impeccable` 为 Apache-2.0 并附上游 `NOTICE.md`），详见 [`THIRD_PARTY_NOTICES.md`](./THIRD_PARTY_NOTICES.md)。
+Loop 使用 [MIT License](./LICENSE)，`deep-grill` 附有自己的 MIT 许可证。GSAP 和 shadcn 参考资料保留上游 MIT 条款；`impeccable` 按 Apache-2.0 分发，并附上游 `NOTICE.md`。详见 [`THIRD_PARTY_NOTICES.md`](./THIRD_PARTY_NOTICES.md)。

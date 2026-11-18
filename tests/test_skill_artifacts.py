@@ -3,6 +3,8 @@
 import json
 from pathlib import Path
 import runpy
+import subprocess
+import sys
 import unittest
 
 
@@ -24,6 +26,22 @@ class SkillArtifactTests(unittest.TestCase):
         for item in snippets[:-1]:
             skill = SYNC["SNIPPETS"][item["name"]]
             self.assertEqual(item["text"], SYNC["body"](skill))
+
+    def test_design_and_build_snippets_route_to_bundled_references(self):
+        snippets = json.loads(SYNC["outputs"]()[ROOT / "skills/loop/assets/raycast-snippets.json"])
+        by_name = {item["name"]: item["text"] for item in snippets}
+        for target in ("references/gsap-utils.md", "references/react-bits.md", "references/shadcn.md"):
+            self.assertIn(f"]({target})", by_name["deep design"])
+        self.assertIn("Default to `worker-sol`", by_name["deep build"])
+        self.assertIn("](../deep-design/SKILL.md#on-demand-component-and-motion-guidance)", by_name["deep build"])
+        self.assertIn("](../deep-design/references/shadcn.md)", by_name["deep build"])
+
+    def test_explicit_check_mode(self):
+        result = subprocess.run(
+            [sys.executable, str(ROOT / "scripts/sync-skill-artifacts.py"), "--check"],
+            capture_output=True, text=True,
+        )
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
 
     def test_loop_contract_includes_reorientation_and_native_goal(self):
         body = SYNC["body"]("loop")

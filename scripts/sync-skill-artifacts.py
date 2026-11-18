@@ -58,7 +58,9 @@ def outputs() -> dict[Path, str]:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--write", action="store_true", help="update generated text; otherwise check only")
+    mode = parser.add_mutually_exclusive_group()
+    mode.add_argument("--check", action="store_true", help="check generated text without writing (default)")
+    mode.add_argument("--write", action="store_true", help="update generated text")
     args = parser.parse_args()
     try:
         rendered = outputs()

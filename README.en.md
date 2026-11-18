@@ -28,7 +28,7 @@ idea -> deep-grill -> Product Brief
 
 **Use this repository for the complete lifecycle. For idea discovery and adversarial review alone, use the [standalone deep-grill repository](https://github.com/nxxxsooo/deep-grill).** Both use the same DG source; the standalone distribution can be released and updated independently.
 
-One command installs the complete loop bundle: the four skills maintained in this repository plus nine external skills packaged under `skills/vendor/` from pinned upstream commits (eight official GSAP skills and `impeccable`):
+One command installs all five skills: the four Loop-maintained skills plus `impeccable`, vendored from a pinned upstream commit:
 
 ```bash
 npx skills@latest add nxxxsooo/loop --skill '*'
@@ -40,7 +40,7 @@ For a fast global install:
 npx skills@latest add nxxxsooo/loop --skill '*' -g -y
 ```
 
-Both partitions appear in the install list; select only the loop-owned skills by name (for example `--skill loop --skill deep-grill`) for a partial install. `impeccable` and the official GSAP skills ship with the bundle and no longer need a separate upstream install.
+For a partial install, select skills by name (for example `--skill loop --skill deep-grill`). GSAP, React Bits, and shadcn guidance comes with `deep-design`; it does not appear as standalone skills in the install list.
 
 Install standalone DG only:
 
@@ -65,14 +65,13 @@ Loop-owned skills (maintained here, under `skills/`):
 | `deep-design` | Product specification and implementation design | Build Contract is confirmed |
 | `deep-build` | Implementation, verification, and authorized delivery | Must-pass scenarios succeed |
 
-Vendored external skills (`skills/vendor/`, verbatim upstream, installed with the bundle):
+Vendored external skill (`skills/vendor/`, verbatim upstream):
 
 | Skill | Upstream | Role |
 |---|---|---|
 | `impeccable` | `pbakaus/impeccable` | Interface design, redesign, review, and polish |
-| `gsap-core` … `gsap-utils` (8) | `greensock/gsap-skills` | Official GSAP implementation guidance |
 
-Byte-level provenance for the vendored skills (upstream repository, pinned commit, and per-file hashes) lives in [`bundle-sources.json`](./bundle-sources.json) and is validated by `scripts/check-bundle.py`; they are re-vendored with loop releases instead of following their own upstream update paths.
+The [deep-design reference index](./skills/deep-design/SKILL.md#on-demand-component-and-motion-guidance) includes eight official GSAP topics from `greensock/gsap-skills` plus React Bits and shadcn guidance. Upstream commits and file hashes for `impeccable` and the GSAP references and licenses are recorded in [`bundle-sources.json`](./bundle-sources.json) and checked by `scripts/check-bundle.py`.
 
 ## `?` and `$what`: explain, then continue
 
@@ -104,7 +103,7 @@ The active child calls domain, architecture, frontend, testing, and delivery spe
 
 `deep-design` covers new UI, partial redesigns, and complete rebuilds: confirm scope and preserved behavior, choose product/UI/both/no external research, review actual visual evidence with per-reference feedback, run visual choices through a local browser live review loop when the environment permits, settle direction, and choose whether to preview first. Existing approvals are reused; backend-only tasks skip this branch.
 
-Use independently installed `ui-research` for research methods and an available `react-bits` integration for free motion discovery. Neither is a hard bundle dependency, and official sources work directly when they are absent; reference quotas, paid pages, and client-specific modes do not become extra gates. The former `rebuild-ui-design` workflow is integrated and no longer needs a separate installation. The official `gsap-*` skills and `impeccable` ship with the bundle: when the Build Contract selects GSAP, implementation follows the `gsap-*` guidance first. `impeccable` supplies methods for both new interface design and improvements; `deep-build` still owns production implementation.
+Use independently installed `ui-research` when available for research methods. Read the bundled React Bits references for free motion discovery, the shadcn references for shadcn/ui projects, and the relevant GSAP topics when the Build Contract selects GSAP. Reference quotas, paid pages, and client-specific modes are not extra gates. The former `rebuild-ui-design` workflow is integrated. `impeccable` supplies methods for new interface design and improvements; `deep-build` owns production implementation.
 
 All decisions feed one Build Contract. `deep-build` owns real pages, browser interactions, and screenshot verification; broad rebuilds review a representative end-to-end slice before migrating the rest. Preview revisions do not count as approval, and component research does not authorize installation.
 
@@ -178,14 +177,14 @@ Import [`skills/loop/assets/raycast-snippets.json`](./skills/loop/assets/raycast
 
 ## Update
 
-Installed copies are snapshots, including the vendored external skills under `skills/vendor/` — they are re-vendored and re-pinned with each loop release:
+Installed copies are snapshots: refresh the bundle to pick up changes to the skills, bundled references, and vendored `impeccable`:
 
 ```bash
-# After each release, idempotently refresh the whole bundle (vendored skills included) and discover new bundled skills
+# After each release, refresh the whole bundle
 npx skills@latest add nxxxsooo/loop --skill '*' -g -y
 ```
 
-`update loop` follows only the existing lock record for `loop`; it does not refresh sibling bundle skills. Use the bundle `add` command after every release instead; it is safe to repeat and synchronizes the complete bundle. Remove the retired standalone `what` skill from older installations; reorientation now lives in `loop`.
+`update loop` follows only the existing lock record for `loop`; it does not refresh sibling bundle skills. Use the bundle `add` command after every release instead. It does not remove old entries: after confirming the replacement references are present, remove old standalone `gsap-*`, `react-bits`, and `shadcn` entries if you no longer want to expose them. Reorientation now lives in `loop`; the old standalone `what` entry can also be removed.
 
 Reload the client or start a fresh task when it has cached skill metadata.
 
@@ -195,4 +194,4 @@ The sole maintained DG source is [`skills/deep-grill/`](./skills/deep-grill/), i
 
 ## License
 
-The bundle uses the [MIT License](./LICENSE). `deep-grill` carries its own MIT LICENSE. The external skills under `skills/vendor/` ship under their upstream licenses (MIT for the official GSAP skills; Apache-2.0 with the upstream `NOTICE.md` for `impeccable`); see [`THIRD_PARTY_NOTICES.md`](./THIRD_PARTY_NOTICES.md).
+Loop uses the [MIT License](./LICENSE). `deep-grill` carries its own MIT license. The GSAP and shadcn references retain their upstream MIT terms; `impeccable` ships under Apache-2.0 with its upstream `NOTICE.md`. See [`THIRD_PARTY_NOTICES.md`](./THIRD_PARTY_NOTICES.md).

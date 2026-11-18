@@ -8,24 +8,27 @@ at revision `5bf4e78011075bcfc0dc295f0724994cd123ee71` (v6.4.1 era, retrieved
 Provenance and re-sync instructions live in
 `skills/deep-design/scripts/README.md`.
 
-## Vendored external skills
+## Vendored external skill
 
-`skills/vendor/` repackages external skills verbatim so one
-`npx skills add nxxxsooo/loop --skill '*'` installs the complete set. Each
-vendored directory carries the upstream `LICENSE`; byte-level provenance
-(upstream repository, pinned commit, and per-file SHA-256 hashes) is recorded
-in `bundle-sources.json` and validated by `scripts/check-bundle.py`.
+`skills/vendor/impeccable` repackages [`pbakaus/impeccable`](https://github.com/pbakaus/impeccable)
+verbatim at `skill-v4.3.1` under Apache-2.0, with its upstream `LICENSE` and
+`NOTICE.md`. It is discoverable as a skill in the Loop bundle.
 
-| Skill | Upstream | Pin | License |
-|---|---|---|---|
-| `gsap-core` … `gsap-utils` (8) | [greensock/gsap-skills](https://github.com/greensock/gsap-skills) | `aed9cfd3277740755f6bfc1155c7aa645403b760` | MIT |
-| `impeccable` | [pbakaus/impeccable](https://github.com/pbakaus/impeccable) | `skill-v4.3.1` | Apache-2.0 |
+## Bundled component and motion references
 
-The vendored `impeccable` directory also carries the upstream `NOTICE.md`
-required by Apache-2.0. Upstream releases do not flow into installed copies
-automatically: they arrive through loop bundle releases after re-vendoring
-and re-pinning. Upgrades should be re-vendored from upstream rather than
-patched in place so the hash manifest stays verifiable.
+The eight official [`greensock/gsap-skills`](https://github.com/greensock/gsap-skills)
+documents at `aed9cfd3277740755f6bfc1155c7aa645403b760` are unchanged apart
+from their paths: `skills/deep-design/references/gsap-*.md` contains the
+guidance, and `skills/deep-design/assets/gsap-*.LICENSE` contains the original
+MIT notices. No GSAP runtime code is bundled. The `impeccable` and GSAP pins
+and per-file SHA-256 hashes are checked from `bundle-sources.json` by
+`scripts/check-bundle.py`.
+
+The adapted [`shadcn/ui`](https://github.com/shadcn-ui/ui) skill guidance,
+rules, metadata, icons, and evaluation prompts live under `skills/deep-design/`
+and retain the upstream [MIT license](./skills/deep-design/assets/shadcn.LICENSE).
+The installed source record does not identify an exact upstream revision;
+see the [relocation notes](./skills/deep-design/references/component-motion-provenance.md).
 
 ## UI workflow references
 
